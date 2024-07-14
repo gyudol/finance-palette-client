@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToOutline="true"
+    android:background="#FFFFFF"
+    tools:context=".MenuFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:title="금융팔레트"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_1"
+                android:layout_marginTop="30sp"
+                android:layout_marginStart="50sp"
+                tools:layout_editor_absoluteX="37dp"
+                tools:layout_editor_absoluteY="107dp" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp"
+                android:layout_marginStart="40sp"
+                android:layout_marginBottom="10sp"
+                android:text="예 · 적금 금리비교"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                tools:layout_editor_absoluteX="110dp"
+                tools:layout_editor_absoluteY="107dp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="420dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5sp"
+            android:background="#FFD3D3D3"
+            tools:layout_editor_absoluteX="-5dp"
+            tools:layout_editor_absoluteY="156dp" />
+
+        <Button
+            android:id="@+id/btn_deposit"
+            android:layout_width="420dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5sp"
+            android:layout_marginStart="0sp"
+            android:background="@android:color/transparent"
+            android:text="·  정기예금"
+            android:textSize="22dp"
+            tools:layout_editor_absoluteX="-18dp"
+            tools:layout_editor_absoluteY="166dp" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="420dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5sp"
+            android:background="#FFD3D3D3"
+            tools:layout_editor_absoluteX="-5dp"
+            tools:layout_editor_absoluteY="227dp" />
+
+        <Button
+            android:id="@+id/btn_savings"
+            android:layout_width="420dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5sp"
+            android:layout_marginStart="0sp"
+            android:background="@android:color/transparent"
+            android:text="·  적금  "
+            android:textSize="22dp"
+            tools:layout_editor_absoluteX="-18dp"
+            tools:layout_editor_absoluteY="238dp" />
+
+        <View
+            android:id="@+id/view6"
+            android:layout_width="420dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5sp"
+            android:background="#FFD3D3D3"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="296dp" />
+
+        <Button
+            android:id="@+id/btn_saving"
+            android:layout_width="420dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0sp"
+            android:layout_marginBottom="5sp"
+            android:background="@android:color/transparent"
+            android:text="·  연금저축"
+            android:textSize="22dp"
+            tools:layout_editor_absoluteX="-18dp"
+            tools:layout_editor_absoluteY="305dp" />
+
+        <View
+        android:id="@+id/view7"
+        android:layout_width="420dp"
+        android:layout_height="1dp"
+        android:background="#FFD3D3D3"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="365dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_2"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="40dp"
+                tools:layout_editor_absoluteX="37dp"
+                tools:layout_editor_absoluteY="399dp" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10sp"
+                android:text="대출 금리비교"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                tools:layout_editor_absoluteX="120dp"
+                tools:layout_editor_absoluteY="399dp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view10"
+            android:layout_width="420dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5sp"
+            android:background="#FFD3D3D3"
+            tools:layout_editor_absoluteX="-5dp"
+            tools:layout_editor_absoluteY="591dp" />
+
+        <Button
+            android:id="@+id/btn_loan1"
+            android:layout_width="420dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5sp"
+            android:layout_marginStart="17sp"
+            android:background="@android:color/transparent"
+            android:text="·  전세자금대출"
+            android:textSize="22dp"
+            tools:layout_editor_absoluteX="-5dp"
+            tools:layout_editor_absoluteY="461dp" />
+
+        <View
+        android:id="@+id/view8"
+        android:layout_width="420dp"
+        android:layout_height="1dp"
+            android:layout_marginBottom="5sp"
+        android:background="#FFD3D3D3"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="448dp" />
+
+        <Button
+            android:id="@+id/btn_loan2"
+            android:layout_width="420dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5sp"
+            android:layout_marginStart="17sp"
+            android:background="@android:color/transparent"
+            android:text="·  주택담보대출"
+            android:textSize="22dp"
+            tools:layout_editor_absoluteX="-5dp"
+            tools:layout_editor_absoluteY="603dp" />
+
+        <View
+        android:id="@+id/view9"
+        android:layout_width="420dp"
+        android:layout_height="1dp"
+            android:layout_marginBottom="5sp"
+        android:background="#FFD3D3D3"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="516dp" />
+
+        <Button
+            android:id="@+id/btn_loan3"
+            android:layout_width="420dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5sp"
+            android:layout_marginStart="17sp"
+            android:background="@android:color/transparent"
+            android:text="·  개인신용대출"
+            android:textSize="22dp"
+            tools:layout_editor_absoluteX="-5dp"
+            tools:layout_editor_absoluteY="531dp" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="420dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5sp"
+            android:background="#FFD3D3D3"
+            tools:layout_editor_absoluteX="-5dp"
+            tools:layout_editor_absoluteY="516dp" />
+
+    </LinearLayout>
+</ScrollView>

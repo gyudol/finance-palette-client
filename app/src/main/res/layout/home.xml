@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".HomeFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:title="금융팔레트" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/logo"
+                        android:layout_width="270dp"
+                        android:layout_height="230dp"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginTop="50dp"
+                        android:background="@drawable/logo_image"
+                        android:drawableEnd="@drawable/ic_right_arrow_resize"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="10dp"
+                        app:layout_constraintBottom_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_editor_absoluteX="65dp"
+                        tools:layout_editor_absoluteY="135dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|start"
+                        android:layout_marginStart="65dp"
+                        android:layout_marginBottom="35dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:text=""
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+
+                </FrameLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_5000"
+                    android:layout_width="270dp"
+                    android:layout_height="230dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/solid_button"
+                    android:drawableEnd="@drawable/ic_right_arrow_resize"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:text="정기 예금\n추천 상품"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="33sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="65dp"
+                    tools:layout_editor_absoluteY="135dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_50"
+                    android:layout_width="270dp"
+                    android:layout_height="230dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/solid_button"
+                    android:drawableEnd="@drawable/ic_right_arrow_resize"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:text="적금\n추천 상품"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="34sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_annuity_saving"
+                    android:layout_width="270dp"
+                    android:layout_height="230dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/solid_button"
+                    android:drawableEnd="@drawable/ic_right_arrow_resize"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:text="연금 저축\n추천 상품"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="34sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_loan1"
+                    android:layout_width="270dp"
+                    android:layout_height="230dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/solid_button"
+                    android:drawableEnd="@drawable/ic_right_arrow_resize"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:text="전세자금대출\n추천 상품"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="34sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_loan2"
+                    android:layout_width="270dp"
+                    android:layout_height="230dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/solid_button"
+                    android:drawableEnd="@drawable/ic_right_arrow_resize"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:text="주택담보대출\n추천 상품"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="34sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_loan3"
+                    android:layout_width="270dp"
+                    android:layout_height="230dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/solid_button"
+                    android:drawableEnd="@drawable/ic_right_arrow_resize"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:text="개인신용대출\n추천 상품"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="34sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/btn_survey"
+            android:layout_width="340dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/solid_button"
+            android:backgroundTint="@color/sky_blue"
+            android:text="설문 참여하고 상품 추천받기"
+            android:textSize="20sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_1"
+        android:layout_width="340dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="#FFE4D5"
+        android:text="정기 예금 · 적금 · 연금 저축\n상품 금리 비교"
+        android:textSize="18sp"
+        android:gravity="left"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:drawableEnd="@drawable/icon_1_resize"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="7dp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="399dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_2"
+        android:layout_width="340dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:text="대출 상품 금리 비교"
+        android:textSize="18sp"
+        android:gravity="left"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:drawableEnd="@drawable/icon_2_resize"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="7dp"
+        android:background="@color/light_blue"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="477dp" />
+
+    </LinearLayout>
+</ScrollView>

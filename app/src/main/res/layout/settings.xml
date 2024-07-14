@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:clipToOutline="true"
+    tools:context=".SettingsFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:title="금융팔레트"/>
+
+    <TextView
+        android:id="@+id/settings_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="12sp"
+        android:layout_marginTop="20sp"
+        android:paddingStart="30sp"
+        android:lineSpacingExtra="-12sp"
+        android:background="@color/light_blue"
+        android:text="마이 페이지"
+        android:textSize="27sp"
+        android:textColor="@color/black"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="90dp"
+            android:src="@drawable/survey_icon"
+            tools:layout_editor_absoluteX="73dp"
+            tools:layout_editor_absoluteY="111dp" />
+
+        <Button
+            android:id="@+id/btn_mySurvey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="30dp"
+            android:background="@android:color/transparent"
+            android:text="사전 조사 수정"
+            android:textSize="23dp"
+            tools:layout_editor_absoluteX="156dp"
+            tools:layout_editor_absoluteY="111dp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="420dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5sp"
+        android:background="#FFD3D3D3"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="227dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="90dp"
+            android:src="@drawable/full_star_small"
+            tools:layout_editor_absoluteX="73dp"
+            tools:layout_editor_absoluteY="111dp" />
+
+        <Button
+            android:id="@+id/btn_myBookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="30dp"
+            android:background="@android:color/transparent"
+            android:text="북마크 리스트"
+            android:textSize="23dp"
+            tools:layout_editor_absoluteX="156dp"
+            tools:layout_editor_absoluteY="111dp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="420dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5sp"
+        android:background="#FFD3D3D3"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="227dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="90dp"
+            android:src="@drawable/view_history"
+            tools:layout_editor_absoluteX="73dp"
+            tools:layout_editor_absoluteY="111dp" />
+
+        <Button
+            android:id="@+id/btn_myViewHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="30dp"
+            android:background="@android:color/transparent"
+            android:text="최근 조회 기록"
+            android:textSize="23dp"
+            tools:layout_editor_absoluteX="156dp"
+            tools:layout_editor_absoluteY="111dp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="420dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5sp"
+        android:background="#FFD3D3D3"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="227dp" />
+
+</LinearLayout>

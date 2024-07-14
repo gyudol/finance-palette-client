@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_gray"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+
+    <TextView
+        android:id="@+id/kor_co_nm"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/fin_prdt_nm"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#000000" />
+
+
+    <TextView
+        android:id="@+id/lend_rate_min"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#ff0000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="end|center_vertical">
+
+        <TextView
+            android:id="@+id/lend_rate_type_nm"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="금리유형"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:background="@drawable/solid_button"
+            android:backgroundTint="@color/blue"/>
+
+        <TextView
+            android:id="@+id/rpay_type_nm"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="적립유형"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:background="@drawable/solid_button"
+            android:backgroundTint="@color/mid_green"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

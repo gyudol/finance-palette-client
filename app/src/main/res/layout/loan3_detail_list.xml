@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <!-- 첫 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="신용점수(등급)"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="금리"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+    </LinearLayout>
+
+    <!-- 두 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="900점 초과(1등급)"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/crdt_grad_1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="%"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+
+    <!-- 세 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="801~900점(4등급)"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/crdt_grad_4"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="-"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+
+    <!-- 네 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="701~800점(5등급)"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/crdt_grad_5"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="%"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+
+    <!-- 다섯 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="601~700점(6등급)"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/crdt_grad_6"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="%"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+
+
+    <!-- 여섯 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="501~600점(10등급)"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/crdt_grad_10"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="%"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+
+    <!-- 일곱 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="401~500점(11등급)"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/crdt_grad_11"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="%"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+
+    <!-- 여덟 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="301~400점(12등급)"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/crdt_grad_12"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="%"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+
+    <!-- 아홉 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="300점 이하(13등급)"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/crdt_grad_13"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="%"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+</LinearLayout>

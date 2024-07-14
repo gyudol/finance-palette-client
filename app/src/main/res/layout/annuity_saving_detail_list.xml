@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/opt_num"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:text="상품옵션"
+        android:textSize="20dp" />
+
+    <!-- 첫 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <!-- 연금수령기간 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="연금수령기간"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/pnsn_recp_trm_nm"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="-"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="11dp"/>
+
+        <!-- 연금 가입연령 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="연금 가입연령"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/pnsn_entr_age_nm"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="-"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+
+    <!-- 두 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <!-- 월 납입액 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="월 납입액"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/mon_paym_atm_nm"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="-"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+
+        <!-- 납입 기간 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="납입 기간"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/paym_prd_nm"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="-"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+
+    <!-- 세 번째 행 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <!-- 연금개시연령 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="연금개시연령"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/pnsn_strt_age_nm"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="-"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+
+        <!-- 연금 수령액 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="연금 수령액"
+            android:background="@color/light_gray"
+            android:gravity = "center"/>
+
+        <!-- 빈 공간 -->
+        <TextView
+            android:id="@+id/pnsn_recp_amt"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="-"
+            android:background="#ffffff"
+            android:gravity = "center"
+            android:textSize="12dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>
