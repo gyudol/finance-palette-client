@@ -54,7 +54,7 @@ public class MenuFragment extends Fragment {
         btn_saving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Annuity_Saving.class);
+                Intent intent = new Intent(getActivity(), AnnuitySaving.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }

@@ -1,10 +1,8 @@
 package com.example.fin_palette;
 
 import android.os.AsyncTask;
-import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
@@ -17,10 +15,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class AAID_State extends AppCompatActivity  {
+public class AaidManager extends AppCompatActivity  {
     String aaid = "";
 
-    public AAID_State() {
+    public AaidManager() {
         // AAID를 비동기적으로 가져오기
         new Thread(new Runnable() {
             @Override

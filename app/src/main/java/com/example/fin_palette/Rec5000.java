@@ -43,8 +43,8 @@ public class Rec5000 extends AppCompatActivity  {
 
     ListView list;
 
-    getIPAddress ipAddress = new getIPAddress();
-    String ipv4Address = ipAddress.getIPv4();
+    ApiServerManager asm = new ApiServerManager();
+    String apiEndpoint = asm.getApiEndpoint();
 
 
     @Override
@@ -53,7 +53,7 @@ public class Rec5000 extends AppCompatActivity  {
         setContentView(R.layout.rec5000);
         list = (ListView) findViewById(R.id.listViewDp);
         productList = new ArrayList<HashMap<String, String>>();
-        getData("http://" + ipv4Address + "/PHP_recd1.php"); // IP주소에 맞게 수정 필요
+        getData(apiEndpoint + "/PHP_recd1.php"); // IP주소에 맞게 수정 필요
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,7 +85,7 @@ public class Rec5000 extends AppCompatActivity  {
                     // Toast.makeText(getApplicationContext(), "Clicked item's fin_prdt_cd: " + finPrdtCd, Toast.LENGTH_SHORT).show();
 
                     // Intent를 사용하여 Deposit_detail_screen.java로 데이터를 전달하고 화면을 전환
-                    Intent intent = new Intent(Rec5000.this, Deposit_detail_screen.class);
+                    Intent intent = new Intent(Rec5000.this, DepositDetailScreen.class);
                     intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
                     intent.putExtra("intrRateType", intrRateType);
                     startActivity(intent); // Deposit_detail_screen.java로 화면 전환

@@ -21,35 +21,35 @@
         android:theme="@style/Theme.BankApp2"
         tools:targetApi="31">
         <activity
-            android:name=".Bookmark"
+            android:name=".BookmarkList"
             android:exported="true"
             android:parentActivityName=".SettingsFragment"/>
         <activity
-            android:name=".View_History"
+            android:name=".ViewHistory"
             android:exported="true"
             android:parentActivityName=".SettingsFragment"/>
         <activity
-            android:name=".Loan3_detail_screen"
+            android:name=".Loan3DetailScreen"
             android:exported="true"
             android:parentActivityName=".Loan3"/>
         <activity
-            android:name=".Loan2_detail_screen"
+            android:name=".Loan2DetailScreen"
             android:exported="true"
             android:parentActivityName=".Loan2"/>
         <activity
-            android:name=".Loan1_detail_screen"
+            android:name=".Loan1DetailScreen"
             android:exported="true"
             android:parentActivityName=".Loan1" />
         <activity
-            android:name=".Annuity_Saving_detail_screen"
+            android:name=".AnnuitySavingDetailScreen"
             android:exported="true"
-            android:parentActivityName=".Annuity_Saving" />
+            android:parentActivityName=".AnnuitySaving" />
         <activity
-            android:name=".Savings_detail_screen"
+            android:name=".SavingsDetailScreen"
             android:exported="true"
             android:parentActivityName=".Savings" />
         <activity
-            android:name=".Deposit_detail_screen"
+            android:name=".DepositDetailScreen"
             android:exported="true"
             android:parentActivityName=".Deposit" />
         <activity
@@ -73,7 +73,7 @@
             android:exported="true"
             android:parentActivityName=".HomeFragment" />
         <activity
-            android:name=".Annuity_Saving"
+            android:name=".AnnuitySaving"
             android:exported="true"
             android:parentActivityName=".HomeFragment" />
         <activity

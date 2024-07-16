@@ -38,10 +38,10 @@ public class SettingsFragment extends Fragment {
         btn_myBookmark = (Button) view.findViewById(R.id.btn_myBookmark);
         btn_myViewHistory = (Button) view.findViewById(R.id.btn_myViewHistory);
         
-        getIPAddress ipAddress = new getIPAddress();
-        String ipv4Address = ipAddress.getIPv4();
+        ApiServerManager asm = new ApiServerManager();
+        String apiEndpoint = asm.getApiEndpoint();
 
-        AAID_State as = new AAID_State();
+        AaidManager am = new AaidManager();
 
         btn_mySurvey.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,14 +55,14 @@ public class SettingsFragment extends Fragment {
         btn_myBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getMostData("http://" + ipv4Address + "/PHP_bookmark_ext_mostStar.php", as.aaid, true); // IP주소에 맞게 수정 필요
+                getMostData(apiEndpoint + "/PHP_bookmark_ext_mostStar.php", am.aaid, true); // IP주소에 맞게 수정 필요
             }
         });
 
         btn_myViewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getMostData("http://" + ipv4Address + "/PHP_view_history_ext_mostView.php", as.aaid, false); // IP주소에 맞게 수정 필요
+                getMostData(apiEndpoint + "/PHP_view_history_ext_mostView.php", am.aaid, false); // IP주소에 맞게 수정 필요
             }
         });
 
@@ -103,7 +103,7 @@ public class SettingsFragment extends Fragment {
                             Toast.makeText(getActivity(),"북마크 등록된 상품이 없습니다.", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            Intent intent = new Intent(getActivity(), Bookmark.class);
+                            Intent intent = new Intent(getActivity(), BookmarkList.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             intent.putExtra("prdtNum", result);
                             startActivity(intent);
@@ -115,7 +115,7 @@ public class SettingsFragment extends Fragment {
                             Toast.makeText(getActivity(),"조회 기록이 없습니다.", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            Intent intent = new Intent(getActivity(), View_History.class);
+                            Intent intent = new Intent(getActivity(), ViewHistory.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             intent.putExtra("prdtNum", result);
                             startActivity(intent);

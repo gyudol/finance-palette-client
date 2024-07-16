@@ -26,7 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 
-public class Deposit_detail_screen extends AppCompatActivity {
+public class DepositDetailScreen extends AppCompatActivity {
 
     String myJSON;
     String finPrdtCd;
@@ -55,8 +55,8 @@ public class Deposit_detail_screen extends AppCompatActivity {
     JSONArray products = null;
 
 
-    ApiServerManager ipAddress = new ApiServerManager();
-    String ipv4Address = ipAddress.getIPv4();
+    ApiServerManager asm = new ApiServerManager();
+    String apiEndpoint = asm.getApiEndpoint();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class Deposit_detail_screen extends AppCompatActivity {
                 finPrdtCd = intentGet.getStringExtra("finPrdtCd");
                 intrRateType = intentGet.getStringExtra("intrRateType");
 
-                getData("http://" + ipv4Address + "/PHP_deposit_int.php", finPrdtCd, intrRateType);
+                getData(apiEndpoint + "/PHP_deposit_int.php", finPrdtCd, intrRateType);
             }
         }
 
@@ -82,8 +82,8 @@ public class Deposit_detail_screen extends AppCompatActivity {
         ImageView star = findViewById(R.id.bookmark);
         fin_prdt_num_cd = 1 + "_" + finPrdtCd + '_' + intrRateType;
         BookmarkManager bs = new BookmarkManager(this);
-        AaidManager as = new AaidManager();
-        bs.getData("http://" + ipv4Address + "/PHP_bookmark_chk.php", fin_prdt_num_cd, as.aaid, star);
+        AaidManager am = new AaidManager();
+        bs.getData(apiEndpoint + "/PHP_bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
 
         star.setOnClickListener(new View.OnClickListener() {   // 북마크 이미지 뷰 클릭하면 북마크 기능
             @Override
@@ -91,14 +91,14 @@ public class Deposit_detail_screen extends AppCompatActivity {
                 if(bs.marked) star.setImageResource(R.drawable.empty_star_small);
                 else star.setImageResource(R.drawable.full_star_small);
 
-                bs.setData("http://" + ipv4Address + "/PHP_bookmark_upd.php", 1, finPrdtCd, intrRateType, as.aaid);
+                bs.setData(apiEndpoint + "/PHP_bookmark_upd.php", 1, finPrdtCd, intrRateType, am.aaid);
             }
         });
 
 
         ///////////////////////////////// 조회 기록
-        viewHistoryState vs = new viewHistoryState(this);
-        vs.getData("http://" + ipv4Address, fin_prdt_num_cd, as.aaid, 1, finPrdtCd, intrRateType);
+        ViewHistoryManager vs = new ViewHistoryManager(this);
+        vs.getData(apiEndpoint, fin_prdt_num_cd, am.aaid, 1, finPrdtCd, intrRateType);
 
 
         Button btn_home = findViewById(R.id.btn_home);

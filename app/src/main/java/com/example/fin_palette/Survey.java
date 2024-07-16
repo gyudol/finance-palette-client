@@ -8,7 +8,6 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,15 +28,15 @@ public class Survey extends AppCompatActivity {
 
     JSONArray products = null;
 
-    getIPAddress ipAddress = new getIPAddress();
-    String ipv4Address = ipAddress.getIPv4();
+    ApiServerManager asm = new ApiServerManager();
+    String apiEndpoint = asm.getApiEndpoint();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.survey);
 
-        String URL = "http://" + ipv4Address + "/PHP_userInfo_upd.php"; // IP주소에 맞게 수정 필요
+        String URL = apiEndpoint + "/PHP_userInfo_upd.php"; // IP주소에 맞게 수정 필요
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

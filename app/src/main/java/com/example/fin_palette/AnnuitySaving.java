@@ -32,7 +32,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Annuity_Saving extends AppCompatActivity {
+public class AnnuitySaving extends AppCompatActivity {
 
     Button btn_deposit;
     Button btn_savings;
@@ -55,8 +55,8 @@ public class Annuity_Saving extends AppCompatActivity {
 
     int selected = 0;   // 아무것도 선택 안 했으면 0, 첫번째 것이 선택되면 1, 두번째 것이 선택되면 2, 세번째 것이 선택되면 3
     String [] items1 = {"연금 종류 전체", "연금저축펀드", "연금저축보험(생명)", "연금저축보험(손해)"};
-    getIPAddress ipAddress = new getIPAddress();
-    String ipv4Address = ipAddress.getIPv4();
+    ApiServerManager asm = new ApiServerManager();
+    String apiEndpoint = asm.getApiEndpoint();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class Annuity_Saving extends AppCompatActivity {
         editor.apply();
 
         // onResume에서 실행됨
-        // getData("http://" + ipv4Address + "/PHP_annuity_saving_ext.php", "0");
+        // getData(apiEndpoint + "/PHP_annuity_saving_ext.php", "0");
 
         btn_deposit = findViewById(R.id.btn_deposit);
         btn_deposit.setOnClickListener(view -> {
@@ -131,7 +131,7 @@ public class Annuity_Saving extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {   // 돋보기 이미지 뷰 클릭하면 조건에 맞게 필터링
             @Override
             public void onClick(View v) {
-                getData("http://" + ipv4Address + "/PHP_annuity_saving_ext.php", selected + "");
+                getData(apiEndpoint + "/PHP_annuity_saving_ext.php", selected + "");
             }
         });
 
@@ -153,7 +153,7 @@ public class Annuity_Saving extends AppCompatActivity {
                     // Toast.makeText(getApplicationContext(), "Clicked item's fin_prdt_cd: " + finPrdtCd, Toast.LENGTH_SHORT).show();
 
                     // Intent를 사용하여 Annuity_Saving_detail_screen.java로 데이터를 전달하고 화면을 전환
-                    Intent intent = new Intent(Annuity_Saving.this, Annuity_Saving_detail_screen.class);
+                    Intent intent = new Intent(AnnuitySaving.this, AnnuitySavingDetailScreen.class);
                     intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
                     startActivity(intent); // Annuity_Saving_detail_screen.java로 화면 전환
 
@@ -196,7 +196,7 @@ public class Annuity_Saving extends AppCompatActivity {
 
         itemNo = preferences.getInt("list_position", 0);
 
-        getData("http://" + ipv4Address + "/PHP_annuity_saving_ext.php", selected + "");
+        getData(apiEndpoint + "/PHP_annuity_saving_ext.php", selected + "");
 
         // Toast.makeText(getApplicationContext(), "itemNo: " + itemNo + "\n" + Arrays.toString(selected), Toast.LENGTH_SHORT).show();
     }
@@ -228,7 +228,7 @@ public class Annuity_Saving extends AppCompatActivity {
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
-                    Annuity_Saving.this, productList, R.layout.annuity_saving_list,
+                    AnnuitySaving.this, productList, R.layout.annuity_saving_list,
                     new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_AVG_PRFT_RATE, TAG_PNSN_KIND_NM},
                     new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.avg_prft_rate, R.id.pnsn_kind_nm}
             ){
@@ -241,13 +241,13 @@ public class Annuity_Saving extends AppCompatActivity {
 
                     if (pnsnKind != null) {
                         if(pnsnKind.equals("연금저축보험(생명)")){
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Annuity_Saving.this, R.color.purple_500)));
+                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(AnnuitySaving.this, R.color.purple_500)));
                         }
                         else if(pnsnKind.equals("연금저축보험(손해)")) {
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Annuity_Saving.this, R.color.purple_700)));
+                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(AnnuitySaving.this, R.color.purple_700)));
                         }
                         else {
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Annuity_Saving.this, R.color.purple_200)));
+                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(AnnuitySaving.this, R.color.purple_200)));
                         }
                     }
 

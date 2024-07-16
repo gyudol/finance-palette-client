@@ -20,7 +20,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,8 +58,8 @@ public class Loan2 extends AppCompatActivity {
     String [] items1 = {"금융 기관 전체", "1금융", "2금융"};
     String [] items2 = {"상환 유형 전체", "분할상환", "만기일시상환"};
     String [] items3 = {"금리 유형 전체", "고정금리", "변동금리"};
-    getIPAddress ipAddress = new getIPAddress();
-    String ipv4Address = ipAddress.getIPv4();
+    ApiServerManager asm = new ApiServerManager();
+    String apiEndpoint = asm.getApiEndpoint();
 
 
     @Override
@@ -85,7 +84,7 @@ public class Loan2 extends AppCompatActivity {
         editor.apply();
 
         // onResume에서 실행됨
-        // getData("http://" + ipv4Address + "/PHP_loan2_ext.php", "0", "0", "0"); // IP주소에 맞게 수정 필요 (Default: 0, 0, 0)
+        // getData(apiEndpoint + "/PHP_loan2_ext.php", "0", "0", "0"); // IP주소에 맞게 수정 필요 (Default: 0, 0, 0)
 
         btn_loan1 = findViewById(R.id.btn_loan1);
         btn_loan1.setOnClickListener(view -> {
@@ -171,7 +170,7 @@ public class Loan2 extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {   // 돋보기 이미지 뷰 클릭하면 조건에 맞게 필터링
             @Override
             public void onClick(View v) {
-                getData("http://" + ipv4Address + "/PHP_loan2_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
+                getData(apiEndpoint + "/PHP_loan2_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
             }
         });
 
@@ -193,7 +192,7 @@ public class Loan2 extends AppCompatActivity {
                     // Toast.makeText(getApplicationContext(), "Clicked item's opt_num: " + optNum, Toast.LENGTH_SHORT).show();
 
                     // Intent를 사용하여 Loan2_detail_screen.java로 데이터를 전달하고 화면을 전환
-                    Intent intent = new Intent(Loan2.this, Loan2_detail_screen.class);
+                    Intent intent = new Intent(Loan2.this, Loan2DetailScreen.class);
                     intent.putExtra("optNum", optNum); // 클릭된 optNum 값을 "optNum"이란 이름의 Extra로 전달
                     startActivity(intent); // Loan2_detail_screen.java로 화면 전환
 
@@ -240,7 +239,7 @@ public class Loan2 extends AppCompatActivity {
 
         itemNo = preferences.getInt("list_position", 0);
 
-        getData("http://" + ipv4Address + "/PHP_loan2_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
+        getData(apiEndpoint + "/PHP_loan2_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
 
         // Toast.makeText(getApplicationContext(), "itemNo: " + itemNo + "\n" + Arrays.toString(selected), Toast.LENGTH_SHORT).show();
     }

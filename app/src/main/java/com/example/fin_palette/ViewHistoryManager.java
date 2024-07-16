@@ -2,9 +2,6 @@ package com.example.fin_palette;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,12 +11,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.StringTokenizer;
 
-public class viewHistoryState extends AppCompatActivity {
+public class ViewHistoryManager extends AppCompatActivity {
     public int cnt = 0;
     public boolean isContainedViewHistory = false;
     private Context context;    // toast message 뿌리기 위해 context 가져옴
 
-    public viewHistoryState(Context context) {this.context = context;}
+    public ViewHistoryManager(Context context) {this.context = context;}
 
     public void getData(String url, String fin_prdt_num_cd, String aaid, int prdtNum, String finPrdtCd, String opts) {
         class GetDataJSON extends AsyncTask<String, Void, String> {

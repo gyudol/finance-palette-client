@@ -54,8 +54,8 @@ public class Loan3 extends AppCompatActivity {
     int [] selected = {0, 0};   // 아무것도 선택 안 했으면 0, 첫번째 것이 선택되면 1, 두번째 것이 선택되면 2
     String [] items1 = {"금융 기관 전체", "1금융", "2금융"};
     String [] items2 = {"대출 종류 전체", "일반신용대출", "마이너스한도대출", "장기카드대출"};
-    getIPAddress ipAddress = new getIPAddress();
-    String ipv4Address = ipAddress.getIPv4();
+    ApiServerManager asm = new ApiServerManager();
+    String apiEndpoint = asm.getApiEndpoint();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class Loan3 extends AppCompatActivity {
         editor.apply();
 
         // onResume에서 실행됨
-        // getData("http://" + ipv4Address + "/PHP_loan3_ext.php", "0", "0"); // IP주소에 맞게 수정 필요 (Default: 0, 0)
+        // getData(apiEndpoint + "/PHP_loan3_ext.php", "0", "0"); // IP주소에 맞게 수정 필요 (Default: 0, 0)
 
         btn_loan1 = findViewById(R.id.btn_loan1);
         btn_loan1.setOnClickListener(view -> {
@@ -149,7 +149,7 @@ public class Loan3 extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {   // 돋보기 이미지 뷰 클릭하면 조건에 맞게 필터링
             @Override
             public void onClick(View v) {
-                getData("http://" + ipv4Address + "/PHP_loan3_ext.php", selected[0] + "", selected[1] + "");
+                getData(apiEndpoint + "/PHP_loan3_ext.php", selected[0] + "", selected[1] + "");
             }
         });
 
@@ -171,7 +171,7 @@ public class Loan3 extends AppCompatActivity {
                     // Toast.makeText(getApplicationContext(), "Clicked item's opt_num: " + optNum, Toast.LENGTH_SHORT).show();
 
                     // Intent를 사용하여 Loan3_detail_screen.java로 데이터를 전달하고 화면을 전환
-                    Intent intent = new Intent(Loan3.this, Loan3_detail_screen.class);
+                    Intent intent = new Intent(Loan3.this, Loan3DetailScreen.class);
                     intent.putExtra("optNum", optNum); // 클릭된 optNum 값을 "optNum"이란 이름의 Extra로 전달
                     startActivity(intent); // Loan3_detail_screen.java로 화면 전환
 
@@ -216,7 +216,7 @@ public class Loan3 extends AppCompatActivity {
 
         itemNo = preferences.getInt("list_position", 0);
 
-        getData("http://" + ipv4Address + "/PHP_loan3_ext.php", selected[0] + "", selected[1] + "");
+        getData(apiEndpoint + "/PHP_loan3_ext.php", selected[0] + "", selected[1] + "");
 
         // Toast.makeText(getApplicationContext(), "itemNo: " + itemNo + "\n" + Arrays.toString(selected), Toast.LENGTH_SHORT).show();
     }

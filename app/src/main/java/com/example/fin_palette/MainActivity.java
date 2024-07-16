@@ -3,7 +3,6 @@ package com.example.fin_palette;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, home).commit();
 
         // AAID Check
-        AAID_State as = new AAID_State();
-        getIPAddress ipAddress = new getIPAddress();
-        as.checkTable("http://" + ipAddress.getIPv4() + "/PHP_aaid_chk.php");
+        AaidManager am = new AaidManager();
+        ApiServerManager asm = new ApiServerManager();
+        am.checkTable(asm.getApiEndpoint() + "/PHP_aaid_chk.php");
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

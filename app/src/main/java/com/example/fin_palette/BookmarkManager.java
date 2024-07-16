@@ -12,11 +12,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class bookmarkState extends AppCompatActivity {
+public class BookmarkManager extends AppCompatActivity {
     public boolean marked = false;
     private Context context;    // toast message 뿌리기 위해 context 가져옴
 
-    public bookmarkState(Context context) {
+    public BookmarkManager(Context context) {
         this.context = context;
     }
 

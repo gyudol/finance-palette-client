@@ -20,7 +20,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +30,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Savings extends AppCompatActivity {
@@ -62,8 +60,8 @@ public class Savings extends AppCompatActivity {
     String [] items1 = {"금융 기관 전체", "1금융", "2금융"};
     String [] items2 = {"금리 유형 전체", "단리", "복리"};
     String [] items3 = {"적립 유형 전체", "자유적립식", "정액적립식"};
-    getIPAddress ipAddress = new getIPAddress();
-    String ipv4Address = ipAddress.getIPv4();
+    ApiServerManager asm = new ApiServerManager();
+    String apiEndpoint = asm.getApiEndpoint();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +84,7 @@ public class Savings extends AppCompatActivity {
         editor.apply();
 
         // onResume에서 실행됨
-        // getData("http://" + ipv4Address + "/PHP_savings_ext.php", "0", "0", "0"); // IP주소에 맞게 수정 필요 (Default: 0, 0, 0)
+        // getData(apiEndpoint + "/PHP_savings_ext.php", "0", "0", "0"); // IP주소에 맞게 수정 필요 (Default: 0, 0, 0)
 
         btn_deposit = findViewById(R.id.btn_deposit);
         btn_deposit.setOnClickListener(view -> {
@@ -97,7 +95,7 @@ public class Savings extends AppCompatActivity {
 
         btn_annuity_saving = findViewById(R.id.btn_annuity_saving);
         btn_annuity_saving.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Annuity_Saving.class);
+            Intent intent = new Intent(getApplicationContext(), AnnuitySaving.class);
             startActivity(intent);
             finish();   // 현재 Activity를 스택에서 제거 (뒤로 가기 하면 메인 화면으로)
         });
@@ -172,7 +170,7 @@ public class Savings extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {   // 돋보기 이미지 뷰 클릭하면 조건에 맞게 필터링
             @Override
             public void onClick(View v) {
-                getData("http://" + ipv4Address + "/PHP_savings_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
+                getData(apiEndpoint + "/PHP_savings_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
             }
         });
 
@@ -196,7 +194,7 @@ public class Savings extends AppCompatActivity {
                     // Toast.makeText(getApplicationContext(), "Clicked item's fin_prdt_cd: " + finPrdtCd, Toast.LENGTH_SHORT).show();
 
                     // Intent를 사용하여 Savings_detail_screen.java로 데이터를 전달하고 화면을 전환
-                    Intent intent = new Intent(Savings.this, Savings_detail_screen.class);
+                    Intent intent = new Intent(Savings.this, SavingsDetailScreen.class);
                     intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
                     intent.putExtra("intrRateType", intrRateType);
                     intent.putExtra("rsrvType", rsrvType);
@@ -246,7 +244,7 @@ public class Savings extends AppCompatActivity {
 
         itemNo = preferences.getInt("list_position", 0);
 
-        getData("http://" + ipv4Address + "/PHP_savings_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
+        getData(apiEndpoint + "/PHP_savings_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
         // Toast.makeText(getApplicationContext(), "itemNo: " + itemNo + "\n" + Arrays.toString(selected), Toast.LENGTH_SHORT).show();
     }
 

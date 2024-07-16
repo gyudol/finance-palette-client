@@ -10,15 +10,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +28,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Annuity_Saving_detail_screen extends AppCompatActivity {
+public class AnnuitySavingDetailScreen extends AppCompatActivity {
 
     Button btn_home;
 
@@ -77,8 +73,8 @@ public class Annuity_Saving_detail_screen extends AppCompatActivity {
     JSONArray products = null;
 
 
-    getIPAddress ipAddress = new getIPAddress();
-    String ipv4Address = ipAddress.getIPv4();
+    ApiServerManager asm = new ApiServerManager();
+    String apiEndpoint = asm.getApiEndpoint();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,17 +91,17 @@ public class Annuity_Saving_detail_screen extends AppCompatActivity {
             if (receivedFinPrdtCd != null) {
                 finPrdtCd = intentGet.getStringExtra("finPrdtCd");
 
-                getData("http://" + ipv4Address + "/PHP_annuity_saving_int.php", finPrdtCd);
-                getData("http://" + ipv4Address + "/PHP_annuity_saving_in_list.php", finPrdtCd);
+                getData(apiEndpoint + "/PHP_annuity_saving_int.php", finPrdtCd);
+                getData(apiEndpoint + "/PHP_annuity_saving_in_list.php", finPrdtCd);
             }
         }
 
         //////////////////////// 북마크 /////////////////////////////////
         ImageView star = findViewById(R.id.bookmark);
         fin_prdt_num_cd = 3 + "_" + finPrdtCd + '_';
-        bookmarkState bs = new bookmarkState(this);
-        AAID_State as = new AAID_State();
-        bs.getData("http://" + ipv4Address + "/PHP_bookmark_chk.php", fin_prdt_num_cd, as.aaid, star);
+        BookmarkManager bs = new BookmarkManager(this);
+        AaidManager am = new AaidManager();
+        bs.getData(apiEndpoint + "/PHP_bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
 
         star.setOnClickListener(new View.OnClickListener() {   // 북마크 이미지 뷰 클릭하면 북마크 기능
             @Override
@@ -113,13 +109,13 @@ public class Annuity_Saving_detail_screen extends AppCompatActivity {
                 if(bs.marked) star.setImageResource(R.drawable.empty_star_small);
                 else star.setImageResource(R.drawable.full_star_small);
 
-                bs.setData("http://" + ipv4Address + "/PHP_bookmark_upd.php", 3, finPrdtCd, "", as.aaid);
+                bs.setData(apiEndpoint + "/PHP_bookmark_upd.php", 3, finPrdtCd, "", am.aaid);
             }
         });
 
         ///////////////////////////////// 조회 기록
-        viewHistoryState vs = new viewHistoryState(this);
-        vs.getData("http://" + ipv4Address, fin_prdt_num_cd, as.aaid, 3, finPrdtCd, "");
+        ViewHistoryManager vs = new ViewHistoryManager(this);
+        vs.getData(apiEndpoint, fin_prdt_num_cd, am.aaid, 3, finPrdtCd, "");
 
 
         btn_home = findViewById(R.id.btn_home);

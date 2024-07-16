@@ -33,13 +33,13 @@ public class HomeFragment extends Fragment {
     AppCompatButton btn_3;
 
     String myJSON;
-    getIPAddress ipAddress = new getIPAddress();
-    String ipv4Address = ipAddress.getIPv4();
+    ApiServerManager asm = new ApiServerManager();
+    String apiEndpoint = asm.getApiEndpoint();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getData("http://" + ipv4Address + "/PHP_check_user.php");
+        getData(apiEndpoint + "/PHP_check_user.php");
 
         view = inflater.inflate(R.layout.home, container, false);
 

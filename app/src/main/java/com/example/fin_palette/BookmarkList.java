@@ -13,7 +13,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,7 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Bookmark extends AppCompatActivity {
+public class BookmarkList extends AppCompatActivity {
 
     Button btn_deposit;
     Button btn_savings;
@@ -67,15 +66,15 @@ public class Bookmark extends AppCompatActivity {
     int itemNo = 0;   // 리스트 뷰 선택됐을 때 item Number
 
     ListView list;
-    getIPAddress ipAddress = new getIPAddress();
-    String ipv4Address = ipAddress.getIPv4();
-    AAID_State as = new AAID_State();
-    String aaid = as.aaid;
+    ApiServerManager asm = new ApiServerManager();
+    String apiEndpoint = asm.getApiEndpoint();
+    AaidManager am = new AaidManager();
+    String aaid = am.aaid;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bookmark);
+        setContentView(R.layout.bookmark_list);
 
         list = (ListView) findViewById(R.id.listViewBookmark);
         productList = new ArrayList<HashMap<String, String>>();
@@ -106,7 +105,7 @@ public class Bookmark extends AppCompatActivity {
                 editor.apply();
 
                 // onResume에서 실행됨
-                // getData("http://" + ipv4Address + "/PHP_bookmark_list.php");
+                // getData(apiEndpoint + "/PHP_bookmark_list.php");
             }
         }
 
@@ -140,7 +139,7 @@ public class Bookmark extends AppCompatActivity {
                             String intrRateType = clickedItem.getString(TAG_INTR_RATE_TYPE);
 
                             // Intent를 사용하여 Deposit_detail_screen.java로 데이터를 전달하고 화면을 전환
-                            intent = new Intent(Bookmark.this, Deposit_detail_screen.class);
+                            intent = new Intent(BookmarkList.this, DepositDetailScreen.class);
                             intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
                             intent.putExtra("intrRateType", intrRateType);
                         } break;
@@ -151,7 +150,7 @@ public class Bookmark extends AppCompatActivity {
                             String rsrvType = clickedItem.getString(TAG_RSRV_TYPE);
 
                             // Intent를 사용하여 Savings_detail_screen.java로 데이터를 전달하고 화면을 전환
-                            intent = new Intent(Bookmark.this, Savings_detail_screen.class);
+                            intent = new Intent(BookmarkList.this, SavingsDetailScreen.class);
                             intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
                             intent.putExtra("intrRateType", intrRateType);
                             intent.putExtra("rsrvType", rsrvType);
@@ -161,7 +160,7 @@ public class Bookmark extends AppCompatActivity {
                             String finPrdtCd = clickedItem.getString(TAG_FIN_PRDT_CD);
 
                             // Intent를 사용하여 Annuity_Saving_detail_screen.java로 데이터를 전달하고 화면을 전환
-                            intent = new Intent(Bookmark.this, Annuity_Saving_detail_screen.class);
+                            intent = new Intent(BookmarkList.this, AnnuitySavingDetailScreen.class);
                             intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
                         } break;
                         case "4": case "5": case "6": {
@@ -169,7 +168,7 @@ public class Bookmark extends AppCompatActivity {
                             String optNum = clickedItem.getString(TAG_OPT_NUM);
 
                             // Intent를 사용하여 Loan1_detail_screen.java로 데이터를 전달하고 화면을 전환
-                            intent = new Intent(Bookmark.this, (prdtNum.equals("4") ? Loan1_detail_screen.class : prdtNum.equals("5") ? Loan2_detail_screen.class : Loan3_detail_screen.class));
+                            intent = new Intent(BookmarkList.this, (prdtNum.equals("4") ? Loan1DetailScreen.class : prdtNum.equals("5") ? Loan2DetailScreen.class : Loan3DetailScreen.class));
                             intent.putExtra("optNum", optNum); // 클릭된 optNum 값을 "optNum"이란 이름의 Extra로 전달
                         } break;
                     }
@@ -193,27 +192,27 @@ public class Bookmark extends AppCompatActivity {
 
         btn_deposit.setOnClickListener(view -> {
             prdtNum = "1";
-            getData("http://" + ipv4Address + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/PHP_bookmark_list.php");
         });
         btn_savings.setOnClickListener(view -> {
             prdtNum = "2";
-            getData("http://" + ipv4Address + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/PHP_bookmark_list.php");
         });
         btn_annuity_saving.setOnClickListener(view -> {
             prdtNum = "3";
-            getData("http://" + ipv4Address + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/PHP_bookmark_list.php");
         });
         btn_loan1.setOnClickListener(view -> {
             prdtNum = "4";
-            getData("http://" + ipv4Address + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/PHP_bookmark_list.php");
         });
         btn_loan2.setOnClickListener(view -> {
             prdtNum = "5";
-            getData("http://" + ipv4Address + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/PHP_bookmark_list.php");
         });
         btn_loan3.setOnClickListener(view -> {
             prdtNum = "6";
-            getData("http://" + ipv4Address + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/PHP_bookmark_list.php");
         });
     }
 
@@ -243,7 +242,7 @@ public class Bookmark extends AppCompatActivity {
 
         itemNo = preferences.getInt("list_position", 0);
 
-        getData("http://" + ipv4Address + "/PHP_bookmark_list.php");
+        getData(apiEndpoint + "/PHP_bookmark_list.php");
     }
 
 
@@ -273,7 +272,7 @@ public class Bookmark extends AppCompatActivity {
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
-                    Bookmark.this, productList, R.layout.deposit_list,
+                    BookmarkList.this, productList, R.layout.deposit_list,
                     new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_HIGHEST_INTR_RATE, TAG_INTR_RATE_TYPE},
                     new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.highest_intr_rate, R.id.intr_rate_type_nm}
             ) {
@@ -286,10 +285,10 @@ public class Bookmark extends AppCompatActivity {
 
                     if (intrRateType != null) {
                         if(intrRateType.equals("복리")){
-                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.orange)));
+                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.orange)));
                         }
                         else {
-                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.blue)));
+                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.blue)));
                         }
                     }
                     return view;
@@ -333,7 +332,7 @@ public class Bookmark extends AppCompatActivity {
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
-                    Bookmark.this, productList, R.layout.savings_list,
+                    BookmarkList.this, productList, R.layout.savings_list,
                     new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_HIGHEST_INTR_RATE, TAG_INTR_RATE_TYPE, TAG_RSRV_TYPE},
                     new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.highest_intr_rate, R.id.intr_rate_type_nm, R.id.rsrv_type_nm}
             ){
@@ -348,19 +347,19 @@ public class Bookmark extends AppCompatActivity {
 
                     if (intrRateType != null) {
                         if(intrRateType.equals("복리")){
-                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.orange)));
+                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.orange)));
                         }
                         else {
-                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.blue)));
+                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.blue)));
                         }
                     }
 
                     if (rsrvType != null) {
                         if(rsrvType.equals("자유적립식")){
-                            rsrvTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.mid_blue)));
+                            rsrvTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.mid_blue)));
                         }
                         else {
-                            rsrvTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.mid_green)));
+                            rsrvTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.mid_green)));
                         }
                     }
                     return view;
@@ -402,7 +401,7 @@ public class Bookmark extends AppCompatActivity {
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
-                    Bookmark.this, productList, R.layout.annuity_saving_list,
+                    BookmarkList.this, productList, R.layout.annuity_saving_list,
                     new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_AVG_PRFT_RATE, TAG_PNSN_KIND_NM},
                     new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.avg_prft_rate, R.id.pnsn_kind_nm}
             ){
@@ -415,13 +414,13 @@ public class Bookmark extends AppCompatActivity {
 
                     if (pnsnKind != null) {
                         if(pnsnKind.equals("연금저축보험(생명)")){
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.purple_500)));
+                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.purple_500)));
                         }
                         else if(pnsnKind.equals("연금저축보험(손해)")) {
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.purple_700)));
+                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.purple_700)));
                         }
                         else {
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.purple_200)));
+                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.purple_200)));
                         }
                     }
 
@@ -466,7 +465,7 @@ public class Bookmark extends AppCompatActivity {
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
-                    Bookmark.this, productList, (value == 1 ? R.layout.loan1_list : R.layout.loan2_list),
+                    BookmarkList.this, productList, (value == 1 ? R.layout.loan1_list : R.layout.loan2_list),
                     new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_LEND_RATE_MIN, TAG_LEND_RATE_TYPE_NM, TAG_RPAY_TYPE_NM},
                     new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.lend_rate_min, R.id.lend_rate_type_nm, R.id.rpay_type_nm}
             ){
@@ -481,19 +480,19 @@ public class Bookmark extends AppCompatActivity {
 
                     if (lendRateType != null) {
                         if(lendRateType.equals("변동금리")){
-                            lendRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.teal_700)));
+                            lendRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.teal_700)));
                         }
                         else {
-                            lendRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.brown_green)));
+                            lendRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.brown_green)));
                         }
                     }
 
                     if (rpayType != null) {
                         if(rpayType.equals("분할상환")){
-                            rpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.magenta)));
+                            rpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.magenta)));
                         }
                         else {
-                            rpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.purple_700)));
+                            rpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.purple_700)));
                         }
                     }
                     return view;
@@ -535,7 +534,7 @@ public class Bookmark extends AppCompatActivity {
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
-                    Bookmark.this, productList, R.layout.loan3_list,
+                    BookmarkList.this, productList, R.layout.loan3_list,
                     new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_LEND_RATE_MIN, TAG_CRDT_PRDT_TYPE_NM},
                     new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.lend_rate_min, R.id.crdt_prdt_type_nm}
             ){
@@ -548,13 +547,13 @@ public class Bookmark extends AppCompatActivity {
 
                     if (crdtPrdtType != null) {
                         if(crdtPrdtType.contains("일반신용대출")){
-                            crdtPrdtTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.magenta)));
+                            crdtPrdtTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.magenta)));
                         }
                         else if(crdtPrdtType.equals("마이너스한도대출")){
-                            crdtPrdtTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.crown_flo)));
+                            crdtPrdtTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.crown_flo)));
                         }
                         else {
-                            crdtPrdtTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Bookmark.this, R.color.mid_green)));
+                            crdtPrdtTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(BookmarkList.this, R.color.mid_green)));
                         }
                     }
                     return view;
