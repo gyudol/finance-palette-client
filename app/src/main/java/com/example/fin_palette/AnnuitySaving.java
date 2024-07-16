@@ -77,7 +77,7 @@ public class AnnuitySaving extends AppCompatActivity {
         editor.apply();
 
         // onResume에서 실행됨
-        // getData(apiEndpoint + "/PHP_annuity_saving_ext.php", "0");
+        // getData(apiEndpoint + "/annuity_saving_ext.php", "0");
 
         btn_deposit = findViewById(R.id.btn_deposit);
         btn_deposit.setOnClickListener(view -> {
@@ -131,7 +131,7 @@ public class AnnuitySaving extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {   // 돋보기 이미지 뷰 클릭하면 조건에 맞게 필터링
             @Override
             public void onClick(View v) {
-                getData(apiEndpoint + "/PHP_annuity_saving_ext.php", selected + "");
+                getData(apiEndpoint + "/annuity_saving_ext.php", selected + "");
             }
         });
 
@@ -196,7 +196,7 @@ public class AnnuitySaving extends AppCompatActivity {
 
         itemNo = preferences.getInt("list_position", 0);
 
-        getData(apiEndpoint + "/PHP_annuity_saving_ext.php", selected + "");
+        getData(apiEndpoint + "/annuity_saving_ext.php", selected + "");
 
         // Toast.makeText(getApplicationContext(), "itemNo: " + itemNo + "\n" + Arrays.toString(selected), Toast.LENGTH_SHORT).show();
     }

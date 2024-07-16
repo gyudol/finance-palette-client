@@ -105,7 +105,7 @@ public class BookmarkList extends AppCompatActivity {
                 editor.apply();
 
                 // onResume에서 실행됨
-                // getData(apiEndpoint + "/PHP_bookmark_list.php");
+                // getData(apiEndpoint + "/bookmark_list.php");
             }
         }
 
@@ -192,27 +192,27 @@ public class BookmarkList extends AppCompatActivity {
 
         btn_deposit.setOnClickListener(view -> {
             prdtNum = "1";
-            getData(apiEndpoint + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/bookmark_list.php");
         });
         btn_savings.setOnClickListener(view -> {
             prdtNum = "2";
-            getData(apiEndpoint + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/bookmark_list.php");
         });
         btn_annuity_saving.setOnClickListener(view -> {
             prdtNum = "3";
-            getData(apiEndpoint + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/bookmark_list.php");
         });
         btn_loan1.setOnClickListener(view -> {
             prdtNum = "4";
-            getData(apiEndpoint + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/bookmark_list.php");
         });
         btn_loan2.setOnClickListener(view -> {
             prdtNum = "5";
-            getData(apiEndpoint + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/bookmark_list.php");
         });
         btn_loan3.setOnClickListener(view -> {
             prdtNum = "6";
-            getData(apiEndpoint + "/PHP_bookmark_list.php");
+            getData(apiEndpoint + "/bookmark_list.php");
         });
     }
 
@@ -242,7 +242,7 @@ public class BookmarkList extends AppCompatActivity {
 
         itemNo = preferences.getInt("list_position", 0);
 
-        getData(apiEndpoint + "/PHP_bookmark_list.php");
+        getData(apiEndpoint + "/bookmark_list.php");
     }
 
 

@@ -53,7 +53,7 @@ public class Rec5000 extends AppCompatActivity  {
         setContentView(R.layout.rec5000);
         list = (ListView) findViewById(R.id.listViewDp);
         productList = new ArrayList<HashMap<String, String>>();
-        getData(apiEndpoint + "/PHP_recd1.php"); // IP주소에 맞게 수정 필요
+        getData(apiEndpoint + "/recommend.php"); // IP주소에 맞게 수정 필요
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

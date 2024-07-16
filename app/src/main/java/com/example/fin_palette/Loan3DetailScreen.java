@@ -85,8 +85,8 @@ public class Loan3DetailScreen extends AppCompatActivity {
             if (receivedOptNum != null) {
                 optNum = intentGet.getStringExtra("optNum");
 
-                getData(apiEndpoint + "/PHP_loan3_int.php", optNum);
-                getData(apiEndpoint + "/PHP_loan3_in_list.php", optNum);
+                getData(apiEndpoint + "/loan3_int.php", optNum, false);
+                getData(apiEndpoint + "/loan3_opt_list.php", optNum, true);
             }
         }
 
@@ -95,7 +95,7 @@ public class Loan3DetailScreen extends AppCompatActivity {
         fin_prdt_num_cd = 6 + "_" + optNum + '_';
         BookmarkManager bs = new BookmarkManager(this);
         AaidManager am = new AaidManager();
-        bs.getData(apiEndpoint + "/PHP_bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
+        bs.getData(apiEndpoint + "/bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
 
         star.setOnClickListener(new View.OnClickListener() {   // 북마크 이미지 뷰 클릭하면 북마크 기능
             @Override
@@ -103,7 +103,7 @@ public class Loan3DetailScreen extends AppCompatActivity {
                 if(bs.marked) star.setImageResource(R.drawable.empty_star_small);
                 else star.setImageResource(R.drawable.full_star_small);
 
-                bs.setData(apiEndpoint + "/PHP_bookmark_upd.php", 6, optNum, "", am.aaid);
+                bs.setData(apiEndpoint + "/bookmark_upd.php", 6, optNum, "", am.aaid);
             }
         });
 
@@ -247,8 +247,8 @@ public class Loan3DetailScreen extends AppCompatActivity {
     }
 
 
-    public void getData(String url, String optNum) {
-        if (url.contains("PHP_loan3_int")) {            // 대출 상품 출력
+    public void getData(String url, String optNum, boolean isOptList) {
+        if (!isOptList) {            // 대출 상품 출력
             class GetDataJSON extends AsyncTask<String, Void, String> {
                 // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
                 @Override
@@ -287,7 +287,7 @@ public class Loan3DetailScreen extends AppCompatActivity {
             g.execute(url, optNum);      // 아래도 수정 필요!
         }
 
-        else if(url.contains("PHP_loan3_in_list")) {              // 대출 상품 옵션 리스트 출력
+        else if(isOptList) {              // 대출 상품 옵션 리스트 출력
             class GetDataJSON extends AsyncTask<String, Void, String> {
                 // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
                 @Override

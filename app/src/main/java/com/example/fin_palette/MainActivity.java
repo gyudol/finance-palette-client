@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         // AAID Check
         AaidManager am = new AaidManager();
         ApiServerManager asm = new ApiServerManager();
-        am.checkTable(asm.getApiEndpoint() + "/PHP_aaid_chk.php");
+        am.checkTable(asm.getApiEndpoint() + "/aaid_chk.php");
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

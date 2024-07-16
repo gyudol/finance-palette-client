@@ -91,8 +91,8 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
             if (receivedFinPrdtCd != null) {
                 finPrdtCd = intentGet.getStringExtra("finPrdtCd");
 
-                getData(apiEndpoint + "/PHP_annuity_saving_int.php", finPrdtCd);
-                getData(apiEndpoint + "/PHP_annuity_saving_in_list.php", finPrdtCd);
+                getData(apiEndpoint + "/annuity_saving_int.php", finPrdtCd, false);
+                getData(apiEndpoint + "/annuity_saving_opt_list.php", finPrdtCd, true);
             }
         }
 
@@ -101,7 +101,7 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
         fin_prdt_num_cd = 3 + "_" + finPrdtCd + '_';
         BookmarkManager bs = new BookmarkManager(this);
         AaidManager am = new AaidManager();
-        bs.getData(apiEndpoint + "/PHP_bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
+        bs.getData(apiEndpoint + "/bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
 
         star.setOnClickListener(new View.OnClickListener() {   // 북마크 이미지 뷰 클릭하면 북마크 기능
             @Override
@@ -109,7 +109,7 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
                 if(bs.marked) star.setImageResource(R.drawable.empty_star_small);
                 else star.setImageResource(R.drawable.full_star_small);
 
-                bs.setData(apiEndpoint + "/PHP_bookmark_upd.php", 3, finPrdtCd, "", am.aaid);
+                bs.setData(apiEndpoint + "/bookmark_upd.php", 3, finPrdtCd, "", am.aaid);
             }
         });
 
@@ -262,8 +262,8 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
         }
     }
 
-    public void getData(String url, String finPrdtCd) {
-        if(url.contains("PHP_annuity_saving_int")) {            // 연금 상품 출력
+    public void getData(String url, String finPrdtCd, boolean isOptList) {
+        if(!isOptList) {            // 연금 상품 출력
             class GetDataJSON extends AsyncTask<String, Void, String> {
                 // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
                 @Override
@@ -303,7 +303,7 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
             g.execute(url, finPrdtCd);      // 아래도 수정 필요!
         }
 
-        else if(url.contains("PHP_annuity_saving_in_list")) {              // 연금 상품 옵션 리스트 출력
+        else if(isOptList) {              // 연금 상품 옵션 리스트 출력
             class GetDataJSON extends AsyncTask<String, Void, String> {
                 // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
                 @Override

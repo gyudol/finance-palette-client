@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getData(apiEndpoint + "/PHP_check_user.php");
+        getData(apiEndpoint + "/did_user_servey.php");
 
         view = inflater.inflate(R.layout.home, container, false);
 

@@ -36,7 +36,7 @@ public class Survey extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.survey);
 
-        String URL = apiEndpoint + "/PHP_userInfo_upd.php"; // IP주소에 맞게 수정 필요
+        String URL = apiEndpoint + "/userinfo_survey_upd.php"; // IP주소에 맞게 수정 필요
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

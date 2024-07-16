@@ -84,7 +84,7 @@ public class Savings extends AppCompatActivity {
         editor.apply();
 
         // onResume에서 실행됨
-        // getData(apiEndpoint + "/PHP_savings_ext.php", "0", "0", "0"); // IP주소에 맞게 수정 필요 (Default: 0, 0, 0)
+        // getData(apiEndpoint + "/savings_ext.php", "0", "0", "0"); // IP주소에 맞게 수정 필요 (Default: 0, 0, 0)
 
         btn_deposit = findViewById(R.id.btn_deposit);
         btn_deposit.setOnClickListener(view -> {
@@ -170,7 +170,7 @@ public class Savings extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {   // 돋보기 이미지 뷰 클릭하면 조건에 맞게 필터링
             @Override
             public void onClick(View v) {
-                getData(apiEndpoint + "/PHP_savings_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
+                getData(apiEndpoint + "/savings_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
             }
         });
 
@@ -244,7 +244,7 @@ public class Savings extends AppCompatActivity {
 
         itemNo = preferences.getInt("list_position", 0);
 
-        getData(apiEndpoint + "/PHP_savings_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
+        getData(apiEndpoint + "/savings_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
         // Toast.makeText(getApplicationContext(), "itemNo: " + itemNo + "\n" + Arrays.toString(selected), Toast.LENGTH_SHORT).show();
     }
 

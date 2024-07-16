@@ -95,7 +95,7 @@ public class ViewHistory extends AppCompatActivity {
 
 
                 // onResume에서 실행됨
-                // getData(apiEndpoint + "/PHP_view_history_list.php");
+                // getData(apiEndpoint + "/view_history_list.php");
             }
         }
 
@@ -183,27 +183,27 @@ public class ViewHistory extends AppCompatActivity {
 
         btn_deposit.setOnClickListener(view -> {
             prdtNum = "1";
-            getData(apiEndpoint + "/PHP_view_history_list.php");
+            getData(apiEndpoint + "/view_history_list.php");
         });
         btn_savings.setOnClickListener(view -> {
             prdtNum = "2";
-            getData(apiEndpoint + "/PHP_view_history_list.php");
+            getData(apiEndpoint + "/view_history_list.php");
         });
         btn_annuity_saving.setOnClickListener(view -> {
             prdtNum = "3";
-            getData(apiEndpoint + "/PHP_view_history_list.php");
+            getData(apiEndpoint + "/view_history_list.php");
         });
         btn_loan1.setOnClickListener(view -> {
             prdtNum = "4";
-            getData(apiEndpoint + "/PHP_view_history_list.php");
+            getData(apiEndpoint + "/view_history_list.php");
         });
         btn_loan2.setOnClickListener(view -> {
             prdtNum = "5";
-            getData(apiEndpoint + "/PHP_view_history_list.php");
+            getData(apiEndpoint + "/view_history_list.php");
         });
         btn_loan3.setOnClickListener(view -> {
             prdtNum = "6";
-            getData(apiEndpoint + "/PHP_view_history_list.php");
+            getData(apiEndpoint + "/view_history_list.php");
         });
     }
 
@@ -214,7 +214,7 @@ public class ViewHistory extends AppCompatActivity {
 
         // 저장해둘 필요가 없음 (최근 조회된 게 최상단으로 가므로)
 
-        getData(apiEndpoint + "/PHP_view_history_list.php");
+        getData(apiEndpoint + "/view_history_list.php");
     }
 
 

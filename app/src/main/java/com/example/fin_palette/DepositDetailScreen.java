@@ -74,7 +74,7 @@ public class DepositDetailScreen extends AppCompatActivity {
                 finPrdtCd = intentGet.getStringExtra("finPrdtCd");
                 intrRateType = intentGet.getStringExtra("intrRateType");
 
-                getData(apiEndpoint + "/PHP_deposit_int.php", finPrdtCd, intrRateType);
+                getData(apiEndpoint + "/deposit_int.php", finPrdtCd, intrRateType);
             }
         }
 
@@ -83,7 +83,7 @@ public class DepositDetailScreen extends AppCompatActivity {
         fin_prdt_num_cd = 1 + "_" + finPrdtCd + '_' + intrRateType;
         BookmarkManager bs = new BookmarkManager(this);
         AaidManager am = new AaidManager();
-        bs.getData(apiEndpoint + "/PHP_bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
+        bs.getData(apiEndpoint + "/bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
 
         star.setOnClickListener(new View.OnClickListener() {   // 북마크 이미지 뷰 클릭하면 북마크 기능
             @Override
@@ -91,7 +91,7 @@ public class DepositDetailScreen extends AppCompatActivity {
                 if(bs.marked) star.setImageResource(R.drawable.empty_star_small);
                 else star.setImageResource(R.drawable.full_star_small);
 
-                bs.setData(apiEndpoint + "/PHP_bookmark_upd.php", 1, finPrdtCd, intrRateType, am.aaid);
+                bs.setData(apiEndpoint + "/bookmark_upd.php", 1, finPrdtCd, intrRateType, am.aaid);
             }
         });
 

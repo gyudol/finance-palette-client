@@ -55,14 +55,14 @@ public class SettingsFragment extends Fragment {
         btn_myBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getMostData(apiEndpoint + "/PHP_bookmark_ext_mostStar.php", am.aaid, true); // IP주소에 맞게 수정 필요
+                getMostData(apiEndpoint + "/bookmark_ext_most_stars.php", am.aaid, true); // IP주소에 맞게 수정 필요
             }
         });
 
         btn_myViewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getMostData(apiEndpoint + "/PHP_view_history_ext_mostView.php", am.aaid, false); // IP주소에 맞게 수정 필요
+                getMostData(apiEndpoint + "/most_recent_view.php", am.aaid, false); // IP주소에 맞게 수정 필요
             }
         });
 

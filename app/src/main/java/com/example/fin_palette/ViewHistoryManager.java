@@ -29,7 +29,7 @@ public class ViewHistoryManager extends AppCompatActivity {
                 String aaid = params[2];
 
                 try {
-                    URL url = new URL(uri + "/PHP_view_history_chk.php?fin_prdt_num_cd=" + fin_prdt_num_cd + "&aaid=" + aaid); // 파라미터를 URL에 추가
+                    URL url = new URL(uri + "/view_history_chk.php?fin_prdt_num_cd=" + fin_prdt_num_cd + "&aaid=" + aaid); // 파라미터를 URL에 추가
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -77,7 +77,7 @@ public class ViewHistoryManager extends AppCompatActivity {
                 String aaid = params[4];
 
                 try {
-                    URL url = new URL(uri + "/PHP_view_history_upd.php?prdtNum=" + prdtNum + "&finPrdtCd=" + finPrdtCd + "&opts=" + opts + "&aaid=" + aaid +
+                    URL url = new URL(uri + "/view_history_upd.php?prdtNum=" + prdtNum + "&finPrdtCd=" + finPrdtCd + "&opts=" + opts + "&aaid=" + aaid +
                             "&cnt=" + cnt + "&isContainedViewHistory=" + isContainedViewHistory);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 

@@ -80,7 +80,7 @@ public class SavingsDetailScreen extends AppCompatActivity {
                 intrRateType = intentGet.getStringExtra("intrRateType");
                 rsrvType = intentGet.getStringExtra("rsrvType");
 
-                getData(apiEndpoint + "/PHP_savings_int.php", finPrdtCd, intrRateType, rsrvType);
+                getData(apiEndpoint + "/savings_int.php", finPrdtCd, intrRateType, rsrvType);
             }
         }
 
@@ -90,7 +90,7 @@ public class SavingsDetailScreen extends AppCompatActivity {
         fin_prdt_num_cd = 2 + "_" + finPrdtCd + '_' + intrRateType + '_' + rsrvType;
         BookmarkManager bs = new BookmarkManager(this);
         AaidManager am = new AaidManager();
-        bs.getData(apiEndpoint + "/PHP_bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
+        bs.getData(apiEndpoint + "/bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
 
         star.setOnClickListener(new View.OnClickListener() {   // 북마크 이미지 뷰 클릭하면 북마크 기능
             @Override
@@ -98,7 +98,7 @@ public class SavingsDetailScreen extends AppCompatActivity {
                 if(bs.marked) star.setImageResource(R.drawable.empty_star_small);
                 else star.setImageResource(R.drawable.full_star_small);
 
-                bs.setData(apiEndpoint + "/PHP_bookmark_upd.php", 2, finPrdtCd, intrRateType + '_' + rsrvType, am.aaid);
+                bs.setData(apiEndpoint + "/bookmark_upd.php", 2, finPrdtCd, intrRateType + '_' + rsrvType, am.aaid);
             }
         });
 
