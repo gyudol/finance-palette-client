@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +68,7 @@ public class Loan3_detail_screen extends AppCompatActivity {
     JSONArray products = null;
 
 
-    getIPAddress ipAddress = new getIPAddress();
+    ApiServerManager ipAddress = new ApiServerManager();
     String ipv4Address = ipAddress.getIPv4();
 
     @Override
@@ -94,8 +93,8 @@ public class Loan3_detail_screen extends AppCompatActivity {
         //////////////////////// 북마크 /////////////////////////////////
         ImageView star = findViewById(R.id.bookmark);
         fin_prdt_num_cd = 6 + "_" + optNum + '_';
-        bookmarkState bs = new bookmarkState(this);
-        AAID_State as = new AAID_State();
+        BookmarkManager bs = new BookmarkManager(this);
+        AaidManager as = new AaidManager();
         bs.getData("http://" + ipv4Address + "/PHP_bookmark_chk.php", fin_prdt_num_cd, as.aaid, star);
 
         star.setOnClickListener(new View.OnClickListener() {   // 북마크 이미지 뷰 클릭하면 북마크 기능

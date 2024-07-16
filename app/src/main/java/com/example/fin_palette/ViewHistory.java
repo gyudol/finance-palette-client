@@ -12,7 +12,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -64,9 +63,9 @@ public class View_History extends AppCompatActivity {
     ArrayList<HashMap<String, String>> productList;
 
     ListView list;
-    getIPAddress ipAddress = new getIPAddress();
+    ApiServerManager ipAddress = new ApiServerManager();
     String ipv4Address = ipAddress.getIPv4();
-    AAID_State as = new AAID_State();
+    AaidManager as = new AaidManager();
     String aaid = as.aaid;
 
     @Override
@@ -152,7 +151,7 @@ public class View_History extends AppCompatActivity {
                             String finPrdtCd = clickedItem.getString(TAG_FIN_PRDT_CD);
 
                             // Intent를 사용하여 Annuity_Saving_detail_screen.java로 데이터를 전달하고 화면을 전환
-                            intent = new Intent(View_History.this, Annuity_Saving_detail_screen.class);
+                            intent = new Intent(View_History.this, AnnuitySavingDetailScreen.class);
                             intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
                         } break;
                         case "4": case "5": case "6": {
