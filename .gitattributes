@@ -1,2 +1,2 @@
 *.java linguist-language=Java
-*.xml linguist-language=XML
+/app/src/main/res/layout/*.xml linguist-language=XML
