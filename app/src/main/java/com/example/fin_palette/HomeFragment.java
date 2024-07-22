@@ -25,12 +25,11 @@ import java.net.URL;
 
 public class HomeFragment extends Fragment {
     private View view;
-    AppCompatButton btn_5000;
-    AppCompatButton btn_50;
-    Button btn_survey;
-    AppCompatButton btn_1;
-    AppCompatButton btn_2;
-    AppCompatButton btn_3;
+    AppCompatButton r5000Button;
+    AppCompatButton r50Button;
+    Button surveyButton;
+    AppCompatButton depositButton;
+    AppCompatButton rentHouseLoanButton;
 
     String myJSON;
     ApiServerManager asm = new ApiServerManager();
@@ -46,8 +45,8 @@ public class HomeFragment extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-        btn_5000 = (AppCompatButton) view.findViewById(R.id.btn_5000);
-        btn_5000.setOnClickListener(new View.OnClickListener() {
+        r5000Button = view.findViewById(R.id.btn_deposit_rec);
+        r5000Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(Integer.parseInt(myJSON) > 0) {
@@ -62,8 +61,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btn_50 = (AppCompatButton) view.findViewById(R.id.btn_50);
-        btn_50.setOnClickListener(new View.OnClickListener() {
+        r50Button = view.findViewById(R.id.btn_savings_rec);
+        r50Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), Deposit.class);
@@ -72,8 +71,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btn_survey = (Button) view.findViewById(R.id.btn_survey);
-        btn_survey.setOnClickListener(new View.OnClickListener() {
+        surveyButton = view.findViewById(R.id.btn_survey);
+        surveyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), Survey.class);
@@ -82,8 +81,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btn_1 = (AppCompatButton) view.findViewById(R.id.btn_1);
-        btn_1.setOnClickListener(new View.OnClickListener() {
+        depositButton = view.findViewById(R.id.btn_deposit);
+        depositButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), Deposit.class);
@@ -92,11 +91,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btn_2 = (AppCompatButton) view.findViewById(R.id.btn_2);
-        btn_2.setOnClickListener(new View.OnClickListener() {
+        rentHouseLoanButton = view.findViewById(R.id.btn_rent_house_loan);
+        rentHouseLoanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Loan1.class);
+                Intent intent = new Intent(getActivity(), RentHouseLoan.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }

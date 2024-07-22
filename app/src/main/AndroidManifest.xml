@@ -29,17 +29,17 @@
             android:exported="true"
             android:parentActivityName=".SettingsFragment"/>
         <activity
-            android:name=".Loan3DetailScreen"
+            android:name=".RentHouseLoanDetailScreen"
             android:exported="true"
-            android:parentActivityName=".Loan3"/>
+            android:parentActivityName=".RentHouseLoan" />
         <activity
-            android:name=".Loan2DetailScreen"
+            android:name=".MortgageLoanDetailScreen"
             android:exported="true"
-            android:parentActivityName=".Loan2"/>
+            android:parentActivityName=".MortgageLoan"/>
         <activity
-            android:name=".Loan1DetailScreen"
+            android:name=".CreditLoanDetailScreen"
             android:exported="true"
-            android:parentActivityName=".Loan1" />
+            android:parentActivityName=".CreditLoan"/>
         <activity
             android:name=".AnnuitySavingDetailScreen"
             android:exported="true"
@@ -53,15 +53,15 @@
             android:exported="true"
             android:parentActivityName=".Deposit" />
         <activity
-            android:name=".Loan3"
+            android:name=".RentHouseLoan"
             android:exported="true"
             android:parentActivityName=".HomeFragment" />
         <activity
-            android:name=".Loan2"
+            android:name=".MortgageLoan"
             android:exported="true"
             android:parentActivityName=".HomeFragment" />
         <activity
-            android:name=".Loan1"
+            android:name=".CreditLoan"
             android:exported="true"
             android:parentActivityName=".HomeFragment" />
         <activity

@@ -14,8 +14,9 @@
         android:orientation="vertical"
         android:layout_weight="1">
 
+
     <TextView
-        android:id="@+id/kor_co_nm"
+        android:id="@+id/fin_co_nm"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -31,7 +32,7 @@
 
 
     <TextView
-        android:id="@+id/lend_rate_min"
+        android:id="@+id/min_loan_rate"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,17 +49,28 @@
         android:gravity="end|center_vertical">
 
         <TextView
-            android:id="@+id/crdt_prdt_type_nm"
-            android:layout_width="150dp"
+            android:id="@+id/loan_rate_type"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="금리유형"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:background="@drawable/solid_button"
+            android:backgroundTint="@color/blue"/>
+
+        <TextView
+            android:id="@+id/loan_rpay_type"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="20dp"
-            android:text="대출 종류"
+            android:text="적립유형"
             android:textColor="@color/white"
             android:textSize="15dp"
             android:gravity="center"
             android:background="@drawable/solid_button"
             android:backgroundTint="@color/mid_green"/>
+
 
     </LinearLayout>
 

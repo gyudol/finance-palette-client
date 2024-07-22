@@ -13,23 +13,23 @@ import java.util.StringTokenizer;
 
 public class ViewHistoryManager extends AppCompatActivity {
     public int cnt = 0;
-    public boolean isContainedViewHistory = false;
+    public boolean viewHistoryContains = false;
     private Context context;    // toast message 뿌리기 위해 context 가져옴
 
     public ViewHistoryManager(Context context) {this.context = context;}
 
-    public void getData(String url, String fin_prdt_num_cd, String aaid, int prdtNum, String finPrdtCd, String opts) {
+    public void getData(String url, String historyId, String aaid, int prdtNum, String finPrdtId, String opts) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
             // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
             @Override
             protected String doInBackground(String... params) {
 
                 String uri = params[0];
-                String fin_prdt_num_cd = params[1];
+                String historyId = params[1];
                 String aaid = params[2];
 
                 try {
-                    URL url = new URL(uri + "/view_history_chk.php?fin_prdt_num_cd=" + fin_prdt_num_cd + "&aaid=" + aaid); // 파라미터를 URL에 추가
+                    URL url = new URL(uri + "/view_history_chk.php?historyId=" + historyId + "&aaid=" + aaid); // 파라미터를 URL에 추가
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -50,9 +50,9 @@ public class ViewHistoryManager extends AppCompatActivity {
                     StringTokenizer st = new StringTokenizer(result);
 
                     cnt = Integer.parseInt(st.nextToken());
-                    isContainedViewHistory = st.nextToken().equals("true");
+                    viewHistoryContains = st.nextToken().equals("true");
 
-                    setData(url, prdtNum, finPrdtCd, opts, aaid);   // 비동기로 처리되므로 여기서 처리
+                    setData(url, prdtNum, finPrdtId, opts, aaid);   // 비동기로 처리되므로 여기서 처리
 
                     // Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
                 }
@@ -60,25 +60,25 @@ public class ViewHistoryManager extends AppCompatActivity {
         }
 
         GetDataJSON g = new GetDataJSON();
-        g.execute(url, fin_prdt_num_cd, aaid);      // 아래도 수정 필요!
+        g.execute(url, historyId, aaid);      // 아래도 수정 필요!
     }
 
 
 
-    public void setData(String url, int prdtNum, String finPrdtCd, String opts, String aaid) {
+    public void setData(String url, int prdtNum, String finPrdtId, String opts, String aaid) {
         class SetDataJSON extends AsyncTask<String, Void, String> {
 
             @Override
             protected String doInBackground(String... params) {
                 String uri = params[0];
                 String prdtNum = params[1];
-                String finPrdtCd = params[2];
+                String finPrdtId = params[2];
                 String opts = params[3];
                 String aaid = params[4];
 
                 try {
-                    URL url = new URL(uri + "/view_history_upd.php?prdtNum=" + prdtNum + "&finPrdtCd=" + finPrdtCd + "&opts=" + opts + "&aaid=" + aaid +
-                            "&cnt=" + cnt + "&isContainedViewHistory=" + isContainedViewHistory);
+                    URL url = new URL(uri + "/view_history_upd.php?prdtNum=" + prdtNum + "&finPrdtId=" + finPrdtId + "&opts=" + opts + "&aaid=" + aaid +
+                            "&cnt=" + cnt + "&viewHistoryContains=" + viewHistoryContains);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                     StringBuilder sb = new StringBuilder();
@@ -104,6 +104,6 @@ public class ViewHistoryManager extends AppCompatActivity {
         }
 
         SetDataJSON g = new SetDataJSON();
-        g.execute(url, Integer.toString(prdtNum), finPrdtCd, opts, aaid);
+        g.execute(url, Integer.toString(prdtNum), finPrdtId, opts, aaid);
     }
 }

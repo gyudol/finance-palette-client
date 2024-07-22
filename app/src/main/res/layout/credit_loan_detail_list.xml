@@ -47,7 +47,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/crdt_grad_1"
+            android:id="@+id/crdt_scr_above_900"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -73,7 +73,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/crdt_grad_4"
+            android:id="@+id/crdt_scr_801_to_900"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -98,7 +98,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/crdt_grad_5"
+            android:id="@+id/crdt_scr_701_to_800"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -124,7 +124,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/crdt_grad_6"
+            android:id="@+id/crdt_scr_601_to_700"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -150,7 +150,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/crdt_grad_10"
+            android:id="@+id/crdt_scr_501_to_600"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -175,7 +175,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/crdt_grad_11"
+            android:id="@+id/crdt_scr_401_to_500"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -200,7 +200,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/crdt_grad_12"
+            android:id="@+id/crdt_scr_301_to_400"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -225,7 +225,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/crdt_grad_13"
+            android:id="@+id/crdt_scr_below_300"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"

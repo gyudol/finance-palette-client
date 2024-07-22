@@ -29,31 +29,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ViewHistory extends AppCompatActivity {
-    Button btn_deposit;
-    Button btn_savings;
-    Button btn_annuity_saving;
-    Button btn_loan1;
-    Button btn_loan2;
-    Button btn_loan3;
-    TextView textView14;
+    Button depositButton;
+    Button savingsButton;
+    Button annuitySavingButton;
+    Button rentHouseLoanButton;
+    Button mortgageLoanButton;
+    Button creditLoanButton;
+    TextView titleTextView;
 
-    private static final String TAG_RESULTS = "result";
-    private static final String TAG_KOR_CO_NM = "kor_co_nm";
-    private static final String TAG_FIN_PRDT_NM = "fin_prdt_nm";
-    private static final String TAG_HIGHEST_INTR_RATE = "highest_intr_rate";
-    private static final String TAG_FIN_PRDT_CD = "fin_prdt_cd";
-    private static final String TAG_INTR_RATE_TYPE = "intr_rate_type";
-    private static final String TAG_RSRV_TYPE = "rsrv_type";            // savingProducts
-    private static final String TAG_AVG_PRFT_RATE = "avg_prft_rate";    // annuitySavingProducts
-    private static final String TAG_PNSN_KIND_NM = "pnsn_kind_nm";      // annuitySavingProducts
+    private static final String TAG_RESULT = "result";
+    private static final String TAG_FINANCIAL_COMPANY_NAME = "financial_company_name";
+    private static final String TAG_FINANCIAL_PRODUCT_NAME = "financial_product_name";
+    private static final String TAG_HIGHEST_INTEREST_RATE = "highest_interest_rate";
+    private static final String TAG_FINANCIAL_PRODUCT_ID = "financial_product_id";
+    private static final String TAG_INTEREST_RATE_TYPE = "interest_rate_type";
+    private static final String TAG_ACCRUAL_TYPE = "accrual_type";            // savings_products
+    private static final String TAG_AVERAGE_PROFIT_RATE = "average_profit_rate";    // annuity_saving_products
+    private static final String TAG_PENSION_TYPE_NAME = "pension_type_name";      // annuity_saving_products
 
-    ///////////////////////////////////////////////// 여기는 loan1 ~ loan2
-    private static final String TAG_LEND_RATE_MIN = "lend_rate_min";
-    private static final String TAG_OPT_NUM = "opt_num";
-    private static final String TAG_LEND_RATE_TYPE_NM = "lend_rate_type_nm";
-    private static final String TAG_RPAY_TYPE_NM = "rpay_type_nm";
+    ///////////////////////////////////////////////// 여기는 rent_house_loan ~ mortgage_loan
+    private static final String TAG_MINIMUM_LOAN_RATE = "minimum_loan_rate";
+    private static final String TAG_OPTION_ID = "option_id";
+    private static final String TAG_LOAN_RATE_TYPE = "loan_rate_type";
+    private static final String TAG_LOAN_REPAYMENT_TYPE = "loan_repayment_type";
     ///////////////////////////////////////////////
-    private static final String TAG_CRDT_PRDT_TYPE_NM = "crdt_prdt_type_nm";    // loan3
+    private static final String TAG_CREDIT_PRODUCT_TYPE_NAME = "credit_product_type_name";
+    private static final String TAG_LOWEST_LOAN_RATE = "lowest_loan_rate";  // credit_loan
 
     String myJSON;
     String prdtNum;
@@ -85,13 +86,13 @@ public class ViewHistory extends AppCompatActivity {
             if (receivedPrdtNum != null) {
                 prdtNum = intentGet.getStringExtra("prdtNum");
 
-                btn_deposit = findViewById(R.id.btn_deposit);
-                btn_savings = findViewById(R.id.btn_savings);
-                btn_annuity_saving = findViewById(R.id.btn_annuity_saving);
-                btn_loan1 = findViewById(R.id.btn_loan1);
-                btn_loan2 = findViewById(R.id.btn_loan2);
-                btn_loan3 = findViewById(R.id.btn_loan3);
-                textView14 = findViewById(R.id.textView14);
+                depositButton = findViewById(R.id.btn_deposit);
+                savingsButton = findViewById(R.id.btn_savings);
+                annuitySavingButton = findViewById(R.id.btn_annuity_saving);
+                rentHouseLoanButton = findViewById(R.id.btn_rent_house_loan);
+                mortgageLoanButton = findViewById(R.id.btn_mortgage_loan);
+                creditLoanButton = findViewById(R.id.btn_credit_loan);
+                titleTextView = findViewById(R.id.title);
 
 
                 // onResume에서 실행됨
@@ -125,42 +126,42 @@ public class ViewHistory extends AppCompatActivity {
 
                     switch(prdtNum) {
                         case "1": {
-                            // 클릭된 아이템의 'fin_prdt_nm' 값 가져오기
-                            String finPrdtCd = clickedItem.getString(TAG_FIN_PRDT_CD);
-                            String intrRateType = clickedItem.getString(TAG_INTR_RATE_TYPE);
+                            // 클릭된 아이템의 'finPrdtId' 값 가져오기
+                            String finPrdtId = clickedItem.getString(TAG_FINANCIAL_PRODUCT_ID);
+                            String intrRateType = clickedItem.getString(TAG_INTEREST_RATE_TYPE);
 
                             // Intent를 사용하여 Deposit_detail_screen.java로 데이터를 전달하고 화면을 전환
                             intent = new Intent(ViewHistory.this, DepositDetailScreen.class);
-                            intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
+                            intent.putExtra("finPrdtId", finPrdtId); // 클릭된 finPrdtId 값을 "finPrdtId"이란 이름의 Extra로 전달
                             intent.putExtra("intrRateType", intrRateType);
                         } break;
                         case "2": {
-                            // 클릭된 아이템의 'fin_prdt_nm' 값 가져오기
-                            String finPrdtCd = clickedItem.getString(TAG_FIN_PRDT_CD);
-                            String intrRateType = clickedItem.getString(TAG_INTR_RATE_TYPE);
-                            String rsrvType = clickedItem.getString(TAG_RSRV_TYPE);
+                            // 클릭된 아이템의 'finPrdtId' 값 가져오기
+                            String finPrdtId = clickedItem.getString(TAG_FINANCIAL_PRODUCT_ID);
+                            String intrRateType = clickedItem.getString(TAG_INTEREST_RATE_TYPE);
+                            String accrualType = clickedItem.getString(TAG_ACCRUAL_TYPE);
 
                             // Intent를 사용하여 Savings_detail_screen.java로 데이터를 전달하고 화면을 전환
                             intent = new Intent(ViewHistory.this, SavingsDetailScreen.class);
-                            intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
+                            intent.putExtra("finPrdtId", finPrdtId); // 클릭된 finPrdtId 값을 "finPrdtId"이란 이름의 Extra로 전달
                             intent.putExtra("intrRateType", intrRateType);
-                            intent.putExtra("rsrvType", rsrvType);
+                            intent.putExtra("accrualType", accrualType);
                         } break;
                         case "3": {
-                            // 클릭된 아이템의 'fin_prdt_nm' 값 가져오기
-                            String finPrdtCd = clickedItem.getString(TAG_FIN_PRDT_CD);
+                            // 클릭된 아이템의 'finPrdtId' 값 가져오기
+                            String finPrdtId = clickedItem.getString(TAG_FINANCIAL_PRODUCT_ID);
 
                             // Intent를 사용하여 Annuity_Saving_detail_screen.java로 데이터를 전달하고 화면을 전환
                             intent = new Intent(ViewHistory.this, AnnuitySavingDetailScreen.class);
-                            intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
+                            intent.putExtra("finPrdtId", finPrdtId); // 클릭된 finPrdtId 값을 "finPrdtId"이란 이름의 Extra로 전달
                         } break;
                         case "4": case "5": case "6": {
-                            // 클릭된 아이템의 'fin_prdt_nm' 값 가져오기
-                            String optNum = clickedItem.getString(TAG_OPT_NUM);
+                            // 클릭된 아이템의 'optionId' 값 가져오기
+                            String optionId = clickedItem.getString(TAG_OPTION_ID);
 
-                            // Intent를 사용하여 Loan1_detail_screen.java로 데이터를 전달하고 화면을 전환
-                            intent = new Intent(ViewHistory.this, (prdtNum.equals("4") ? Loan1DetailScreen.class : prdtNum.equals("5") ? Loan2DetailScreen.class : Loan3DetailScreen.class));
-                            intent.putExtra("optNum", optNum); // 클릭된 optNum 값을 "optNum"이란 이름의 Extra로 전달
+                            // Intent를 사용하여 데이터를 전달하고 화면을 전환
+                            intent = new Intent(ViewHistory.this, (prdtNum.equals("4") ? RentHouseLoanDetailScreen.class : prdtNum.equals("5") ? MortgageLoanDetailScreen.class : CreditLoanDetailScreen.class));
+                            intent.putExtra("optionId", optionId); // 클릭된 optionId 값을 "optionId"이란 이름의 Extra로 전달
                         } break;
                     }
 
@@ -174,34 +175,34 @@ public class ViewHistory extends AppCompatActivity {
 
 
         /////////////////////// 버튼 클릭 시 해당 상품 조회 기록 화면으로 전환
-        btn_deposit = findViewById(R.id.btn_deposit);
-        btn_savings = findViewById(R.id.btn_savings);
-        btn_annuity_saving = findViewById(R.id.btn_annuity_saving);
-        btn_loan1 = findViewById(R.id.btn_loan1);
-        btn_loan2 = findViewById(R.id.btn_loan2);
-        btn_loan3 = findViewById(R.id.btn_loan3);
+        depositButton = findViewById(R.id.btn_deposit);
+        savingsButton = findViewById(R.id.btn_savings);
+        annuitySavingButton = findViewById(R.id.btn_annuity_saving);
+        rentHouseLoanButton = findViewById(R.id.btn_rent_house_loan);
+        mortgageLoanButton = findViewById(R.id.btn_mortgage_loan);
+        creditLoanButton = findViewById(R.id.btn_credit_loan);
 
-        btn_deposit.setOnClickListener(view -> {
+        depositButton.setOnClickListener(view -> {
             prdtNum = "1";
             getData(apiEndpoint + "/view_history_list.php");
         });
-        btn_savings.setOnClickListener(view -> {
+        savingsButton.setOnClickListener(view -> {
             prdtNum = "2";
             getData(apiEndpoint + "/view_history_list.php");
         });
-        btn_annuity_saving.setOnClickListener(view -> {
+        annuitySavingButton.setOnClickListener(view -> {
             prdtNum = "3";
             getData(apiEndpoint + "/view_history_list.php");
         });
-        btn_loan1.setOnClickListener(view -> {
+        rentHouseLoanButton.setOnClickListener(view -> {
             prdtNum = "4";
             getData(apiEndpoint + "/view_history_list.php");
         });
-        btn_loan2.setOnClickListener(view -> {
+        mortgageLoanButton.setOnClickListener(view -> {
             prdtNum = "5";
             getData(apiEndpoint + "/view_history_list.php");
         });
-        btn_loan3.setOnClickListener(view -> {
+        creditLoanButton.setOnClickListener(view -> {
             prdtNum = "6";
             getData(apiEndpoint + "/view_history_list.php");
         });
@@ -218,49 +219,49 @@ public class ViewHistory extends AppCompatActivity {
     }
 
 
-    protected void showDpList() {   // depositProducts
+    protected void showDpList() {   // deposit_products
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            products = jsonObj.getJSONArray(TAG_RESULTS);
+            products = jsonObj.getJSONArray(TAG_RESULT);
 
             productList.clear(); // 기존 데이터 클리어  => 클리어해야 제대로 갱신됨
 
             for (int i = 0; i < products.length(); i++) {
                 JSONObject c = products.getJSONObject(i);
-                String kor_co_nm = c.getString(TAG_KOR_CO_NM);
-                String fin_prdt_nm = c.getString(TAG_FIN_PRDT_NM);
-                String highest_intr_rate = "최고 " + c.getString(TAG_HIGHEST_INTR_RATE) + "%";
-                String intr_rate_type = (c.getString(TAG_INTR_RATE_TYPE)).equals("S")?"단리":"복리";
+                String finCoName = c.getString(TAG_FINANCIAL_COMPANY_NAME);
+                String finPrdtName = c.getString(TAG_FINANCIAL_PRODUCT_NAME);
+                String highestIntrRate = "최고 " + c.getString(TAG_HIGHEST_INTEREST_RATE) + "%";
+                String intrRateTypeName = (c.getString(TAG_INTEREST_RATE_TYPE)).equals("S")?"단리":"복리";
 
-                HashMap<String, String> prdt_buff = new HashMap<String, String>();
+                HashMap<String, String> prdtBuff = new HashMap<String, String>();
 
-                prdt_buff.put(TAG_KOR_CO_NM, kor_co_nm);
-                prdt_buff.put(TAG_FIN_PRDT_NM, fin_prdt_nm);
-                prdt_buff.put(TAG_HIGHEST_INTR_RATE, highest_intr_rate);
-                prdt_buff.put(TAG_INTR_RATE_TYPE, intr_rate_type);
+                prdtBuff.put(TAG_FINANCIAL_COMPANY_NAME, finCoName);
+                prdtBuff.put(TAG_FINANCIAL_PRODUCT_NAME, finPrdtName);
+                prdtBuff.put(TAG_HIGHEST_INTEREST_RATE, highestIntrRate);
+                prdtBuff.put(TAG_INTEREST_RATE_TYPE, intrRateTypeName);
 
-                productList.add(prdt_buff);
+                productList.add(prdtBuff);
             }
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
                     ViewHistory.this, productList, R.layout.deposit_list,
-                    new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_HIGHEST_INTR_RATE, TAG_INTR_RATE_TYPE},
-                    new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.highest_intr_rate, R.id.intr_rate_type_nm}
+                    new String[]{TAG_FINANCIAL_COMPANY_NAME, TAG_FINANCIAL_PRODUCT_NAME, TAG_HIGHEST_INTEREST_RATE, TAG_INTEREST_RATE_TYPE},
+                    new int[]{R.id.fin_co_nm, R.id.fin_prdt_nm, R.id.highest_intr_rate, R.id.intr_rate_type_nm}
             ) {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
-                    TextView intrRateTypeTextView = view.findViewById(R.id.intr_rate_type_nm);
+                    TextView intrRateTypeNameTextView = view.findViewById(R.id.intr_rate_type_nm);
 
-                    String intrRateType = productList.get(position).get(TAG_INTR_RATE_TYPE);
+                    String intrRateTypeName = productList.get(position).get(TAG_INTEREST_RATE_TYPE);
 
-                    if (intrRateType != null) {
-                        if(intrRateType.equals("복리")){
-                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.orange)));
+                    if (intrRateTypeName != null) {
+                        if(intrRateTypeName.equals("복리")){
+                            intrRateTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.orange)));
                         }
                         else {
-                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.blue)));
+                            intrRateTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.blue)));
                         }
                     }
                     return view;
@@ -276,62 +277,62 @@ public class ViewHistory extends AppCompatActivity {
     }
 
 
-    protected void showSpList() { // savingProducts
+    protected void showSpList() { // savings_products
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            products = jsonObj.getJSONArray(TAG_RESULTS);
+            products = jsonObj.getJSONArray(TAG_RESULT);
 
             productList.clear(); // 기존 데이터 클리어  => 클리어해야 제대로 갱신됨
 
             for (int i = 0; i < products.length(); i++) {
                 JSONObject c = products.getJSONObject(i);
-                String kor_co_nm = c.getString(TAG_KOR_CO_NM);
-                String fin_prdt_nm = c.getString(TAG_FIN_PRDT_NM);
-                String highest_intr_rate = "최고 " + c.getString(TAG_HIGHEST_INTR_RATE) + "%";
-                String intr_rate_type = c.getString(TAG_INTR_RATE_TYPE).equals("S")?"단리":"복리";
-                String rsrv_type = c.getString(TAG_RSRV_TYPE).equals("S")?"정액적립식":"자유적립식";
+                String finCoName = c.getString(TAG_FINANCIAL_COMPANY_NAME);
+                String finPrdtName = c.getString(TAG_FINANCIAL_PRODUCT_NAME);
+                String highestIntrRate = "최고 " + c.getString(TAG_HIGHEST_INTEREST_RATE) + "%";
+                String intrRateTypeName = c.getString(TAG_INTEREST_RATE_TYPE).equals("S")?"단리":"복리";
+                String accrualTypeName = c.getString(TAG_ACCRUAL_TYPE).equals("S")?"정액적립식":"자유적립식";
 
-                HashMap<String, String> prdt_buff = new HashMap<String, String>();
+                HashMap<String, String> prdtBuff = new HashMap<String, String>();
 
-                prdt_buff.put(TAG_KOR_CO_NM, kor_co_nm);
-                prdt_buff.put(TAG_FIN_PRDT_NM, fin_prdt_nm);
-                prdt_buff.put(TAG_HIGHEST_INTR_RATE, highest_intr_rate);
-                prdt_buff.put(TAG_INTR_RATE_TYPE, intr_rate_type);
-                prdt_buff.put(TAG_RSRV_TYPE, rsrv_type);
+                prdtBuff.put(TAG_FINANCIAL_COMPANY_NAME, finCoName);
+                prdtBuff.put(TAG_FINANCIAL_PRODUCT_NAME, finPrdtName);
+                prdtBuff.put(TAG_HIGHEST_INTEREST_RATE, highestIntrRate);
+                prdtBuff.put(TAG_INTEREST_RATE_TYPE, intrRateTypeName);
+                prdtBuff.put(TAG_ACCRUAL_TYPE, accrualTypeName);
 
-                productList.add(prdt_buff);
+                productList.add(prdtBuff);
             }
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
                     ViewHistory.this, productList, R.layout.savings_list,
-                    new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_HIGHEST_INTR_RATE, TAG_INTR_RATE_TYPE, TAG_RSRV_TYPE},
-                    new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.highest_intr_rate, R.id.intr_rate_type_nm, R.id.rsrv_type_nm}
+                    new String[]{TAG_FINANCIAL_COMPANY_NAME, TAG_FINANCIAL_PRODUCT_NAME, TAG_HIGHEST_INTEREST_RATE, TAG_INTEREST_RATE_TYPE, TAG_ACCRUAL_TYPE},
+                    new int[]{R.id.fin_co_nm, R.id.fin_prdt_nm, R.id.highest_intr_rate, R.id.intr_rate_type_nm, R.id.accrual_type_nm}
             ){
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
-                    TextView intrRateTypeTextView = view.findViewById(R.id.intr_rate_type_nm);
-                    TextView rsrvTypeTextView = view.findViewById(R.id.rsrv_type_nm);
+                    TextView intrRateTypeNameTextView = view.findViewById(R.id.intr_rate_type_nm);
+                    TextView accrualTypeNameTextView = view.findViewById(R.id.accrual_type_nm);
 
-                    String intrRateType = productList.get(position).get(TAG_INTR_RATE_TYPE);
-                    String rsrvType = productList.get(position).get(TAG_RSRV_TYPE);
+                    String intrRateTypeName = productList.get(position).get(TAG_INTEREST_RATE_TYPE);
+                    String accrualTypeName = productList.get(position).get(TAG_ACCRUAL_TYPE);
 
-                    if (intrRateType != null) {
-                        if(intrRateType.equals("복리")){
-                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.orange)));
+                    if (intrRateTypeName != null) {
+                        if(intrRateTypeName.equals("복리")){
+                            intrRateTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.orange)));
                         }
                         else {
-                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.blue)));
+                            intrRateTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.blue)));
                         }
                     }
 
-                    if (rsrvType != null) {
-                        if(rsrvType.equals("자유적립식")){
-                            rsrvTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.mid_blue)));
+                    if (accrualTypeName != null) {
+                        if(accrualTypeName.equals("자유적립식")){
+                            accrualTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.mid_blue)));
                         }
                         else {
-                            rsrvTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.mid_green)));
+                            accrualTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.mid_green)));
                         }
                     }
                     return view;
@@ -347,52 +348,52 @@ public class ViewHistory extends AppCompatActivity {
     }
 
 
-    protected void showAspList() { // annuitySavingProducts
+    protected void showAspList() { // annuity_saving_products
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            products = jsonObj.getJSONArray(TAG_RESULTS);
+            products = jsonObj.getJSONArray(TAG_RESULT);
 
             productList.clear(); // 기존 데이터 클리어  => 클리어해야 제대로 갱신됨
 
             for (int i = 0; i < products.length(); i++) {
                 JSONObject c = products.getJSONObject(i);
-                String kor_co_nm = c.getString(TAG_KOR_CO_NM);
-                String fin_prdt_nm = c.getString(TAG_FIN_PRDT_NM);
-                String avg_prft_rate = "평균 " + c.getString(TAG_AVG_PRFT_RATE) + "%";
-                String pnsn_kind = c.getString(TAG_PNSN_KIND_NM);
+                String finCoName = c.getString(TAG_FINANCIAL_COMPANY_NAME);
+                String finPrdtName = c.getString(TAG_FINANCIAL_PRODUCT_NAME);
+                String avgPrftRate = "평균 " + c.getString(TAG_AVERAGE_PROFIT_RATE) + "%";
+                String pnsnTypeName = c.getString(TAG_PENSION_TYPE_NAME);
 
-                HashMap<String, String> prdt_buff = new HashMap<String, String>();
+                HashMap<String, String> prdtBuff = new HashMap<String, String>();
 
-                prdt_buff.put(TAG_KOR_CO_NM, kor_co_nm);
-                prdt_buff.put(TAG_FIN_PRDT_NM, fin_prdt_nm);
-                prdt_buff.put(TAG_AVG_PRFT_RATE, avg_prft_rate);
-                prdt_buff.put(TAG_PNSN_KIND_NM, pnsn_kind);
+                prdtBuff.put(TAG_FINANCIAL_COMPANY_NAME, finCoName);
+                prdtBuff.put(TAG_FINANCIAL_PRODUCT_NAME, finPrdtName);
+                prdtBuff.put(TAG_AVERAGE_PROFIT_RATE, avgPrftRate);
+                prdtBuff.put(TAG_PENSION_TYPE_NAME, pnsnTypeName);
 
-                productList.add(prdt_buff);
+                productList.add(prdtBuff);
             }
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
                     ViewHistory.this, productList, R.layout.annuity_saving_list,
-                    new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_AVG_PRFT_RATE, TAG_PNSN_KIND_NM},
-                    new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.avg_prft_rate, R.id.pnsn_kind_nm}
+                    new String[]{TAG_FINANCIAL_COMPANY_NAME, TAG_FINANCIAL_PRODUCT_NAME, TAG_AVERAGE_PROFIT_RATE, TAG_PENSION_TYPE_NAME},
+                    new int[]{R.id.fin_co_nm, R.id.fin_prdt_nm, R.id.avg_prft_rate, R.id.pnsn_type_nm}
             ){
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
-                    TextView pnsnKindTextView = view.findViewById(R.id.pnsn_kind_nm);
+                    TextView pnsnTypeNameTextView = view.findViewById(R.id.pnsn_type_nm);
 
-                    String pnsnKind = productList.get(position).get(TAG_PNSN_KIND_NM);
+                    String pnsnTypeName = productList.get(position).get(TAG_PENSION_TYPE_NAME);
 
-                    if (pnsnKind != null) {
-                        if(pnsnKind.equals("연금저축보험(생명)")){
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.purple_500)));
+                    if (pnsnTypeName != null) {
+                        if(pnsnTypeName.equals("연금저축보험(생명)")){
+                            pnsnTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.purple_500)));
                         }
-                        else if(pnsnKind.equals("연금저축보험(손해)")) {
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.purple_700)));
+                        else if(pnsnTypeName.equals("연금저축보험(손해)")) {
+                            pnsnTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.purple_700)));
                         }
                         else {
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.purple_200)));
+                            pnsnTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.purple_200)));
                         }
                     }
 
@@ -409,62 +410,62 @@ public class ViewHistory extends AppCompatActivity {
     }
 
 
-    protected void showLp12List(int value) {    // value = 1이면 rentHouseLoanProductsOptions(loan1), 아니면 mortgageLoanProductsOptions(loan2)
+    protected void showLp12List(int value) {    // value = 1이면 rent_house_loan_product_options, 아니면 mortgage_loan_product_options
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            products = jsonObj.getJSONArray(TAG_RESULTS);
+            products = jsonObj.getJSONArray(TAG_RESULT);
 
             productList.clear(); // 기존 데이터 클리어  => 클리어해야 제대로 갱신됨
 
             for (int i = 0; i < products.length(); i++) {
                 JSONObject c = products.getJSONObject(i);
-                String kor_co_nm = c.getString(TAG_KOR_CO_NM);
-                String fin_prdt_nm = c.getString(TAG_FIN_PRDT_NM);
-                String lend_rate_min = "최저 " + c.getString(TAG_LEND_RATE_MIN) + "%";
-                String lend_rate_type_nm = c.getString(TAG_LEND_RATE_TYPE_NM);
-                String rpay_type_nm = c.getString(TAG_RPAY_TYPE_NM).replace("방식", "");
+                String finCoName = c.getString(TAG_FINANCIAL_COMPANY_NAME);
+                String finPrdtName = c.getString(TAG_FINANCIAL_PRODUCT_NAME);
+                String minLoanRate = "최저 " + c.getString(TAG_MINIMUM_LOAN_RATE) + "%";
+                String loanRateType = c.getString(TAG_LOAN_RATE_TYPE);
+                String loanRpayType = c.getString(TAG_LOAN_REPAYMENT_TYPE).replace("방식", "");
 
-                HashMap<String, String> prdt_buff = new HashMap<String, String>();
+                HashMap<String, String> prdtBuff = new HashMap<String, String>();
 
-                prdt_buff.put(TAG_KOR_CO_NM, kor_co_nm);
-                prdt_buff.put(TAG_FIN_PRDT_NM, fin_prdt_nm);
-                prdt_buff.put(TAG_LEND_RATE_MIN, lend_rate_min);
-                prdt_buff.put(TAG_LEND_RATE_TYPE_NM, lend_rate_type_nm);
-                prdt_buff.put(TAG_RPAY_TYPE_NM, rpay_type_nm);
+                prdtBuff.put(TAG_FINANCIAL_COMPANY_NAME, finCoName);
+                prdtBuff.put(TAG_FINANCIAL_PRODUCT_NAME, finPrdtName);
+                prdtBuff.put(TAG_MINIMUM_LOAN_RATE, minLoanRate);
+                prdtBuff.put(TAG_LOAN_RATE_TYPE, loanRateType);
+                prdtBuff.put(TAG_LOAN_REPAYMENT_TYPE, loanRpayType);
 
-                productList.add(prdt_buff);
+                productList.add(prdtBuff);
             }
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
-                    ViewHistory.this, productList, (value == 1 ? R.layout.loan1_list : R.layout.loan2_list),
-                    new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_LEND_RATE_MIN, TAG_LEND_RATE_TYPE_NM, TAG_RPAY_TYPE_NM},
-                    new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.lend_rate_min, R.id.lend_rate_type_nm, R.id.rpay_type_nm}
+                    ViewHistory.this, productList, (value == 1 ? R.layout.rent_house_loan_list : R.layout.mortgage_loan_list),
+                    new String[]{TAG_FINANCIAL_COMPANY_NAME, TAG_FINANCIAL_PRODUCT_NAME, TAG_MINIMUM_LOAN_RATE, TAG_LOAN_RATE_TYPE, TAG_LOAN_REPAYMENT_TYPE},
+                    new int[]{R.id.fin_co_nm, R.id.fin_prdt_nm, R.id.min_loan_rate, R.id.loan_rate_type, R.id.loan_rpay_type}
             ){
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
-                    TextView lendRateTypeTextView = view.findViewById(R.id.lend_rate_type_nm);
-                    TextView rpayTypeTextView = view.findViewById(R.id.rpay_type_nm);
+                    TextView loanRateTypeTextView = view.findViewById(R.id.loan_rate_type);
+                    TextView loanRpayTypeTextView = view.findViewById(R.id.loan_rpay_type);
 
-                    String lendRateType = productList.get(position).get(TAG_LEND_RATE_TYPE_NM);
-                    String rpayType = productList.get(position).get(TAG_RPAY_TYPE_NM);
+                    String loanRateType = productList.get(position).get(TAG_LOAN_RATE_TYPE);
+                    String loanRpayType = productList.get(position).get(TAG_LOAN_REPAYMENT_TYPE);
 
-                    if (lendRateType != null) {
-                        if(lendRateType.equals("변동금리")){
-                            lendRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.teal_700)));
+                    if (loanRateType != null) {
+                        if(loanRateType.equals("변동금리")){
+                            loanRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.teal_700)));
                         }
                         else {
-                            lendRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.brown_green)));
+                            loanRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.brown_green)));
                         }
                     }
 
-                    if (rpayType != null) {
-                        if(rpayType.equals("분할상환")){
-                            rpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.magenta)));
+                    if (loanRpayType != null) {
+                        if(loanRpayType.equals("분할상환")){
+                            loanRpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.magenta)));
                         }
                         else {
-                            rpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.purple_700)));
+                            loanRpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.purple_700)));
                         }
                     }
                     return view;
@@ -483,49 +484,49 @@ public class ViewHistory extends AppCompatActivity {
     protected void showLp3List() {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            products = jsonObj.getJSONArray(TAG_RESULTS);
+            products = jsonObj.getJSONArray(TAG_RESULT);
 
             productList.clear(); // 기존 데이터 클리어  => 클리어해야 제대로 갱신됨
 
             for (int i = 0; i < products.length(); i++) {
                 JSONObject c = products.getJSONObject(i);
-                String kor_co_nm = c.getString(TAG_KOR_CO_NM);
-                String fin_prdt_nm = c.getString(TAG_FIN_PRDT_NM);
-                String lend_rate_min = "최저 " + c.getString(TAG_LEND_RATE_MIN) + "%";
-                String crdt_prdt_type_nm = c.getString(TAG_CRDT_PRDT_TYPE_NM);
+                String finCoName = c.getString(TAG_FINANCIAL_COMPANY_NAME);
+                String finPrdtName = c.getString(TAG_FINANCIAL_PRODUCT_NAME);
+                String lowestLoanRate = "최저 " + c.getString(TAG_LOWEST_LOAN_RATE) + "%";
+                String crdtPrdtTypeName = c.getString(TAG_CREDIT_PRODUCT_TYPE_NAME);
 
-                HashMap<String, String> prdt_buff = new HashMap<String, String>();
+                HashMap<String, String> prdtBuff = new HashMap<String, String>();
 
-                prdt_buff.put(TAG_KOR_CO_NM, kor_co_nm);
-                prdt_buff.put(TAG_FIN_PRDT_NM, fin_prdt_nm);
-                prdt_buff.put(TAG_LEND_RATE_MIN, lend_rate_min);
-                prdt_buff.put(TAG_CRDT_PRDT_TYPE_NM, crdt_prdt_type_nm);
+                prdtBuff.put(TAG_FINANCIAL_COMPANY_NAME, finCoName);
+                prdtBuff.put(TAG_FINANCIAL_PRODUCT_NAME, finPrdtName);
+                prdtBuff.put(TAG_LOWEST_LOAN_RATE, lowestLoanRate);
+                prdtBuff.put(TAG_CREDIT_PRODUCT_TYPE_NAME, crdtPrdtTypeName);
 
-                productList.add(prdt_buff);
+                productList.add(prdtBuff);
             }
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
-                    ViewHistory.this, productList, R.layout.loan3_list,
-                    new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_LEND_RATE_MIN, TAG_CRDT_PRDT_TYPE_NM},
-                    new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.lend_rate_min, R.id.crdt_prdt_type_nm}
+                    ViewHistory.this, productList, R.layout.credit_loan_list,
+                    new String[]{TAG_FINANCIAL_COMPANY_NAME, TAG_FINANCIAL_PRODUCT_NAME, TAG_LOWEST_LOAN_RATE, TAG_CREDIT_PRODUCT_TYPE_NAME},
+                    new int[]{R.id.fin_co_nm, R.id.fin_prdt_nm, R.id.lowest_loan_rate, R.id.crdt_prdt_type_nm}
             ){
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
-                    TextView crdtPrdtTypeTextView = view.findViewById(R.id.crdt_prdt_type_nm);
+                    TextView crdtPrdtTypeNameTextView = view.findViewById(R.id.crdt_prdt_type_nm);
 
-                    String crdtPrdtType = productList.get(position).get(TAG_CRDT_PRDT_TYPE_NM);
+                    String crdtPrdtTypeName = productList.get(position).get(TAG_CREDIT_PRODUCT_TYPE_NAME);
 
-                    if (crdtPrdtType != null) {
-                        if(crdtPrdtType.contains("일반신용대출")){
-                            crdtPrdtTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.magenta)));
+                    if (crdtPrdtTypeName != null) {
+                        if(crdtPrdtTypeName.contains("일반신용대출")){
+                            crdtPrdtTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.magenta)));
                         }
-                        else if(crdtPrdtType.equals("마이너스한도대출")){
-                            crdtPrdtTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.crown_flo)));
+                        else if(crdtPrdtTypeName.equals("마이너스한도대출")){
+                            crdtPrdtTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.crown_flo)));
                         }
                         else {
-                            crdtPrdtTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.mid_green)));
+                            crdtPrdtTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(ViewHistory.this, R.color.mid_green)));
                         }
                     }
                     return view;
@@ -576,22 +577,22 @@ public class ViewHistory extends AppCompatActivity {
                     // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
                     // 버튼 모두 활성화
-                    btn_deposit.setVisibility(btn_deposit.VISIBLE);
-                    btn_savings.setVisibility(btn_savings.VISIBLE);
-                    btn_annuity_saving.setVisibility(btn_annuity_saving.VISIBLE);
-                    btn_loan1.setVisibility(btn_loan1.VISIBLE);
-                    btn_loan2.setVisibility(btn_loan2.VISIBLE);
-                    btn_loan3.setVisibility(btn_loan3.VISIBLE);
+                    depositButton.setVisibility(depositButton.VISIBLE);
+                    savingsButton.setVisibility(savingsButton.VISIBLE);
+                    annuitySavingButton.setVisibility(annuitySavingButton.VISIBLE);
+                    rentHouseLoanButton.setVisibility(rentHouseLoanButton.VISIBLE);
+                    mortgageLoanButton.setVisibility(mortgageLoanButton.VISIBLE);
+                    creditLoanButton.setVisibility(creditLoanButton.VISIBLE);
 
 
                     // 적용된 버튼만 안 보이게 & showList
                     switch(prdtNum) {
-                        case "1": btn_deposit.setVisibility(btn_deposit.INVISIBLE); textView14.setText("정기 예금 최근 조회 기록"); showDpList(); break;
-                        case "2": btn_savings.setVisibility(btn_savings.INVISIBLE); textView14.setText("적금 최근 조회 기록"); showSpList(); break;
-                        case "3": btn_annuity_saving.setVisibility(btn_annuity_saving.INVISIBLE); textView14.setText("연금 저축 최근 조회 기록"); showAspList(); break;
-                        case "4": btn_loan1.setVisibility(btn_loan1.INVISIBLE); showLp12List(1); textView14.setText("전세 자금 대출 최근 조회 기록"); break;
-                        case "5": btn_loan2.setVisibility(btn_loan2.INVISIBLE); showLp12List(2); textView14.setText("주택 담보 대출 최근 조회 기록"); break;
-                        case "6": btn_loan3.setVisibility(btn_loan3.INVISIBLE); showLp3List(); textView14.setText("개인 신용 대출 최근 조회 기록"); break;
+                        case "1": depositButton.setVisibility(depositButton.INVISIBLE); titleTextView.setText("정기 예금 최근 조회 기록"); showDpList(); break;
+                        case "2": savingsButton.setVisibility(savingsButton.INVISIBLE); titleTextView.setText("적금 최근 조회 기록"); showSpList(); break;
+                        case "3": annuitySavingButton.setVisibility(annuitySavingButton.INVISIBLE); titleTextView.setText("연금 저축 최근 조회 기록"); showAspList(); break;
+                        case "4": rentHouseLoanButton.setVisibility(rentHouseLoanButton.INVISIBLE); titleTextView.setText("전세 자금 대출 최근 조회 기록"); showLp12List(1); break;
+                        case "5": mortgageLoanButton.setVisibility(mortgageLoanButton.INVISIBLE); titleTextView.setText("주택 담보 대출 최근 조회 기록"); showLp12List(2); break;
+                        case "6": creditLoanButton.setVisibility(creditLoanButton.INVISIBLE); titleTextView.setText("개인 신용 대출 최근 조회 기록"); showLp3List(); break;
                     }
                 }
             }

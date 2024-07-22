@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Loan1DetailScreen">
+    tools:context=".MortgageLoanDetailScreen">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/kor_co_nm"
+                android:id="@+id/fin_co_nm"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
@@ -64,8 +64,8 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/lend_rate_type_nm"
-                android:layout_width="80dp"
+                android:id="@+id/loan_rate_type"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
@@ -78,8 +78,8 @@
                 android:textSize="19dp" />
 
             <TextView
-                android:id="@+id/rpay_type_nm"
-                android:layout_width="160dp"
+                android:id="@+id/loan_rpay_type"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
@@ -92,7 +92,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/lend_rate_min1"
+            android:id="@+id/lowest_loan_rate"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -126,7 +126,7 @@
                     android:textSize="15dp"/>
 
                 <TextView
-                    android:id="@+id/lend_rate_min"
+                    android:id="@+id/min_loan_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -153,7 +153,7 @@
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/lend_rate_avg"
+                    android:id="@+id/avg_loan_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -179,7 +179,7 @@
                     android:textSize="15dp"/>
 
                 <TextView
-                    android:id="@+id/lend_rate_max"
+                    android:id="@+id/max_loan_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -190,7 +190,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -202,7 +202,29 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/dcls_strt_end_day"
+            android:id="@+id/dscl_strt_end_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="날짜"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="담보유형"
+            android:textSize="20dp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/mrtg_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -328,7 +350,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/dcls_chrg_man"
+            android:id="@+id/dscl_officer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

@@ -104,7 +104,7 @@
             tools:layout_editor_absoluteY="296dp" />
 
         <Button
-            android:id="@+id/btn_saving"
+            android:id="@+id/btn_annuity_saving"
             android:layout_width="420dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="0sp"
@@ -161,7 +161,7 @@
             tools:layout_editor_absoluteY="591dp" />
 
         <Button
-            android:id="@+id/btn_loan1"
+            android:id="@+id/btn_rent_house_loan"
             android:layout_width="420dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5sp"
@@ -182,7 +182,7 @@
         tools:layout_editor_absoluteY="448dp" />
 
         <Button
-            android:id="@+id/btn_loan2"
+            android:id="@+id/btn_mortgage_loan"
             android:layout_width="420dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5sp"
@@ -203,7 +203,7 @@
         tools:layout_editor_absoluteY="516dp" />
 
         <Button
-            android:id="@+id/btn_loan3"
+            android:id="@+id/btn_credit_loan"
             android:layout_width="420dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5sp"

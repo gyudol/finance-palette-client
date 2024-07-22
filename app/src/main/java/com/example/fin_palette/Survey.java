@@ -24,7 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Survey extends AppCompatActivity {
-    Button btn_finish;
+    Button saveButton;
 
     JSONArray products = null;
 
@@ -36,7 +36,7 @@ public class Survey extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.survey);
 
-        String URL = apiEndpoint + "/userinfo_survey_upd.php"; // IP주소에 맞게 수정 필요
+        String URL = apiEndpoint + "/userinfo_survey_upd.php"; // API Endpoint에 맞게 수정 필요
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,31 +48,31 @@ public class Survey extends AppCompatActivity {
             }
         });
 
-        RadioGroup rg_age = findViewById(R.id.rg_age);
-        RadioGroup rg_gender = findViewById(R.id.rg_gender);
-        RadioGroup rg_select1 = findViewById(R.id.rg_select1);
-        RadioGroup rg_select2 = findViewById(R.id.rg_select2);
-        RadioGroup rg_select3 = findViewById(R.id.rg_select3);
-        RadioGroup rg_select4 = findViewById(R.id.rg_select4);
-        RadioGroup rg_select5 = findViewById(R.id.rg_select5);
+        RadioGroup ageDistRadGroup = findViewById(R.id.rg_age_dist);
+        RadioGroup sexRadGroup = findViewById(R.id.rg_sex);
+        RadioGroup sel3RadGroup = findViewById(R.id.rg_select1);
+        RadioGroup sel4RadGroup = findViewById(R.id.rg_select2);
+        RadioGroup sel5RadGroup = findViewById(R.id.rg_select3);
+        RadioGroup sel6RadGroup = findViewById(R.id.rg_select4);
+        RadioGroup sel7RadGroup = findViewById(R.id.rg_select5);
 
-        btn_finish = findViewById(R.id.btn_finish);
-        btn_finish.setOnClickListener(view -> {     // 사전조사 데이터 DB에 저장하고
+        saveButton = findViewById(R.id.btn_save);
+        saveButton.setOnClickListener(view -> {     // 사전조사 데이터 DB에 저장하고
 
             // 선택된 라디오 그룹들의 선택된 아이디를 가져와 초기값을 설정합니다.
             String ageDistValue = "0";      // 선택 안 한 건 0
-            String preferValue = "";
+            String tendValue = "";
 
             // 첫 번째 라디오 그룹 처리
-            int checkedRadioIdGroup1 = rg_age.getCheckedRadioButtonId();
+            int checkedRadioIdGroup1 = ageDistRadGroup.getCheckedRadioButtonId();
             if (checkedRadioIdGroup1 != -1) {       // 라디오 버튼 선택됐을 때 (선택 안 됐으면 그대로)
                 RadioButton radioButton = findViewById(checkedRadioIdGroup1);
-                int selectedRadioGroup1 = rg_age.indexOfChild(radioButton) + 1;
+                int selectedRadioGroup1 = ageDistRadGroup.indexOfChild(radioButton) + 1;
                 ageDistValue = (selectedRadioGroup1 * 10) + "";
             }
 
             // 나머지 라디오 그룹들 처리
-            RadioGroup [] otherRadioGroups = {rg_gender, rg_select1, rg_select2, rg_select3, rg_select4, rg_select5};
+            RadioGroup [] otherRadioGroups = {sexRadGroup, sel3RadGroup, sel4RadGroup, sel5RadGroup, sel6RadGroup, sel7RadGroup};
             for (int i = 0; i < otherRadioGroups.length; i++) {
                 RadioGroup currentRadioGroup = otherRadioGroups[i];
                 int checkedRadioId = currentRadioGroup.getCheckedRadioButtonId();
@@ -80,14 +80,14 @@ public class Survey extends AppCompatActivity {
                 if (checkedRadioId != -1) {         // 라디오 버튼 선택됐을 때
                     RadioButton radioButton = findViewById(checkedRadioId);
                     int selectedRadio = currentRadioGroup.indexOfChild(radioButton) + 1;
-                    preferValue += selectedRadio;
+                    tendValue += selectedRadio;
                 }
                 else {          // 선택 안 됐으면 0 붙여줌
-                    preferValue += 0;
+                    tendValue += 0;
                 }
             }
-
-            setData(URL, ageDistValue, preferValue);
+            AaidManager am = new AaidManager();
+            setData(URL, ageDistValue, tendValue, am.aaid);
 
 
             /////////////////////////////////// MainActivity로 이동
@@ -132,16 +132,17 @@ public class Survey extends AppCompatActivity {
 
     }
 
-    public void setData(String url, String age_dist, String prefer) {
+    public void setData(String url, String ageDist, String investmentTend, String aaid) {
         class SetDataJSON extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
                 String uri = params[0];
-                String age_dist = params[1]; // 추가된 파라미터 a, b
-                String prefer = params[2];
+                String ageDist = params[1];
+                String investmentTend = params[2];
+                String aaid = params[3];
 
                 try {
-                    URL url = new URL(uri + "?user_name=금린이&age_dist=" + age_dist + "&prefer=" + prefer);
+                    URL url = new URL(uri + "?aaid=" + aaid + "&ageDist=" + ageDist + "&investmentTend=" + investmentTend);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                     StringBuilder sb = new StringBuilder();
@@ -168,6 +169,6 @@ public class Survey extends AppCompatActivity {
         }
 
         SetDataJSON g = new SetDataJSON();
-        g.execute(url, age_dist, prefer);
+        g.execute(url, ageDist, investmentTend, aaid);
     }
 }

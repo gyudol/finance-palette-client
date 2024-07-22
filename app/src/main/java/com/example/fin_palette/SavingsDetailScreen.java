@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,35 +26,36 @@ import java.text.DecimalFormat;
 
 public class SavingsDetailScreen extends AppCompatActivity {
 
-    Button btn_home;
+    Button homeButton;
 
     String myJSON;
-    String finPrdtCd;
+    String finPrdtId;
     String intrRateType;
-    String rsrvType;
-    String fin_prdt_num_cd;
+    String accrualType;
+    String bookmarkId;
+    String historyId;
 
-    private static final String TAG_RESULTS = "result";
-    private static final String TAG_KOR_CO_NM = "kor_co_nm";
-    private static final String TAG_FIN_PRDT_NM = "fin_prdt_nm";
-    private static final String TAG_INTR_RATE_TYPE_NM = "intr_rate_type_nm";
-    private static final String TAG_RSRV_TYPE_NM = "rsrv_type_nm";
-    private static final String TAG_INTR_RATE_MAX = "intr_rate_max";
-    private static final String TAG_INTR_RATE_1 = "intr_rate_1";
-    private static final String TAG_INTR_RATE_3 = "intr_rate_3";
-    private static final String TAG_INTR_RATE_6 = "intr_rate_6";
-    private static final String TAG_INTR_RATE_12 = "intr_rate_12";
-    private static final String TAG_INTR_RATE_24 = "intr_rate_24";
-    private static final String TAG_INTR_RATE_36 = "intr_rate_36";
-    private static final String TAG_DLCS_STRT_END_DAY = "dcls_strt_end_day";
-    private static final String TAG_JOIN_MEMBER = "join_member";
-    private static final String TAG_JOIN_DENY = "join_deny";
-    private static final String TAG_MAX_LIMIT = "max_limit";
-    private static final String TAG_SPCL_CND = "spcl_cnd";
-    private static final String TAG_MTRT_INT = "mtrt_int";
+    private static final String TAG_RESULT = "result";
+    private static final String TAG_FINANCIAL_COMPANY_NAME = "financial_company_name";
+    private static final String TAG_FINANCIAL_PRODUCT_NAME = "financial_product_name";
+    private static final String TAG_INTEREST_RATE_TYPE_NAME = "interest_rate_type_name";
+    private static final String TAG_ACCRUAL_TYPE_NAME = "accrual_type_name";
+    private static final String TAG_HIGHEST_INTEREST_RATE = "highest_interest_rate";
+    private static final String TAG_INTEREST_RATE_1 = "interest_rate_1";
+    private static final String TAG_INTEREST_RATE_3 = "interest_rate_3";
+    private static final String TAG_INTEREST_RATE_6 = "interest_rate_6";
+    private static final String TAG_INTEREST_RATE_12 = "interest_rate_12";
+    private static final String TAG_INTEREST_RATE_24 = "interest_rate_24";
+    private static final String TAG_INTEREST_RATE_36 = "interest_rate_36";
+    private static final String TAG_DISCLOSURE_START_TO_END_DATE = "disclosure_start_to_end_date";
+    private static final String TAG_JOIN_TARGET = "join_target";
+    private static final String TAG_JOIN_RESTRICTION = "join_restriction";
+    private static final String TAG_MAXIMUM_LIMIT = "maximum_limit";
+    private static final String TAG_PREFERENTIAL_CONDITION = "preferential_condition";
+    private static final String TAG_INTEREST_RATE_AFTER_MATURITY = "interest_rate_after_maturity";
     private static final String TAG_JOIN_WAY = "join_way";
-    private static final String TAG_ETC_NOTE= "etc_note";
-    private static final String TAG_DCLS_CHRG_MAN = "dcls_chrg_man";
+    private static final String TAG_OTHER_PRECAUTION= "other_precaution";
+    private static final String TAG_DISCLOSURE_OFFICER = "disclosure_officer";
 
 
     JSONArray products = null;
@@ -70,27 +72,27 @@ public class SavingsDetailScreen extends AppCompatActivity {
         // Intent에서 Extra로 전달된 데이터 받아오기
         Intent intentGet = getIntent();
         if (intentGet != null) {
-            String receivedFinPrdtCd = intentGet.getStringExtra("finPrdtCd");
+            String receivedfinPrdtId = intentGet.getStringExtra("finPrdtId");
             String receivedIntrRateType = intentGet.getStringExtra("intrRateType");
-            String receivedRsrvType = intentGet.getStringExtra("rsrvType");
+            String receivedAccrualType = intentGet.getStringExtra("accrualType");
 
             // 받아온 값 확인
-            if (receivedFinPrdtCd != null && receivedIntrRateType != null && receivedRsrvType != null) {
-                finPrdtCd = intentGet.getStringExtra("finPrdtCd");
+            if (receivedfinPrdtId != null && receivedIntrRateType != null && receivedAccrualType != null) {
+                finPrdtId = intentGet.getStringExtra("finPrdtId");
                 intrRateType = intentGet.getStringExtra("intrRateType");
-                rsrvType = intentGet.getStringExtra("rsrvType");
+                accrualType = intentGet.getStringExtra("accrualType");
 
-                getData(apiEndpoint + "/savings_int.php", finPrdtCd, intrRateType, rsrvType);
+                getData(apiEndpoint + "/savings_int.php", finPrdtId, intrRateType, accrualType);
             }
         }
 
 
         //////////////////////// 북마크 /////////////////////////////////
         ImageView star = findViewById(R.id.bookmark);
-        fin_prdt_num_cd = 2 + "_" + finPrdtCd + '_' + intrRateType + '_' + rsrvType;
+        bookmarkId = historyId = 2 + "_" + finPrdtId + '_' + intrRateType + '_' + accrualType;
         BookmarkManager bs = new BookmarkManager(this);
         AaidManager am = new AaidManager();
-        bs.getData(apiEndpoint + "/bookmark_chk.php", fin_prdt_num_cd, am.aaid, star);
+        bs.getData(apiEndpoint + "/bookmark_chk.php", bookmarkId, am.aaid, star);
 
         star.setOnClickListener(new View.OnClickListener() {   // 북마크 이미지 뷰 클릭하면 북마크 기능
             @Override
@@ -98,18 +100,18 @@ public class SavingsDetailScreen extends AppCompatActivity {
                 if(bs.marked) star.setImageResource(R.drawable.empty_star_small);
                 else star.setImageResource(R.drawable.full_star_small);
 
-                bs.setData(apiEndpoint + "/bookmark_upd.php", 2, finPrdtCd, intrRateType + '_' + rsrvType, am.aaid);
+                bs.setData(apiEndpoint + "/bookmark_upd.php", 2, finPrdtId, intrRateType + '_' + accrualType, am.aaid);
             }
         });
 
 
         ///////////////////////////////// 조회 기록
         ViewHistoryManager vs = new ViewHistoryManager(this);
-        vs.getData(apiEndpoint, fin_prdt_num_cd, am.aaid, 2, finPrdtCd, intrRateType + '_' + rsrvType);
+        vs.getData(apiEndpoint, historyId, am.aaid, 2, finPrdtId, intrRateType + '_' + accrualType);
 
 
-        btn_home = findViewById(R.id.btn_home);
-        btn_home.setOnClickListener(view -> {
+        homeButton = findViewById(R.id.btn_home);
+        homeButton.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         });
@@ -127,60 +129,60 @@ public class SavingsDetailScreen extends AppCompatActivity {
 
     protected void showWindow() {
         try {
-            TextView kor_co_nm = findViewById(R.id.kor_co_nm);
-            TextView fin_prdt_nm = findViewById(R.id.fin_prdt_nm);
-            TextView intr_rate_type_nm = findViewById(R.id.intr_rate_type_nm);
-            TextView rsrv_type_nm = findViewById(R.id.rsrv_type_nm);
-            TextView intr_rate_max = findViewById(R.id.intr_rate_max);
-            TextView intr_rate_1 = findViewById(R.id.intr_rate_1);
-            TextView intr_rate_3 = findViewById(R.id.intr_rate_3);
-            TextView intr_rate_6 = findViewById(R.id.intr_rate_6);
-            TextView intr_rate_12 = findViewById(R.id.intr_rate_12);
-            TextView intr_rate_24 = findViewById(R.id.intr_rate_24);
-            TextView intr_rate_36 = findViewById(R.id.intr_rate_36);
-            TextView dcls_strt_end_day = findViewById(R.id.dcls_strt_end_day);
-            TextView join_member = findViewById(R.id.join_member);
-            TextView join_deny = findViewById(R.id.join_deny);
-            TextView max_limit = findViewById(R.id.max_limit);
-            TextView spcl_cnd = findViewById(R.id.spcl_cnd);
-            TextView mtrt_int = findViewById(R.id.mtrt_int);
-            TextView join_way = findViewById(R.id.join_way);
-            TextView etc_note = findViewById(R.id.etc_note);
-            TextView dcls_chrg_man = findViewById(R.id.dcls_chrg_man);
+            TextView finCoNameTextView = findViewById(R.id.fin_co_nm);
+            TextView finPrdtNameTextView = findViewById(R.id.fin_prdt_nm);
+            TextView intrRateTypeNameTextView = findViewById(R.id.intr_rate_type_nm);
+            TextView accrualTypeNameTextView = findViewById(R.id.accrual_type_nm);
+            TextView highestIntrRateTextView = findViewById(R.id.highest_intr_rate);
+            TextView intrRate1TextView = findViewById(R.id.intr_rate_1);
+            TextView intrRate3TextView = findViewById(R.id.intr_rate_3);
+            TextView intrRate6TextView = findViewById(R.id.intr_rate_6);
+            TextView intrRate12TextView = findViewById(R.id.intr_rate_12);
+            TextView intrRate24TextView = findViewById(R.id.intr_rate_24);
+            TextView intrRate36TextView = findViewById(R.id.intr_rate_36);
+            TextView dsclStrtEndDayTextView = findViewById(R.id.dscl_strt_end_day);
+            TextView joinTargetTextView = findViewById(R.id.join_target);
+            TextView joinRestrictionTextView = findViewById(R.id.join_restriction);
+            TextView maxLimitTextView = findViewById(R.id.max_limit);
+            TextView preferCndTextView = findViewById(R.id.prefer_cnd);
+            TextView intrRateAfterMtrtTextView = findViewById(R.id.intr_rate_after_mtrt);
+            TextView joinWayTextView = findViewById(R.id.join_way);
+            TextView otherPrecTextView = findViewById(R.id.other_prec);
+            TextView dsclOfficerTextView = findViewById(R.id.dscl_officer);
 
             JSONObject jsonObj = new JSONObject(myJSON);
-            products = jsonObj.getJSONArray(TAG_RESULTS);
+            products = jsonObj.getJSONArray(TAG_RESULT);
 
             JSONObject c = products.getJSONObject(0);
-            kor_co_nm.setText(isNull(c.getString(TAG_KOR_CO_NM)));
-            fin_prdt_nm.setText(isNull(c.getString(TAG_FIN_PRDT_NM)));
-            intr_rate_type_nm.setText(isNull(c.getString(TAG_INTR_RATE_TYPE_NM)));
-            rsrv_type_nm.setText(isNull(c.getString(TAG_RSRV_TYPE_NM)));
-            intr_rate_max.setText("최고 " + isNull(c.getString(TAG_INTR_RATE_MAX)) + "%");
-            intr_rate_1.setText(isNull(c.getString(TAG_INTR_RATE_1)) + "%");
-            intr_rate_3.setText(isNull(c.getString(TAG_INTR_RATE_3)) + "%");
-            intr_rate_6.setText(isNull(c.getString(TAG_INTR_RATE_6)) + "%");
-            intr_rate_12.setText(isNull(c.getString(TAG_INTR_RATE_12)) + "%");
-            intr_rate_24.setText(isNull(c.getString(TAG_INTR_RATE_24)) + "%");
-            intr_rate_36.setText(isNull(c.getString(TAG_INTR_RATE_36)) + "%");
-            dcls_strt_end_day.setText(isNull(c.getString(TAG_DLCS_STRT_END_DAY)));
-            join_member.setText(isNull(c.getString(TAG_JOIN_MEMBER)));
-            join_deny.setText(isNull(c.getString(TAG_JOIN_DENY)).equals("1")?"제한 없음":
-                    isNull(c.getString(TAG_JOIN_DENY)).equals("2")?"서민 전용":isNull(c.getString(TAG_JOIN_DENY)).equals("2")?"일부 제한":"");
-            max_limit.setText(toAmount(isNull(c.getString(TAG_MAX_LIMIT))));
-            spcl_cnd.setText(isNull(c.getString(TAG_SPCL_CND)));
-            mtrt_int.setText(isNull(c.getString(TAG_MTRT_INT)));
-            join_way.setText(isNull(c.getString(TAG_JOIN_WAY)));
-            etc_note.setText(isNull(c.getString(TAG_ETC_NOTE)));
-            dcls_chrg_man.setText(isNull(c.getString(TAG_DCLS_CHRG_MAN)));
+            finCoNameTextView.setText(nullToSpace(c.getString(TAG_FINANCIAL_COMPANY_NAME)));
+            finPrdtNameTextView.setText(nullToSpace(c.getString(TAG_FINANCIAL_PRODUCT_NAME)));
+            intrRateTypeNameTextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_TYPE_NAME)));
+            accrualTypeNameTextView.setText(nullToSpace(c.getString(TAG_ACCRUAL_TYPE_NAME)));
+            highestIntrRateTextView.setText("최고 " + nullToSpace(c.getString(TAG_HIGHEST_INTEREST_RATE)) + "%");
+            intrRate1TextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_1)) + "%");
+            intrRate3TextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_3)) + "%");
+            intrRate6TextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_6)) + "%");
+            intrRate12TextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_12)) + "%");
+            intrRate24TextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_24)) + "%");
+            intrRate36TextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_36)) + "%");
+            dsclStrtEndDayTextView.setText(nullToSpace(c.getString(TAG_DISCLOSURE_START_TO_END_DATE)));
+            joinTargetTextView.setText(nullToSpace(c.getString(TAG_JOIN_TARGET)));
+            joinRestrictionTextView.setText(nullToSpace(c.getString(TAG_JOIN_RESTRICTION)).equals("1")?"제한 없음":
+                    nullToSpace(c.getString(TAG_JOIN_RESTRICTION)).equals("2")?"서민 전용":nullToSpace(c.getString(TAG_JOIN_RESTRICTION)).equals("2")?"일부 제한":"");
+            maxLimitTextView.setText(toAmount(nullToSpace(c.getString(TAG_MAXIMUM_LIMIT))));
+            preferCndTextView.setText(nullToSpace(c.getString(TAG_PREFERENTIAL_CONDITION)));
+            intrRateAfterMtrtTextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_AFTER_MATURITY)));
+            joinWayTextView.setText(nullToSpace(c.getString(TAG_JOIN_WAY)));
+            otherPrecTextView.setText(nullToSpace(c.getString(TAG_OTHER_PRECAUTION)));
+            dsclOfficerTextView.setText(nullToSpace(c.getString(TAG_DISCLOSURE_OFFICER)));
 
-            if(intr_rate_type_nm.getText().toString().equals("복리")) {
+            if(intrRateTypeNameTextView.getText().toString().equals("복리")) {
 //                Toast.makeText(getApplicationContext(), "color changed", Toast.LENGTH_SHORT).show();
-                intr_rate_type_nm.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.orange)));
+                intrRateTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.orange)));
             }
-            if(rsrv_type_nm.getText().toString().equals("자유적립식")) {
+            if(accrualTypeNameTextView.getText().toString().equals("자유적립식")) {
 //                Toast.makeText(getApplicationContext(), "color changed", Toast.LENGTH_SHORT).show();
-                rsrv_type_nm.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.mid_blue)));
+                accrualTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.mid_blue)));
             }
 
         } catch (JSONException e) {
@@ -189,7 +191,7 @@ public class SavingsDetailScreen extends AppCompatActivity {
 
     }
 
-    public String isNull(String str) {
+    public String nullToSpace(String str) {
         if(str.equals("null")) return "";
         else return str;
     }
@@ -204,19 +206,19 @@ public class SavingsDetailScreen extends AppCompatActivity {
     }
 
 
-    public void getData(String url, String finPrdtCd, String intrRateType, String rsrvType) {
+    public void getData(String url, String finPrdtId, String intrRateType, String accrualType) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
             // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
             @Override
             protected String doInBackground(String... params) {
 
                 String uri = params[0];
-                String finPrdtCd = params[1]; // 추가된 파라미터 finPrdtCd
+                String finPrdtId = params[1]; // 추가된 파라미터 finPrdtId
                 String intrRateType = params[2];
-                String rsrvType = params[3];
+                String accrualType = params[3];
 
                 try {
-                    URL url = new URL(uri + "?finPrdtCd=" + finPrdtCd + "&intrRateType=" + intrRateType + "&rsrvType=" + rsrvType); // 파라미터를 URL에 추가
+                    URL url = new URL(uri + "?finPrdtId=" + finPrdtId + "&intrRateType=" + intrRateType + "&accrualType=" + accrualType); // 파라미터를 URL에 추가
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -233,7 +235,7 @@ public class SavingsDetailScreen extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
                 if(result != null) {
-//                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                     myJSON = result;
                     showWindow();
                 }
@@ -241,6 +243,6 @@ public class SavingsDetailScreen extends AppCompatActivity {
         }
 
         GetDataJSON g = new GetDataJSON();
-        g.execute(url, finPrdtCd, intrRateType, rsrvType);      // 아래도 수정 필요!
+        g.execute(url, finPrdtId, intrRateType, accrualType);      // 아래도 수정 필요!
     }
 }

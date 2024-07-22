@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Loan1"
+    tools:context=".RentHouseLoan"
     android:orientation="vertical" >
 
     <androidx.appcompat.widget.Toolbar
@@ -20,7 +20,7 @@
         app:title="금융팔레트"/>
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -44,7 +44,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/btn_loan2"
+            android:id="@+id/btn_mortgage_loan"
             android:layout_width="3dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
@@ -55,7 +55,7 @@
             android:textSize="15dp" />
 
         <Button
-            android:id="@+id/btn_loan3"
+            android:id="@+id/btn_credit_loan"
             android:layout_width="3dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -101,14 +101,14 @@
         </Spinner>
 
         <ImageView
-            android:id="@+id/image1"
+            android:id="@+id/img_view_find"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/find_icon"/>
     </LinearLayout>
 
 
-    <!--       loan1_list.xml에 요소 추가        -->
+    <!--       rent_house_loan_list.xml에 요소 추가        -->
     <ListView
         android:id="@+id/listViewLp1"
         android:layout_width="match_parent"

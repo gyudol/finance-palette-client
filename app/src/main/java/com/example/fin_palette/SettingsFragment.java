@@ -22,9 +22,9 @@ import java.net.URL;
 
 public class SettingsFragment extends Fragment {
     private View view;
-    private Button btn_mySurvey;
-    private Button btn_myBookmark;
-    private Button btn_myViewHistory;
+    private Button mySurveyButton;
+    private Button myBookmarkButton;
+    private Button myViewHistoryButton;
 
     @Nullable
     @Override
@@ -34,16 +34,16 @@ public class SettingsFragment extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-        btn_mySurvey = (Button) view.findViewById(R.id.btn_mySurvey);
-        btn_myBookmark = (Button) view.findViewById(R.id.btn_myBookmark);
-        btn_myViewHistory = (Button) view.findViewById(R.id.btn_myViewHistory);
+        mySurveyButton = (Button) view.findViewById(R.id.btn_my_survey);
+        myBookmarkButton = (Button) view.findViewById(R.id.btn_my_bookmark);
+        myViewHistoryButton = (Button) view.findViewById(R.id.btn_my_view_history);
         
         ApiServerManager asm = new ApiServerManager();
         String apiEndpoint = asm.getApiEndpoint();
 
         AaidManager am = new AaidManager();
 
-        btn_mySurvey.setOnClickListener(new View.OnClickListener() {
+        mySurveyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), Survey.class);
@@ -52,17 +52,17 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        btn_myBookmark.setOnClickListener(new View.OnClickListener() {
+        myBookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getMostData(apiEndpoint + "/bookmark_ext_most_stars.php", am.aaid, true); // IP주소에 맞게 수정 필요
+                getMostData(apiEndpoint + "/most_stars.php", am.aaid, true); // API Endpoint에 맞게 수정 필요
             }
         });
 
-        btn_myViewHistory.setOnClickListener(new View.OnClickListener() {
+        myViewHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getMostData(apiEndpoint + "/most_recent_view.php", am.aaid, false); // IP주소에 맞게 수정 필요
+                getMostData(apiEndpoint + "/most_recent_view.php", am.aaid, false); // API Endpoint에 맞게 수정 필요
             }
         });
 

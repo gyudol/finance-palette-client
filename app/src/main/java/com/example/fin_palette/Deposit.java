@@ -35,20 +35,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Deposit extends AppCompatActivity {
-    Button btn_savings;
-    Button btn_annuity_saving;
+    Button savingsButton;
+    Button annuitySavingButton;
 
     Spinner spinner1;
     Spinner spinner2;
 
     String myJSON;
 
-    private static final String TAG_RESULTS = "result";
-    private static final String TAG_KOR_CO_NM = "kor_co_nm";
-    private static final String TAG_FIN_PRDT_NM = "fin_prdt_nm";
-    private static final String TAG_HIGHEST_INTR_RATE = "highest_intr_rate";
-    private static final String TAG_FIN_PRDT_CD = "fin_prdt_cd";
-    private static final String TAG_INTR_RATE_TYPE = "intr_rate_type";
+    private static final String TAG_RESULT = "result";
+    private static final String TAG_FINANCIAL_COMPANY_NAME = "financial_company_name";
+    private static final String TAG_FINANCIAL_PRODUCT_NAME = "financial_product_name";
+    private static final String TAG_HIGHEST_INTEREST_RATE = "highest_interest_rate";
+    private static final String TAG_FINANCIAL_PRODUCT_ID = "financial_product_id";
+    private static final String TAG_INTEREST_RATE_TYPE = "interest_rate_type";
     JSONArray products = null;
 
     ArrayList<HashMap<String, String>> productList;
@@ -67,7 +67,7 @@ public class Deposit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.deposit);
-        list = (ListView) findViewById(R.id.listViewDp);
+        list = findViewById(R.id.listViewDp);
         productList = new ArrayList<HashMap<String, String>>();
 
         // SharedPreferences를 사용하여 데이터 초기화
@@ -83,17 +83,17 @@ public class Deposit extends AppCompatActivity {
         editor.apply();
 
         // onResume에서 실행됨
-        // getData(apiEndpoint + "/deposit_ext.php", "0", "0"); // IP주소에 맞게 수정 필요 (Default: 0, 0)
+        // getData(apiEndpoint + "/deposit_ext.php", "0", "0"); // API Endpoint에 맞게 수정 필요 (Default: 0, 0)
 
-        btn_savings = findViewById(R.id.btn_savings);
-        btn_savings.setOnClickListener(view -> {
+        savingsButton = findViewById(R.id.btn_savings);
+        savingsButton.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), Savings.class);
             startActivity(intent);
             finish();   // 현재 Activity를 스택에서 제거 (뒤로 가기 하면 메인 화면으로)
         });
 
-        btn_annuity_saving = findViewById(R.id.btn_annuity_saving);
-        btn_annuity_saving.setOnClickListener(view -> {
+        annuitySavingButton = findViewById(R.id.btn_annuity_saving);
+        annuitySavingButton.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), AnnuitySaving.class);
             startActivity(intent);
             finish();   // 현재 Activity를 스택에서 제거 (뒤로 가기 하면 메인 화면으로)
@@ -147,7 +147,7 @@ public class Deposit extends AppCompatActivity {
         });
 
         //////////////////////// 이미지 뷰 /////////////////////////////////
-        ImageView imageView = findViewById(R.id.image1);
+        ImageView imageView = findViewById(R.id.img_view_find);
 
         imageView.setOnClickListener(new View.OnClickListener() {   // 돋보기 이미지 뷰 클릭하면 조건에 맞게 필터링
             @Override
@@ -168,15 +168,15 @@ public class Deposit extends AppCompatActivity {
                     // 클릭된 위치(position)에 해당하는 JSON 객체 가져오기
                     JSONObject clickedItem = products.getJSONObject(itemNo = position);
 
-                    // 클릭된 아이템의 'fin_prdt_nm' 값 가져오기
-                    String finPrdtCd = clickedItem.getString(TAG_FIN_PRDT_CD);
-                    String intrRateType = clickedItem.getString(TAG_INTR_RATE_TYPE);
+                    // 클릭된 아이템의 'finPrdtId' 값 가져오기
+                    String finPrdtId = clickedItem.getString(TAG_FINANCIAL_PRODUCT_ID);
+                    String intrRateType = clickedItem.getString(TAG_INTEREST_RATE_TYPE);
 
                     // Toast.makeText(getApplicationContext(), "Clicked item's intrRateType: " + intrRateType, Toast.LENGTH_SHORT).show();
 
                     // Intent를 사용하여 Deposit_detail_screen.java로 데이터를 전달하고 화면을 전환
                     Intent intent = new Intent(Deposit.this, DepositDetailScreen.class);
-                    intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
+                    intent.putExtra("finPrdtId", finPrdtId); // 클릭된 finPrdtId 값을 "finPrdtId"이란 이름의 Extra로 전달
                     intent.putExtra("intrRateType", intrRateType);
                     startActivity(intent); // Deposit_detail_screen.java로 화면 전환
 
@@ -229,46 +229,46 @@ public class Deposit extends AppCompatActivity {
     protected void showList() {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            products = jsonObj.getJSONArray(TAG_RESULTS);
+            products = jsonObj.getJSONArray(TAG_RESULT);
 
             productList.clear(); // 기존 데이터 클리어  => 클리어해야 제대로 갱신됨
 
             for (int i = 0; i < products.length(); i++) {
                 JSONObject c = products.getJSONObject(i);
-                String kor_co_nm = c.getString(TAG_KOR_CO_NM);
-                String fin_prdt_nm = c.getString(TAG_FIN_PRDT_NM);
-                String highest_intr_rate = "최고 " + c.getString(TAG_HIGHEST_INTR_RATE) + "%";
-                String intr_rate_type = (c.getString(TAG_INTR_RATE_TYPE)).equals("S")?"단리":"복리";
+                String finCoName = c.getString(TAG_FINANCIAL_COMPANY_NAME);
+                String finPrdtName = c.getString(TAG_FINANCIAL_PRODUCT_NAME);
+                String highestIntrRate = "최고 " + c.getString(TAG_HIGHEST_INTEREST_RATE) + "%";
+                String intrRateTypeName = (c.getString(TAG_INTEREST_RATE_TYPE)).equals("S")?"단리":"복리";
 
-                HashMap<String, String> prdt_buff = new HashMap<String, String>();
+                HashMap<String, String> prdtBuff = new HashMap<String, String>();
 
-                prdt_buff.put(TAG_KOR_CO_NM, kor_co_nm);
-                prdt_buff.put(TAG_FIN_PRDT_NM, fin_prdt_nm);
-                prdt_buff.put(TAG_HIGHEST_INTR_RATE, highest_intr_rate);
-                prdt_buff.put(TAG_INTR_RATE_TYPE, intr_rate_type);
+                prdtBuff.put(TAG_FINANCIAL_COMPANY_NAME, finCoName);
+                prdtBuff.put(TAG_FINANCIAL_PRODUCT_NAME, finPrdtName);
+                prdtBuff.put(TAG_HIGHEST_INTEREST_RATE, highestIntrRate);
+                prdtBuff.put(TAG_INTEREST_RATE_TYPE, intrRateTypeName);
 
-                productList.add(prdt_buff);
+                productList.add(prdtBuff);
             }
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
                     Deposit.this, productList, R.layout.deposit_list,
-                    new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_HIGHEST_INTR_RATE, TAG_INTR_RATE_TYPE},
-                    new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.highest_intr_rate, R.id.intr_rate_type_nm}
+                    new String[]{TAG_FINANCIAL_COMPANY_NAME, TAG_FINANCIAL_PRODUCT_NAME, TAG_HIGHEST_INTEREST_RATE, TAG_INTEREST_RATE_TYPE},
+                    new int[]{R.id.fin_co_nm, R.id.fin_prdt_nm, R.id.highest_intr_rate, R.id.intr_rate_type_nm}
             ) {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
-                    TextView intrRateTypeTextView = view.findViewById(R.id.intr_rate_type_nm);
+                    TextView intrRateTypeNameTextView = view.findViewById(R.id.intr_rate_type_nm);
 
-                    String intrRateType = productList.get(position).get(TAG_INTR_RATE_TYPE);
+                    String intrRateTypeName = productList.get(position).get(TAG_INTEREST_RATE_TYPE);
 
-                    if (intrRateType != null) {
-                        if(intrRateType.equals("복리")){
-                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Deposit.this, R.color.orange)));
+                    if (intrRateTypeName != null) {
+                        if(intrRateTypeName.equals("복리")){
+                            intrRateTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Deposit.this, R.color.orange)));
                         }
                         else {
-                            intrRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Deposit.this, R.color.blue)));
+                            intrRateTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Deposit.this, R.color.blue)));
                         }
                     }
                     return view;
@@ -283,18 +283,18 @@ public class Deposit extends AppCompatActivity {
 
     }
 
-    public void getData(String url, String a, String b) {
+    public void getData(String url, String sp1, String sp2) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
             // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
             @Override
             protected String doInBackground(String... params) {
 
                 String uri = params[0];
-                String a = params[1];       // 추가된 파라미터 a, b
-                String b = params[2];
+                String sp1 = params[1];       // 추가된 파라미터 a, b
+                String sp2 = params[2];
 
                 try {
-                    URL url = new URL(uri+ "?a=" + a + "&b=" + b);
+                    URL url = new URL(uri+ "?sp1=" + sp1 + "&sp2=" + sp2);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -319,6 +319,6 @@ public class Deposit extends AppCompatActivity {
         }
 
         GetDataJSON g = new GetDataJSON();
-        g.execute(url, a, b);
+        g.execute(url, sp1, sp2);
     }
 }

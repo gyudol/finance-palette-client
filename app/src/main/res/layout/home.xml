@@ -69,10 +69,10 @@
                 </FrameLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_5000"
+                    android:id="@+id/btn_deposit_rec"
                     android:layout_width="270dp"
                     android:layout_height="230dp"
-                    android:layout_marginStart="35dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginTop="50dp"
                     android:background="@drawable/solid_button"
                     android:drawableEnd="@drawable/ic_right_arrow_resize"
@@ -81,7 +81,7 @@
                     android:text="정기 예금\n추천 상품"
                     android:textAlignment="textStart"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="33sp"
+                    android:textSize="34sp"
                     app:layout_constraintBottom_toTopOf="parent"
                     app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -90,12 +90,11 @@
                     tools:layout_editor_absoluteY="135dp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_50"
+                    android:id="@+id/btn_savings_rec"
                     android:layout_width="270dp"
                     android:layout_height="230dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="50dp"
-                    android:layout_marginEnd="35dp"
                     android:layout_weight="1"
                     android:background="@drawable/solid_button"
                     android:drawableEnd="@drawable/ic_right_arrow_resize"
@@ -111,12 +110,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_annuity_saving"
+                    android:id="@+id/btn_annuity_saving_rec"
                     android:layout_width="270dp"
                     android:layout_height="230dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="50dp"
-                    android:layout_marginEnd="35dp"
                     android:layout_weight="1"
                     android:background="@drawable/solid_button"
                     android:drawableEnd="@drawable/ic_right_arrow_resize"
@@ -132,12 +130,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_loan1"
+                    android:id="@+id/btn_rent_house_loan_rec"
                     android:layout_width="270dp"
                     android:layout_height="230dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="50dp"
-                    android:layout_marginEnd="35dp"
                     android:layout_weight="1"
                     android:background="@drawable/solid_button"
                     android:drawableEnd="@drawable/ic_right_arrow_resize"
@@ -153,12 +150,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_loan2"
+                    android:id="@+id/btn_mortgage_loan_rec"
                     android:layout_width="270dp"
                     android:layout_height="230dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="50dp"
-                    android:layout_marginEnd="35dp"
                     android:layout_weight="1"
                     android:background="@drawable/solid_button"
                     android:drawableEnd="@drawable/ic_right_arrow_resize"
@@ -174,12 +170,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_loan3"
+                    android:id="@+id/btn_credit_loan_rec"
                     android:layout_width="270dp"
                     android:layout_height="230dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="50dp"
-                    android:layout_marginEnd="35dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/solid_button"
                     android:drawableEnd="@drawable/ic_right_arrow_resize"
@@ -208,7 +204,7 @@
             android:textSize="20sp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_1"
+        android:id="@+id/btn_deposit"
         android:layout_width="340dp"
         android:layout_height="65dp"
         android:layout_gravity="center"
@@ -230,7 +226,7 @@
         tools:layout_editor_absoluteY="399dp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_2"
+        android:id="@+id/btn_rent_house_loan"
         android:layout_width="340dp"
         android:layout_height="65dp"
         android:layout_marginTop="20dp"

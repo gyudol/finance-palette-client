@@ -47,12 +47,12 @@
             android:text="Q1 연령대를 알려주세요."
             android:textColor="@color/black"
             android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/rg_age"
+            app:layout_constraintBottom_toTopOf="@+id/rg_age_dist"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <RadioGroup
-            android:id="@+id/rg_age"
+            android:id="@+id/rg_age_dist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -117,10 +117,10 @@
             android:textSize="20dp"
             app:layout_constraintBottom_toTopOf="@+id/rg_i"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rg_age" />
+            app:layout_constraintTop_toBottomOf="@+id/rg_age_dist" />
 
         <RadioGroup
-        android:id="@+id/rg_gender"
+        android:id="@+id/rg_sex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -395,7 +395,7 @@
         </RadioGroup>
 
         <Button
-        android:id="@+id/btn_finish"
+        android:id="@+id/btn_save"
         android:layout_width="360dp"
         android:layout_height="45dp"
             android:layout_marginTop="50dp"

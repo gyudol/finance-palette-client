@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Loan3DetailScreen">
+    tools:context=".RentHouseLoanDetailScreen">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/kor_co_nm"
+                android:id="@+id/fin_co_nm"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
@@ -64,59 +64,44 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/crdt_prdt_type_nm"
-                android:layout_width="wrap_content"
+                android:id="@+id/loan_rate_type"
+                android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/solid_button"
-                android:backgroundTint="@color/mid_green"
+                android:backgroundTint="@color/brown_green"
                 android:gravity="center"
-                android:text="대출종류"
+                android:text="금리유형"
                 android:textColor="@color/white"
                 android:textSize="19dp" />
 
             <TextView
-                android:id="@+id/cb_name"
-                android:layout_width="wrap_content"
+                android:id="@+id/loan_rpay_type"
+                android:layout_width="160dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/solid_button"
                 android:backgroundTint="@color/purple_700"
                 android:gravity="center"
-                android:text="기관명"
+                android:text="상환유형"
                 android:textColor="@color/white"
                 android:textSize="19dp" />
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/lowest_loan_rate"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="@color/light_blue">
-
-            <TextView
-                android:id="@+id/crdt_grad_1_min_nm"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:paddingStart="20dp"
-                android:text="900점 초과 (1등급)"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/crdt_grad_1_min"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:paddingEnd="20dp"
-                android:gravity="end"
-                android:text="최저 %"
-                android:textSize="22dp"
-                android:textColor="@color/red"/>
-        </LinearLayout>
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingEnd="20dp"
+            android:text="최저 %"
+            android:textColor="@color/red"
+            android:textSize="22dp"
+            android:background="@color/light_blue" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,7 +126,7 @@
                     android:textSize="15dp"/>
 
                 <TextView
-                    android:id="@+id/lend_rate_min"
+                    android:id="@+id/min_loan_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -168,7 +153,7 @@
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/crdt_grad_avg"
+                    android:id="@+id/avg_loan_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -177,10 +162,35 @@
                     android:textSize="15dp"
                     android:textColor="@color/blue" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:text="최고"
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:id="@+id/max_loan_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="%"
+                    android:textSize="15dp"
+                    android:textColor="@color/blue" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView31"
+            android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -192,29 +202,7 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/dcls_strt_end_day"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:text="날짜"
-            android:textSize="20dp"/>
-
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="가입방법"
-            android:textSize="20dp"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/join_way"
+            android:id="@+id/dscl_strt_end_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -230,12 +218,12 @@
             android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:text="금리 구분"
+            android:text="대출한도"
             android:textSize="20dp"
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/crdt_lend_rate_type_nm"
+            android:id="@+id/loan_lmt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -245,26 +233,91 @@
             android:textSize="20dp"/>
 
         <TextView
+            android:id="@+id/textView20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:text="신용점수(등급)별 금리"
+            android:text="대출 부대비용"
             android:textSize="20dp"
             android:textColor="@color/black"/>
 
-        <!--       loan3_detail_list.xml에 요소 추가        -->
-        <LinearLayout
-            android:id="@+id/linearLpo3"
+        <TextView
+            android:id="@+id/loan_inci_expn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="TextView"
+            android:textSize="20dp"/>
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/textView22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="중도상환 수수료"
+            android:textSize="20dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/erly_rpay_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="TextView"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="연체 이자율"
+            android:textSize="20dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/dly_rate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="TextView"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="가입방법"
+            android:textSize="20dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/join_way"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="TextView"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/textView26"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -275,7 +328,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/dcls_chrg_man"
+            android:id="@+id/dscl_officer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

@@ -33,21 +33,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Loan1 extends AppCompatActivity {
-    Button btn_loan2;
-    Button btn_loan3;
+public class RentHouseLoan extends AppCompatActivity {
+    Button mortgageLoanButton;
+    Button creditLoanButton;
     Spinner spinner1;
     Spinner spinner2;
     Spinner spinner3;
     String myJSON;
     
-    private static final String TAG_RESULTS = "result";
-    private static final String TAG_KOR_CO_NM = "kor_co_nm";
-    private static final String TAG_FIN_PRDT_NM = "fin_prdt_nm";
-    private static final String TAG_LEND_RATE_MIN = "lend_rate_min";
-    private static final String TAG_OPT_NUM = "opt_num";
-    private static final String TAG_LEND_RATE_TYPE_NM = "lend_rate_type_nm";
-    private static final String TAG_RPAY_TYPE_NM = "rpay_type_nm";
+    private static final String TAG_RESULT = "result";
+    private static final String TAG_FINANCIAL_COMPANY_NAME = "financial_company_name";
+    private static final String TAG_FINANCIAL_PRODUCT_NAME = "financial_product_name";
+    private static final String TAG_MINIMUM_LOAN_RATE = "minimum_loan_rate";
+    private static final String TAG_OPTION_ID = "option_id";
+    private static final String TAG_LOAN_RATE_TYPE = "loan_rate_type";
+    private static final String TAG_LOAN_REPAYMENT_TYPE = "loan_repayment_type";
     JSONArray products = null;
 
     ArrayList<HashMap<String, String>> productList;
@@ -65,13 +65,13 @@ public class Loan1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loan1);
+        setContentView(R.layout.rent_house_loan);
         list = (ListView) findViewById(R.id.listViewLp1);
         productList = new ArrayList<HashMap<String, String>>();
 
 
         // SharedPreferences를 사용하여 데이터 초기화
-        SharedPreferences preferences = getSharedPreferences("loan1_preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("rent_house_loan_preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         // 스피너 상태 저장
@@ -84,18 +84,18 @@ public class Loan1 extends AppCompatActivity {
         editor.apply();
 
         // onResume에서 실행됨
-        // getData(apiEndpoint + "/loan1_ext.php", "0", "0", "0"); // IP주소에 맞게 수정 필요 (Default: 0, 0, 0)
+        // getData(apiEndpoint + "/rent_house_loan_ext.php", "0", "0", "0"); // API Endpoint에 맞게 수정 필요 (Default: 0, 0, 0)
 
-        btn_loan2 = findViewById(R.id.btn_loan2);
-        btn_loan2.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Loan2.class);
+        mortgageLoanButton = findViewById(R.id.btn_mortgage_loan);
+        mortgageLoanButton.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), MortgageLoan.class);
             startActivity(intent);
             finish();
         });
 
-        btn_loan3 = findViewById(R.id.btn_loan3);
-        btn_loan3.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Loan3.class);
+        creditLoanButton = findViewById(R.id.btn_credit_loan);
+        creditLoanButton.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), CreditLoan.class);
             startActivity(intent);
             finish();
         });
@@ -165,12 +165,12 @@ public class Loan1 extends AppCompatActivity {
 
 
         //////////////////////// 이미지 뷰 /////////////////////////////////
-        ImageView imageView = findViewById(R.id.image1);
+        ImageView imageView = findViewById(R.id.img_view_find);
 
         imageView.setOnClickListener(new View.OnClickListener() {   // 돋보기 이미지 뷰 클릭하면 조건에 맞게 필터링
             @Override
             public void onClick(View v) {
-                getData(apiEndpoint + "/loan1_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
+                getData(apiEndpoint + "/rent_house_loan_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
             }
         });
 
@@ -186,15 +186,15 @@ public class Loan1 extends AppCompatActivity {
                     // 클릭된 위치(position)에 해당하는 JSON 객체 가져오기
                     JSONObject clickedItem = products.getJSONObject(itemNo = position);
 
-                    // 클릭된 아이템의 'fin_prdt_nm' 값 가져오기
-                    String optNum = clickedItem.getString(TAG_OPT_NUM);
+                    // 클릭된 아이템의 'optionId' 값 가져오기
+                    String optionId = clickedItem.getString(TAG_OPTION_ID);
 
-                    // Toast.makeText(getApplicationContext(), "Clicked item's opt_num: " + optNum, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(), "Clicked item's option_id: " + optionId, Toast.LENGTH_SHORT).show();
 
-                    // Intent를 사용하여 Loan1_detail_screen.java로 데이터를 전달하고 화면을 전환
-                    Intent intent = new Intent(Loan1.this, Loan1DetailScreen.class);
-                    intent.putExtra("optNum", optNum); // 클릭된 optNum 값을 "optNum"이란 이름의 Extra로 전달
-                    startActivity(intent); // Loan1_detail_screen.java로 화면 전환
+                    // Intent를 사용하여 RentHouseLoanDetailScreen.java로 데이터를 전달하고 화면을 전환
+                    Intent intent = new Intent(RentHouseLoan.this, RentHouseLoanDetailScreen.class);
+                    intent.putExtra("optionId", optionId); // 클릭된 optionId 값을 "optionId"이란 이름의 Extra로 전달
+                    startActivity(intent); // RentHouseLoanDetailScreen.java로 화면 전환
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -209,7 +209,7 @@ public class Loan1 extends AppCompatActivity {
         super.onPause();
 
         // SharedPreferences를 사용하여 데이터 저장
-        SharedPreferences preferences = getSharedPreferences("loan1_preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("rent_house_loan_preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         // 스피너 상태 저장
@@ -231,7 +231,7 @@ public class Loan1 extends AppCompatActivity {
     public void onResume() {    // 뒤로 가기로 Activity 되돌아왔을 때 리스트 뷰, 스피너 상태 그대로
         super.onResume();
 
-        SharedPreferences preferences = getSharedPreferences("loan1_preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("rent_house_loan_preferences", MODE_PRIVATE);
 
         spinner1.setSelection(selected[0] = preferences.getInt("spinner1_position", 0));
         spinner2.setSelection(selected[1] = preferences.getInt("spinner2_position", 0));
@@ -239,7 +239,7 @@ public class Loan1 extends AppCompatActivity {
 
         itemNo = preferences.getInt("list_position", 0);
 
-        getData(apiEndpoint + "/loan1_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
+        getData(apiEndpoint + "/rent_house_loan_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
 
         // Toast.makeText(getApplicationContext(), "itemNo: " + itemNo + "\n" + Arrays.toString(selected), Toast.LENGTH_SHORT).show();
     }
@@ -249,59 +249,59 @@ public class Loan1 extends AppCompatActivity {
     protected void showList() {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            products = jsonObj.getJSONArray(TAG_RESULTS);
+            products = jsonObj.getJSONArray(TAG_RESULT);
 
             productList.clear(); // 기존 데이터 클리어  => 클리어해야 제대로 갱신됨
 
             for (int i = 0; i < products.length(); i++) {
                 JSONObject c = products.getJSONObject(i);
-                String kor_co_nm = c.getString(TAG_KOR_CO_NM);
-                String fin_prdt_nm = c.getString(TAG_FIN_PRDT_NM);
-                String lend_rate_min = "최저 " + c.getString(TAG_LEND_RATE_MIN) + "%";
-                String lend_rate_type_nm = c.getString(TAG_LEND_RATE_TYPE_NM);
-                String rpay_type_nm = c.getString(TAG_RPAY_TYPE_NM).replace("방식", "");
+                String finCoName = c.getString(TAG_FINANCIAL_COMPANY_NAME);
+                String finPrdtName = c.getString(TAG_FINANCIAL_PRODUCT_NAME);
+                String minLoanRate = "최저 " + c.getString(TAG_MINIMUM_LOAN_RATE) + "%";
+                String loanRateType = c.getString(TAG_LOAN_RATE_TYPE);
+                String loanRpayType = c.getString(TAG_LOAN_REPAYMENT_TYPE).replace("방식", "");
 
-                HashMap<String, String> prdt_buff = new HashMap<String, String>();
+                HashMap<String, String> prdtBuff = new HashMap<String, String>();
 
-                prdt_buff.put(TAG_KOR_CO_NM, kor_co_nm);
-                prdt_buff.put(TAG_FIN_PRDT_NM, fin_prdt_nm);
-                prdt_buff.put(TAG_LEND_RATE_MIN, lend_rate_min);
-                prdt_buff.put(TAG_LEND_RATE_TYPE_NM, lend_rate_type_nm);
-                prdt_buff.put(TAG_RPAY_TYPE_NM, rpay_type_nm);
+                prdtBuff.put(TAG_FINANCIAL_COMPANY_NAME, finCoName);
+                prdtBuff.put(TAG_FINANCIAL_PRODUCT_NAME, finPrdtName);
+                prdtBuff.put(TAG_MINIMUM_LOAN_RATE, minLoanRate);
+                prdtBuff.put(TAG_LOAN_RATE_TYPE, loanRateType);
+                prdtBuff.put(TAG_LOAN_REPAYMENT_TYPE, loanRpayType);
 
-                productList.add(prdt_buff);
+                productList.add(prdtBuff);
             }
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
-                    Loan1.this, productList, R.layout.loan1_list,
-                    new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_LEND_RATE_MIN, TAG_LEND_RATE_TYPE_NM, TAG_RPAY_TYPE_NM},
-                    new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.lend_rate_min, R.id.lend_rate_type_nm, R.id.rpay_type_nm}
+                    RentHouseLoan.this, productList, R.layout.rent_house_loan_list,
+                    new String[]{TAG_FINANCIAL_COMPANY_NAME, TAG_FINANCIAL_PRODUCT_NAME, TAG_MINIMUM_LOAN_RATE, TAG_LOAN_RATE_TYPE, TAG_LOAN_REPAYMENT_TYPE},
+                    new int[]{R.id.fin_co_nm, R.id.fin_prdt_nm, R.id.min_loan_rate, R.id.loan_rate_type, R.id.loan_rpay_type}
             ){
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
-                    TextView lendRateTypeTextView = view.findViewById(R.id.lend_rate_type_nm);
-                    TextView rpayTypeTextView = view.findViewById(R.id.rpay_type_nm);
+                    TextView loanRateTypeTextView = view.findViewById(R.id.loan_rate_type);
+                    TextView loanRpayTypeTextView = view.findViewById(R.id.loan_rpay_type);
 
-                    String lendRateType = productList.get(position).get(TAG_LEND_RATE_TYPE_NM);
-                    String rpayType = productList.get(position).get(TAG_RPAY_TYPE_NM);
+                    String loanRateType = productList.get(position).get(TAG_LOAN_RATE_TYPE);
+                    String loanRpayType = productList.get(position).get(TAG_LOAN_REPAYMENT_TYPE);
 
-                    if (lendRateType != null) {
-                        if(lendRateType.equals("변동금리")){
-                            lendRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Loan1.this, R.color.teal_700)));
+                    if (loanRateType != null) {
+                        if(loanRateType.equals("변동금리")){
+                            loanRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(RentHouseLoan.this, R.color.teal_700)));
                         }
                         else {
-                            lendRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Loan1.this, R.color.brown_green)));
+                            loanRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(RentHouseLoan.this, R.color.brown_green)));
                         }
                     }
 
-                    if (rpayType != null) {
-                        if(rpayType.equals("분할상환")){
-                            rpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Loan1.this, R.color.magenta)));
+                    if (loanRpayType != null) {
+                        if(loanRpayType.equals("분할상환")){
+                            loanRpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(RentHouseLoan.this, R.color.magenta)));
                         }
                         else {
-                            rpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(Loan1.this, R.color.purple_700)));
+                            loanRpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(RentHouseLoan.this, R.color.purple_700)));
                         }
                     }
                     return view;
@@ -317,19 +317,19 @@ public class Loan1 extends AppCompatActivity {
     }
 
 
-    public void getData(String url, String a, String b, String c) {
+    public void getData(String url, String sp1, String sp2, String sp3) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
             // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
             @Override
             protected String doInBackground(String... params) {
 
                 String uri = params[0];
-                String a = params[1];       // 추가된 파라미터 a, b, c
-                String b = params[2];
-                String c = params[3];
+                String sp1 = params[1];       // 추가된 파라미터 a, b, c
+                String sp2 = params[2];
+                String sp3 = params[3];
 
                 try {
-                    URL url = new URL(uri+ "?a=" + a + "&b=" + b + "&c=" + c);
+                    URL url = new URL(uri+ "?sp1=" + sp1 + "&sp2=" + sp2 + "&sp3=" + sp3);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -354,6 +354,6 @@ public class Loan1 extends AppCompatActivity {
         }
 
         GetDataJSON g = new GetDataJSON();
-        g.execute(url, a, b, c);
+        g.execute(url, sp1, sp2, sp3);
     }
 }

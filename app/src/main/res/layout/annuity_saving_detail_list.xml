@@ -36,7 +36,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/pnsn_recp_trm_nm"
+            android:id="@+id/pnsn_recp_trm"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -56,7 +56,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/pnsn_entr_age_nm"
+            android:id="@+id/pnsn_entr_age"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -83,7 +83,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/mon_paym_atm_nm"
+            android:id="@+id/mon_paym_atm"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -103,7 +103,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/paym_prd_nm"
+            android:id="@+id/paym_prd"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
@@ -130,7 +130,7 @@
 
         <!-- 빈 공간 -->
         <TextView
-            android:id="@+id/pnsn_strt_age_nm"
+            android:id="@+id/pnsn_strt_age"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"

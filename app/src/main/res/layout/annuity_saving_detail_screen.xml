@@ -28,7 +28,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/kor_co_nm"
+                android:id="@+id/fin_co_nm"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
@@ -64,7 +64,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/pnsn_kind_nm"
+                android:id="@+id/pnsn_type_nm"
                 android:layout_width="160dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
@@ -141,7 +141,7 @@
                     android:textSize="15dp"/>
 
                 <TextView
-                    android:id="@+id/btrm_prft_rate_1"
+                    android:id="@+id/past_prft_rate_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -168,7 +168,7 @@
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/btrm_prft_rate_2"
+                    android:id="@+id/past_prft_rate_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -194,7 +194,7 @@
                     android:textSize="15dp"/>
 
                 <TextView
-                    android:id="@+id/btrm_prft_rate_3"
+                    android:id="@+id/past_prft_rate_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -238,7 +238,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/dcls_strt_end_day"
+            android:id="@+id/dscl_strt_end_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -301,7 +301,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/etc"
+            android:id="@+id/remarks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -343,7 +343,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/dcls_rate"
+            android:id="@+id/dscl_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

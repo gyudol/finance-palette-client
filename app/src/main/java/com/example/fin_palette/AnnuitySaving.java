@@ -34,18 +34,18 @@ import java.util.HashMap;
 
 public class AnnuitySaving extends AppCompatActivity {
 
-    Button btn_deposit;
-    Button btn_savings;
+    Button depositButton;
+    Button savingsButton;
     Spinner spinner1;
 
     String myJSON;
 
-    private static final String TAG_RESULTS = "result";
-    private static final String TAG_KOR_CO_NM = "kor_co_nm";
-    private static final String TAG_FIN_PRDT_NM = "fin_prdt_nm";
-    private static final String TAG_AVG_PRFT_RATE = "avg_prft_rate";
-    private static final String TAG_FIN_PRDT_CD = "fin_prdt_cd";
-    private static final String TAG_PNSN_KIND_NM = "pnsn_kind_nm";
+    private static final String TAG_RESULT = "result";
+    private static final String TAG_FINANCIAL_COMPANY_NAME = "financial_company_name";
+    private static final String TAG_FINANCIAL_PRODUCT_NAME = "financial_product_name";
+    private static final String TAG_AVERAGE_PROFIT_RATE = "average_profit_rate";
+    private static final String TAG_FINANCIAL_PRODUCT_ID = "financial_product_id";
+    private static final String TAG_PENSION_TYPE_NAME = "pension_type_name";
     JSONArray products = null;
 
     ArrayList<HashMap<String, String>> productList;
@@ -79,15 +79,15 @@ public class AnnuitySaving extends AppCompatActivity {
         // onResume에서 실행됨
         // getData(apiEndpoint + "/annuity_saving_ext.php", "0");
 
-        btn_deposit = findViewById(R.id.btn_deposit);
-        btn_deposit.setOnClickListener(view -> {
+        depositButton = findViewById(R.id.btn_deposit);
+        depositButton.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), Deposit.class);
             startActivity(intent);
             finish();   // 현재 Activity를 스택에서 제거 (뒤로 가기 하면 메인 화면으로)
         });
 
-        btn_savings = findViewById(R.id.btn_savings);
-        btn_savings.setOnClickListener(view -> {
+        savingsButton = findViewById(R.id.btn_savings);
+        savingsButton.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), Savings.class);
             startActivity(intent);
             finish();   // 현재 Activity를 스택에서 제거 (뒤로 가기 하면 메인 화면으로)
@@ -126,7 +126,7 @@ public class AnnuitySaving extends AppCompatActivity {
 
 
         //////////////////////// 이미지 뷰 /////////////////////////////////
-        ImageView imageView = findViewById(R.id.image1);
+        ImageView imageView = findViewById(R.id.img_view_find);
 
         imageView.setOnClickListener(new View.OnClickListener() {   // 돋보기 이미지 뷰 클릭하면 조건에 맞게 필터링
             @Override
@@ -147,14 +147,14 @@ public class AnnuitySaving extends AppCompatActivity {
                     // 클릭된 위치(position)에 해당하는 JSON 객체 가져오기
                     JSONObject clickedItem = products.getJSONObject(itemNo = position);
 
-                    // 클릭된 아이템의 'fin_prdt_nm' 값 가져오기
-                    String finPrdtCd = clickedItem.getString(TAG_FIN_PRDT_CD);
+                    // 클릭된 아이템의 'finPrdtName' 값 가져오기
+                    String finPrdtId = clickedItem.getString(TAG_FINANCIAL_PRODUCT_ID);
 
-                    // Toast.makeText(getApplicationContext(), "Clicked item's fin_prdt_cd: " + finPrdtCd, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(), "Clicked item's financial_product_id: " + finPrdtId, Toast.LENGTH_SHORT).show();
 
                     // Intent를 사용하여 Annuity_Saving_detail_screen.java로 데이터를 전달하고 화면을 전환
                     Intent intent = new Intent(AnnuitySaving.this, AnnuitySavingDetailScreen.class);
-                    intent.putExtra("finPrdtCd", finPrdtCd); // 클릭된 finPrdtCd 값을 "finPrdtCd"이란 이름의 Extra로 전달
+                    intent.putExtra("finPrdtId", finPrdtId); // 클릭된 finPrdtId 값을 "finPrdtId"이란 이름의 Extra로 전달
                     startActivity(intent); // Annuity_Saving_detail_screen.java로 화면 전환
 
                 } catch (JSONException e) {
@@ -205,49 +205,49 @@ public class AnnuitySaving extends AppCompatActivity {
     protected void showList() {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            products = jsonObj.getJSONArray(TAG_RESULTS);
+            products = jsonObj.getJSONArray(TAG_RESULT);
 
             productList.clear(); // 기존 데이터 클리어  => 클리어해야 제대로 갱신됨
 
             for (int i = 0; i < products.length(); i++) {
                 JSONObject c = products.getJSONObject(i);
-                String kor_co_nm = c.getString(TAG_KOR_CO_NM);
-                String fin_prdt_nm = c.getString(TAG_FIN_PRDT_NM);
-                String avg_prft_rate = "평균 " + c.getString(TAG_AVG_PRFT_RATE) + "%";
-                String pnsn_kind = c.getString(TAG_PNSN_KIND_NM);
+                String finCoName = c.getString(TAG_FINANCIAL_COMPANY_NAME);
+                String finPrdtName = c.getString(TAG_FINANCIAL_PRODUCT_NAME);
+                String avgPrftRate = "평균 " + c.getString(TAG_AVERAGE_PROFIT_RATE) + "%";
+                String pnsnTypeName = c.getString(TAG_PENSION_TYPE_NAME);
 
-                HashMap<String, String> prdt_buff = new HashMap<String, String>();
+                HashMap<String, String> prdtBuff = new HashMap<String, String>();
 
-                prdt_buff.put(TAG_KOR_CO_NM, kor_co_nm);
-                prdt_buff.put(TAG_FIN_PRDT_NM, fin_prdt_nm);
-                prdt_buff.put(TAG_AVG_PRFT_RATE, avg_prft_rate);
-                prdt_buff.put(TAG_PNSN_KIND_NM, pnsn_kind);
+                prdtBuff.put(TAG_FINANCIAL_COMPANY_NAME, finCoName);
+                prdtBuff.put(TAG_FINANCIAL_PRODUCT_NAME, finPrdtName);
+                prdtBuff.put(TAG_AVERAGE_PROFIT_RATE, avgPrftRate);
+                prdtBuff.put(TAG_PENSION_TYPE_NAME, pnsnTypeName);
 
-                productList.add(prdt_buff);
+                productList.add(prdtBuff);
             }
 
             // 데이터의 각 열(Column)에 맞게 TextView에 데이터를 바인딩하여 리스트뷰에 표시하는 역할
             ListAdapter adapter = new SimpleAdapter(
                     AnnuitySaving.this, productList, R.layout.annuity_saving_list,
-                    new String[]{TAG_KOR_CO_NM, TAG_FIN_PRDT_NM, TAG_AVG_PRFT_RATE, TAG_PNSN_KIND_NM},
-                    new int[]{R.id.kor_co_nm, R.id.fin_prdt_nm, R.id.avg_prft_rate, R.id.pnsn_kind_nm}
+                    new String[]{TAG_FINANCIAL_COMPANY_NAME, TAG_FINANCIAL_PRODUCT_NAME, TAG_AVERAGE_PROFIT_RATE, TAG_PENSION_TYPE_NAME},
+                    new int[]{R.id.fin_co_nm, R.id.fin_prdt_nm, R.id.avg_prft_rate, R.id.pnsn_type_nm}
             ){
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
-                    TextView pnsnKindTextView = view.findViewById(R.id.pnsn_kind_nm);
+                    TextView pnsnTypeNameTextView = view.findViewById(R.id.pnsn_type_nm);
 
-                    String pnsnKind = productList.get(position).get(TAG_PNSN_KIND_NM);
+                    String pnsnTypeName = productList.get(position).get(TAG_PENSION_TYPE_NAME);
 
-                    if (pnsnKind != null) {
-                        if(pnsnKind.equals("연금저축보험(생명)")){
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(AnnuitySaving.this, R.color.purple_500)));
+                    if (pnsnTypeName != null) {
+                        if(pnsnTypeName.equals("연금저축보험(생명)")){
+                            pnsnTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(AnnuitySaving.this, R.color.purple_500)));
                         }
-                        else if(pnsnKind.equals("연금저축보험(손해)")) {
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(AnnuitySaving.this, R.color.purple_700)));
+                        else if(pnsnTypeName.equals("연금저축보험(손해)")) {
+                            pnsnTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(AnnuitySaving.this, R.color.purple_700)));
                         }
                         else {
-                            pnsnKindTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(AnnuitySaving.this, R.color.purple_200)));
+                            pnsnTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(AnnuitySaving.this, R.color.purple_200)));
                         }
                     }
 
@@ -264,17 +264,17 @@ public class AnnuitySaving extends AppCompatActivity {
     }
 
 
-    public void getData(String url, String a) {
+    public void getData(String url, String sp1) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
             // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
             @Override
             protected String doInBackground(String... params) {
 
                 String uri = params[0];
-                String a = params[1];       // 추가된 파라미터 a
+                String sp1 = params[1];       // 추가된 파라미터 a
 
                 try {
-                    URL url = new URL(uri+ "?a=" + a);
+                    URL url = new URL(uri+ "?sp1=" + sp1);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -299,6 +299,6 @@ public class AnnuitySaving extends AppCompatActivity {
         }
 
         GetDataJSON g = new GetDataJSON();
-        g.execute(url, a);
+        g.execute(url, sp1);
     }
 }

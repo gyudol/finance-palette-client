@@ -28,7 +28,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/kor_co_nm"
+                android:id="@+id/fin_co_nm"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
@@ -78,7 +78,7 @@
                 android:textSize="19dp" />
 
             <TextView
-                android:id="@+id/rsrv_type_nm"
+                android:id="@+id/accrual_type_nm"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
@@ -107,7 +107,7 @@
                 android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/intr_rate_max"
+                android:id="@+id/highest_intr_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_weight="1"
@@ -297,7 +297,7 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/dcls_strt_end_day"
+            android:id="@+id/dscl_strt_end_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -318,7 +318,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/join_member"
+            android:id="@+id/join_target"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -339,7 +339,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/join_deny"
+            android:id="@+id/join_restriction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -381,7 +381,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/spcl_cnd"
+            android:id="@+id/prefer_cnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -402,7 +402,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/mtrt_int"
+            android:id="@+id/intr_rate_after_mtrt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -444,7 +444,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/etc_note"
+            android:id="@+id/other_prec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -465,7 +465,7 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/dcls_chrg_man"
+            android:id="@+id/dscl_officer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

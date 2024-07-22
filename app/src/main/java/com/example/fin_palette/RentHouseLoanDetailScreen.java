@@ -2,17 +2,14 @@ package com.example.fin_palette;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.os.Bundle;
-import android.widget.Button;
-
-import androidx.core.content.ContextCompat;
-
-import android.view.View;
-
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,34 +21,32 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DecimalFormat;
 
-public class DepositDetailScreen extends AppCompatActivity {
+public class RentHouseLoanDetailScreen extends AppCompatActivity {
 
+    Button homeButton;
     String myJSON;
-    String finPrdtId;
-    String intrRateType;
+    String optionId;
     String bookmarkId;
     String historyId;
 
     private static final String TAG_RESULT = "result";
     private static final String TAG_FINANCIAL_COMPANY_NAME = "financial_company_name";
     private static final String TAG_FINANCIAL_PRODUCT_NAME = "financial_product_name";
-    private static final String TAG_INTEREST_RATE_TYPE_NAME = "interest_rate_type_name";
-    private static final String TAG_HIGHEST_INTEREST_RATE = "highest_interest_rate";
-    private static final String TAG_INTEREST_RATE_6 = "interest_rate_6";
-    private static final String TAG_INTEREST_RATE_12 = "interest_rate_12";
-    private static final String TAG_INTEREST_RATE_24 = "interest_rate_24";
-    private static final String TAG_INTEREST_RATE_36 = "interest_rate_36";
+    private static final String TAG_LOAN_RATE_TYPE = "loan_rate_type";
+    private static final String TAG_LOAN_REPAYMENT_TYPE = "loan_repayment_type";
+    private static final String TAG_LOWEST_LOAN_RATE = "lowest_loan_rate";
+    private static final String TAG_MINIMUM_LOAN_RATE = "minimum_loan_rate";
+    private static final String TAG_AVERAGE_LOAN_RATE = "average_loan_rate";
+    private static final String TAG_MAXIMUM_LOAN_RATE = "maximum_loan_rate";
     private static final String TAG_DISCLOSURE_START_TO_END_DATE = "disclosure_start_to_end_date";
-    private static final String TAG_JOIN_TARGET = "join_target";
-    private static final String TAG_JOIN_RESTRICTION = "join_restriction";
-    private static final String TAG_MAXIMUM_LIMIT = "maximum_limit";
-    private static final String TAG_PREFERENTIAL_CONDITION = "preferential_condition";
-    private static final String TAG_INTEREST_RATE_AFTER_MATURITY = "interest_rate_after_maturity";
+    private static final String TAG_LOAN_LIMIT = "loan_limit";
+    private static final String TAG_LOAN_INCIDENTAL_EXPENSES = "loan_incidental_expenses";
+    private static final String TAG_EARLY_REPAYMENT_FEE = "early_repayment_fee";
+    private static final String TAG_DELINQUENCY_RATE = "delinquency_rate";
     private static final String TAG_JOIN_WAY = "join_way";
-    private static final String TAG_OTHER_PRECAUTION= "other_precaution";
     private static final String TAG_DISCLOSURE_OFFICER = "disclosure_officer";
+
 
     JSONArray products = null;
 
@@ -62,26 +57,25 @@ public class DepositDetailScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.deposit_detail_screen);
+        setContentView(R.layout.rent_house_loan_detail_screen);
 
         // Intent에서 Extra로 전달된 데이터 받아오기
         Intent intentGet = getIntent();
         if (intentGet != null) {
-            String receivedfinPrdtId = intentGet.getStringExtra("finPrdtId");
-            String receivedIntrRateType = intentGet.getStringExtra("intrRateType");
+            String receivedOptionId = intentGet.getStringExtra("optionId");
 
             // 받아온 값 확인
-            if (receivedfinPrdtId != null && receivedIntrRateType != null) {
-                finPrdtId = intentGet.getStringExtra("finPrdtId");
-                intrRateType = intentGet.getStringExtra("intrRateType");
+            if (receivedOptionId != null) {
+                optionId = intentGet.getStringExtra("optionId");
 
-                getData(apiEndpoint + "/deposit_int.php", finPrdtId, intrRateType);
+                getData(apiEndpoint + "/rent_house_loan_int.php", optionId);
             }
         }
 
+
         //////////////////////// 북마크 /////////////////////////////////
         ImageView star = findViewById(R.id.bookmark);
-        bookmarkId = historyId = 1 + "_" + finPrdtId + '_' + intrRateType;
+        bookmarkId = historyId = 4 + "_" + optionId + '_';
         BookmarkManager bs = new BookmarkManager(this);
         AaidManager am = new AaidManager();
         bs.getData(apiEndpoint + "/bookmark_chk.php", bookmarkId, am.aaid, star);
@@ -92,17 +86,16 @@ public class DepositDetailScreen extends AppCompatActivity {
                 if(bs.marked) star.setImageResource(R.drawable.empty_star_small);
                 else star.setImageResource(R.drawable.full_star_small);
 
-                bs.setData(apiEndpoint + "/bookmark_upd.php", 1, finPrdtId, intrRateType, am.aaid);
+                bs.setData(apiEndpoint + "/bookmark_upd.php", 4, optionId, "", am.aaid);
             }
         });
 
-
         ///////////////////////////////// 조회 기록
         ViewHistoryManager vs = new ViewHistoryManager(this);
-        vs.getData(apiEndpoint, historyId, am.aaid, 1, finPrdtId, intrRateType);
+        vs.getData(apiEndpoint, historyId, am.aaid, 4, optionId, "");
 
 
-        Button homeButton = findViewById(R.id.btn_home);
+        homeButton = findViewById(R.id.btn_home);
         homeButton.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
@@ -124,20 +117,18 @@ public class DepositDetailScreen extends AppCompatActivity {
         try {
             TextView finCoNameTextView = findViewById(R.id.fin_co_nm);
             TextView finPrdtNameTextView = findViewById(R.id.fin_prdt_nm);
-            TextView intrRateTypeNameTextView = findViewById(R.id.intr_rate_type_nm);
-            TextView highestIntrRateTextView = findViewById(R.id.highest_intr_rate);
-            TextView intrRate6TextView = findViewById(R.id.intr_rate_6);
-            TextView intrRate12TextView = findViewById(R.id.intr_rate_12);
-            TextView intrRate24TextView = findViewById(R.id.intr_rate_24);
-            TextView intrRate36TextView = findViewById(R.id.intr_rate_36);
+            TextView loanRateTypeTextView = findViewById(R.id.loan_rate_type);
+            TextView loanRpayTypeTextView = findViewById(R.id.loan_rpay_type);
+            TextView lowestLoanRateTextView = findViewById(R.id.lowest_loan_rate);
+            TextView minLoanRateTextView = findViewById(R.id.min_loan_rate);
+            TextView avgLoanRateTextView = findViewById(R.id.avg_loan_rate);
+            TextView maxLoanRateTextView = findViewById(R.id.max_loan_rate);
             TextView dsclStrtEndDayTextView = findViewById(R.id.dscl_strt_end_day);
-            TextView joinTargetTextView = findViewById(R.id.join_target);
-            TextView joinRestrictionTextView = findViewById(R.id.join_restriction);
-            TextView maxLimitTextView = findViewById(R.id.max_limit);
-            TextView preferCndTextView = findViewById(R.id.prefer_cnd);
-            TextView intrRateAfterMtrtTextView = findViewById(R.id.intr_rate_after_mtrt);
+            TextView loanLmtTextView = findViewById(R.id.loan_lmt);
+            TextView loanInciExpnTextView = findViewById(R.id.loan_inci_expn);
+            TextView erlyRpayFeeTextView = findViewById(R.id.erly_rpay_fee);
+            TextView dlyRateTextView = findViewById(R.id.dly_rate);
             TextView joinWayTextView = findViewById(R.id.join_way);
-            TextView otherPrecTextView = findViewById(R.id.other_prec);
             TextView dsclOfficerTextView = findViewById(R.id.dscl_officer);
 
             JSONObject jsonObj = new JSONObject(myJSON);
@@ -146,31 +137,32 @@ public class DepositDetailScreen extends AppCompatActivity {
             JSONObject c = products.getJSONObject(0);
             finCoNameTextView.setText(nullToSpace(c.getString(TAG_FINANCIAL_COMPANY_NAME)));
             finPrdtNameTextView.setText(nullToSpace(c.getString(TAG_FINANCIAL_PRODUCT_NAME)));
-            intrRateTypeNameTextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_TYPE_NAME)));
-            highestIntrRateTextView.setText("최고 " + nullToSpace(c.getString(TAG_HIGHEST_INTEREST_RATE)) + "%");
-            intrRate6TextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_6)) + "%");
-            intrRate12TextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_12 )) + "%");
-            intrRate24TextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_24)) + "%");
-            intrRate36TextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_36)) + "%");
+            loanRateTypeTextView.setText(nullToSpace(c.getString(TAG_LOAN_RATE_TYPE)));
+            loanRpayTypeTextView.setText(nullToSpace(c.getString(TAG_LOAN_REPAYMENT_TYPE).replace("방식", "")));
+            lowestLoanRateTextView.setText("최저 " + nullToSpace(c.getString(TAG_LOWEST_LOAN_RATE)) + "%");
+            minLoanRateTextView.setText(nullToSpace(c.getString(TAG_MINIMUM_LOAN_RATE)) + "%");
+            avgLoanRateTextView.setText(nullToSpace(c.getString(TAG_AVERAGE_LOAN_RATE )) + "%");
+            maxLoanRateTextView.setText(nullToSpace(c.getString(TAG_MAXIMUM_LOAN_RATE)) + "%");
             dsclStrtEndDayTextView.setText(nullToSpace(c.getString(TAG_DISCLOSURE_START_TO_END_DATE)));
-            joinTargetTextView.setText(nullToSpace(c.getString(TAG_JOIN_TARGET)));
-            joinRestrictionTextView.setText(nullToSpace(c.getString(TAG_JOIN_RESTRICTION)).equals("1")?"제한 없음":
-                    nullToSpace(c.getString(TAG_JOIN_RESTRICTION)).equals("2")?"서민 전용":nullToSpace(c.getString(TAG_JOIN_RESTRICTION)).equals("2")?"일부 제한":"");
-            maxLimitTextView.setText(toAmount(nullToSpace(c.getString(TAG_MAXIMUM_LIMIT))));
-            preferCndTextView.setText(nullToSpace(c.getString(TAG_PREFERENTIAL_CONDITION)));
-            intrRateAfterMtrtTextView.setText(nullToSpace(c.getString(TAG_INTEREST_RATE_AFTER_MATURITY)));
+            loanLmtTextView.setText(nullToSpace(c.getString(TAG_LOAN_LIMIT)));
+            loanInciExpnTextView.setText(nullToSpace(c.getString(TAG_LOAN_INCIDENTAL_EXPENSES)));
+            erlyRpayFeeTextView.setText(nullToSpace(c.getString(TAG_EARLY_REPAYMENT_FEE)));
+            dlyRateTextView.setText(nullToSpace(c.getString(TAG_DELINQUENCY_RATE)));
             joinWayTextView.setText(nullToSpace(c.getString(TAG_JOIN_WAY)));
-            otherPrecTextView.setText(nullToSpace(c.getString(TAG_OTHER_PRECAUTION)));
             dsclOfficerTextView.setText(nullToSpace(c.getString(TAG_DISCLOSURE_OFFICER)));
 
-            if(intrRateTypeNameTextView.getText().toString().equals("복리")) {
-//                Toast.makeText(getApplicationContext(), "color changed", Toast.LENGTH_SHORT).show();
-                intrRateTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.orange)));
+            if(loanRateTypeTextView.getText().toString().equals("변동금리")) {
+                loanRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.teal_700)));
+            }
+
+            if(loanRpayTypeTextView.getText().toString().equals("분할상환")) {
+                loanRpayTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.magenta)));
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
 
     public String nullToSpace(String str) {
@@ -178,27 +170,18 @@ public class DepositDetailScreen extends AppCompatActivity {
         else return str;
     }
 
-    public String toAmount(String str) {        // 천 단위로 콤마 붙여줌
-        if(str.equals("")) return "없음";
-        else {
-            DecimalFormat df = new DecimalFormat("###,###");
 
-            return df.format(Long.parseLong(str)) + "원";
-        }
-    }
-
-    public void getData(String url, String finPrdtId, String intrRateType) {
+    public void getData(String url, String optionId) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
             // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
             @Override
             protected String doInBackground(String... params) {
 
                 String uri = params[0];
-                String finPrdtId = params[1]; // 추가된 파라미터 finPrdtId
-                String intrRateType = params[2];
+                String optionId = params[1]; // 추가된 파라미터 optionId
 
                 try {
-                    URL url = new URL(uri + "?finPrdtId=" + finPrdtId + "&intrRateType=" + intrRateType); // 파라미터를 URL에 추가
+                    URL url = new URL(uri + "?optionId=" + optionId); // 파라미터를 URL에 추가
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -215,7 +198,7 @@ public class DepositDetailScreen extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
                 if(result != null) {
-                    // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                     myJSON = result;
                     showWindow();
                 }
@@ -223,6 +206,6 @@ public class DepositDetailScreen extends AppCompatActivity {
         }
 
         GetDataJSON g = new GetDataJSON();
-        g.execute(url, finPrdtId, intrRateType);      // 아래도 수정 필요!
+        g.execute(url, optionId);      // 아래도 수정 필요!
     }
 }

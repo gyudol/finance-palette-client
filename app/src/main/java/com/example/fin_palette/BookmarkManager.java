@@ -20,18 +20,18 @@ public class BookmarkManager extends AppCompatActivity {
         this.context = context;
     }
 
-    public void getData(String url, String fin_prdt_num_cd, String aaid, ImageView star) {
+    public void getData(String url, String bookmarkId, String aaid, ImageView star) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
             // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
             @Override
             protected String doInBackground(String... params) {
 
                 String uri = params[0];
-                String fin_prdt_num_cd = params[1];
+                String bookmarkId = params[1];
                 String aaid = params[2];
 
                 try {
-                    URL url = new URL(uri + "?fin_prdt_num_cd=" + fin_prdt_num_cd + "&aaid=" + aaid); // 파라미터를 URL에 추가
+                    URL url = new URL(uri + "?bookmarkId=" + bookmarkId + "&aaid=" + aaid); // 파라미터를 URL에 추가
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -58,23 +58,23 @@ public class BookmarkManager extends AppCompatActivity {
         }
 
         GetDataJSON g = new GetDataJSON();
-        g.execute(url, fin_prdt_num_cd, aaid);      // 아래도 수정 필요!
+        g.execute(url, bookmarkId, aaid);      // 아래도 수정 필요!
     }
 
-    public void setData(String url, int prdtNum, String finPrdtCd, String opts, String aaid) {
+    public void setData(String url, int prdtNum, String finPrdtId, String opts, String aaid) {
         class SetDataJSON extends AsyncTask<String, Void, String> {
 
             @Override
             protected String doInBackground(String... params) {
                 String uri = params[0];
                 String prdtNum = params[1];
-                String finPrdtCd = params[2];
+                String finPrdtId = params[2];
                 String opts = params[3];
                 String aaid = params[4];
                 String mark = marked ? "true" : "false";
 
                 try {
-                    URL url = new URL(uri + "?prdtNum=" + prdtNum + "&finPrdtCd=" + finPrdtCd + "&opts=" + opts + "&aaid=" + aaid + "&mark=" + mark);
+                    URL url = new URL(uri + "?prdtNum=" + prdtNum + "&finPrdtId=" + finPrdtId + "&opts=" + opts + "&aaid=" + aaid + "&mark=" + mark);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                     StringBuilder sb = new StringBuilder();
@@ -104,6 +104,6 @@ public class BookmarkManager extends AppCompatActivity {
         }
 
         SetDataJSON g = new SetDataJSON();
-        g.execute(url, Integer.toString(prdtNum), finPrdtCd, opts, aaid);
+        g.execute(url, Integer.toString(prdtNum), finPrdtId, opts, aaid);
     }
 }
