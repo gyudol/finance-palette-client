@@ -170,6 +170,7 @@ public class MortgageLoan extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {   // 돋보기 이미지 뷰 클릭하면 조건에 맞게 필터링
             @Override
             public void onClick(View v) {
+                itemNo = 0;
                 getData(apiEndpoint + "/mortgage_loan_ext.php", selected[0] + "", selected[1] + "", selected[2] + "");
             }
         });
