@@ -65,7 +65,7 @@
 
             <TextView
                 android:id="@+id/crdt_prdt_type_nm"
-                android:layout_width="wrap_content"
+                android:layout_width="160dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
@@ -79,7 +79,7 @@
 
             <TextView
                 android:id="@+id/cb_co_nm"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
@@ -286,12 +286,12 @@
             android:textSize="20dp"/>
 
         <Button
-            android:id="@+id/btn_home"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_homepage"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:layout_gravity="center"
-            android:text="홈"
+            android:text="공식 홈페이지"
             android:textSize="20dp"
             android:textColor="@color/white"
             android:background="@drawable/solid_button"

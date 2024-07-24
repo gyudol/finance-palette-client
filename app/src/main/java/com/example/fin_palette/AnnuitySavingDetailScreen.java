@@ -4,19 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,12 +39,18 @@ import java.util.concurrent.Executors;
 
 public class AnnuitySavingDetailScreen extends AppCompatActivity {
 
-    Button homeButton;
+    Button homepageButton;
+    ViewStub viewStub;
+    View progressBarLayout;
+    ProgressBar progressBar;
+    TextView loadingTextView;
+    View contentView; // 나머지 뷰들을 포함하는 레이아웃
 
     String myJSON;
     String finPrdtId;
     String bookmarkId;
     String historyId;
+    String homepageUrl;
 
     private static final String TAG_RESULT = "result";
     private static final String TAG_FINANCIAL_COMPANY_NAME = "financial_company_name";
@@ -58,6 +69,9 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
     private static final String TAG_MAINTENANCE_COUNT = "maintenance_count";
     private static final String TAG_DISCLOSURE_INTEREST_RATE = "disclosure_interest_rate";
     private static final String TAG_GUARANTEED_INTEREST_RATE = "guaranteed_interest_rate";
+
+    private static final String TAG_DISCLOSURE_OFFICER = "disclosure_officer";
+    private static final String TAG_HOMEPAGE_URL = "homepage_url";
 
 
     /////////////////////// 여기부턴 annuity_saving_detail_list ///////////////////////
@@ -87,6 +101,18 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
         setContentView(R.layout.annuity_saving_detail_screen);
         productList = new ArrayList<HashMap<String, String>>();
 
+        viewStub = findViewById(R.id.view_stub);
+        progressBarLayout = viewStub.inflate(); // ViewStub 인플레이트
+        progressBar = progressBarLayout.findViewById(R.id.progressbar);
+        loadingTextView = progressBarLayout.findViewById(R.id.loading_text);
+
+        // 나머지 뷰를 포함하는 레이아웃을 찾기
+        contentView = findViewById(R.id.content_view); // 'contentView'는 나머지 뷰를 포함하는 레이아웃
+
+        // 초기 상태에서 contentView를 숨김
+        contentView.setVisibility(View.GONE);
+
+
         // Intent에서 Extra로 전달된 데이터 받아오기
         Intent intentGet = getIntent();
         if (intentGet != null) {
@@ -104,7 +130,7 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
         //////////////////////// 북마크 /////////////////////////////////
         ImageView star = findViewById(R.id.bookmark);
         bookmarkId = historyId = 3 + "_" + finPrdtId + '_';
-        BookmarkManager bs = new BookmarkManager(this);
+        BookmarkManager bs = new CustomBookmarkManager(this);
         AaidManager am = new AaidManager();
         bs.getData(apiEndpoint + "/bookmark_chk.php", bookmarkId, am.aaid, star);
 
@@ -123,10 +149,14 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
         vs.getData(apiEndpoint, historyId, am.aaid, 3, finPrdtId, "");
 
 
-        homeButton = findViewById(R.id.btn_home);
-        homeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+        ///// 홈페이지 버튼
+        homepageButton = findViewById(R.id.btn_homepage);
+        homepageButton.setOnClickListener(view -> {
+            if(homepageUrl.equals("")) Toast.makeText(getApplicationContext(), "공식 홈페이지 정보가 없습니다", Toast.LENGTH_SHORT).show();
+            else {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(homepageUrl));
+                startActivity(intent);
+            }
         });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -159,6 +189,7 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
             TextView mntnCntTextView = findViewById(R.id.mntn_cnt);
             TextView dsclRateTextView = findViewById(R.id.dscl_rate);
             TextView guarRateTextView = findViewById(R.id.guar_rate);
+            TextView dsclOfficerTextView = findViewById(R.id.dscl_officer);
 
             JSONObject jsonObj = new JSONObject(myJSON);
             products = jsonObj.getJSONArray(TAG_RESULT);
@@ -177,9 +208,13 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
             joinWayTextView.setText(nullToSpace(c.getString(TAG_JOIN_WAY)));
             saleCoTextView.setText(nullToSpace(c.getString(TAG_SALES_COMPANY)));
             remarksTextView.setText(nullToSpace(c.getString(TAG_REMARKS)));
-            mntnCntTextView.setText(nullToSpace(c.getString(TAG_MAINTENANCE_COUNT)));
+            mntnCntTextView.setText(toAmount(c.getString(TAG_MAINTENANCE_COUNT), true));
             dsclRateTextView.setText(nullToSpace(c.getString(TAG_DISCLOSURE_INTEREST_RATE)));
             guarRateTextView.setText(nullToSpace(c.getString(TAG_GUARANTEED_INTEREST_RATE)));
+            dsclOfficerTextView.setText(nullToSpace(c.getString(TAG_DISCLOSURE_OFFICER)));
+            homepageUrl = nullToSpace(c.getString(TAG_HOMEPAGE_URL));
+
+            if(dsclOfficerTextView.getText().toString().equals("")) dsclOfficerTextView.setText("제공 정보 없음");
 
             if(pnsnTypeNameTextView.getText().toString().equals("연금저축보험(생명)")) {
                 pnsnTypeNameTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.purple_500)));
@@ -221,7 +256,7 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
                 String monPaymAmt = c.getString(TAG_MONTHLY_PAYMENT_AMOUNT);
                 String paymPrd = c.getString(TAG_PAYMENT_PERIOD);
                 String pnsnStrtAge = c.getString(TAG_PENSION_START_AGE);
-                String pnsnRecpAmt = toAmount(c.getString(TAG_PENSION_RECEPTION_AMOUNT));
+                String pnsnRecpAmt = toAmount(c.getString(TAG_PENSION_RECEPTION_AMOUNT), false);
 
                 // annuity_saving_detail_list.xml을 inflate하여 새로운 뷰 생성
                 View itemView = inflater.inflate(R.layout.annuity_saving_detail_list, null);
@@ -254,22 +289,32 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
 
 
     public String nullToSpace(String str) {
-        if(str.equals("null")) return "";
+        if(str.equals("null") || str.equals("없음")) return "";
         else return str;
     }
 
-    public String toAmount(String str) {        // 천 단위로 콤마 붙여줌
+    public String toAmount(String str, boolean isMntnCnt) {        // 천 단위로 콤마 붙여줌
         if(str.equals("")) return "없음";
         else {
             DecimalFormat df = new DecimalFormat("###,###");
 
+            if(isMntnCnt) return df.format(Long.parseLong(str));
             return df.format(Long.parseLong(str)) + "원";
         }
     }
 
     public void getData(String url, String finPrdtId, boolean isOptList) {
             class GetDataJSON extends AsyncTask<String, Void, String> {
-                // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    // 비동기 작업 시작 전에 progressBar와 loadingText를 표시
+                    if (progressBar != null) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        loadingTextView.setVisibility(View.VISIBLE);
+                    }
+                }
+
                 @Override
                 protected String doInBackground(String... params) {
 
@@ -296,7 +341,7 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
                 @Override
                 protected void onPostExecute(String result) {
                     if (result != null) {
-//                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(), isOptList + "", Toast.LENGTH_SHORT).show();
                         if (!isOptList) {
                             myJSON = result;
                             showWindow();
@@ -312,4 +357,29 @@ public class AnnuitySavingDetailScreen extends AppCompatActivity {
             g.execute(url, finPrdtId);      // 아래도 수정 필요!
     }
 
+
+    public class CustomBookmarkManager extends BookmarkManager {    // star 상태까지 로딩 화면 띄우기 위해 Custom 클래스 생성
+        public CustomBookmarkManager(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onPostExecute(String result, ImageView star) {
+            if (result != null) {
+                marked = result.equals("true")?true:false;
+
+                // 저장돼있으면 full_star image로 변경!
+                if(marked) star.setImageResource(R.drawable.full_star_small);
+
+                // 비동기 작업 완료 후 ProgressBar와 loadingText를 숨기고, contentView를 표시
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.GONE);
+                    loadingTextView.setVisibility(View.GONE);
+                }
+                if (contentView != null) {
+                    contentView.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
 }

@@ -20,6 +20,17 @@ public class BookmarkManager extends AppCompatActivity {
         this.context = context;
     }
 
+
+    protected void onPostExecute(String result, ImageView star) {   // getData 내의 onPostExecute override 하기 위해 사용
+        if(result != null) {
+            // Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+            marked = result.equals("true")?true:false;
+
+            // 저장돼있으면 full_star image로 변경!
+            if(marked) star.setImageResource(R.drawable.full_star_small);
+        }
+    }
+
     public void getData(String url, String bookmarkId, String aaid, ImageView star) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
             // AsyncTask에서 execute() 메서드가 호출되면 내부적으로 doInBackground() 메서드가 호출
@@ -47,13 +58,7 @@ public class BookmarkManager extends AppCompatActivity {
             }
             @Override
             protected void onPostExecute(String result) {
-                if(result != null) {
-                    // Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
-                    marked = result.equals("true")?true:false;
-
-                    // 저장돼있으면 full_star image로 변경!
-                    if(marked) star.setImageResource(R.drawable.full_star_small);
-                }
+                BookmarkManager.this.onPostExecute(result, star);
             }
         }
 

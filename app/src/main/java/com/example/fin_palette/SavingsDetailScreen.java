@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +27,7 @@ import java.text.DecimalFormat;
 
 public class SavingsDetailScreen extends AppCompatActivity {
 
-    Button homeButton;
+    Button homepageButton;
 
     String myJSON;
     String finPrdtId;
@@ -34,6 +35,7 @@ public class SavingsDetailScreen extends AppCompatActivity {
     String accrualType;
     String bookmarkId;
     String historyId;
+    String homepageUrl;
 
     private static final String TAG_RESULT = "result";
     private static final String TAG_FINANCIAL_COMPANY_NAME = "financial_company_name";
@@ -56,6 +58,7 @@ public class SavingsDetailScreen extends AppCompatActivity {
     private static final String TAG_JOIN_WAY = "join_way";
     private static final String TAG_OTHER_PRECAUTION= "other_precaution";
     private static final String TAG_DISCLOSURE_OFFICER = "disclosure_officer";
+    private static final String TAG_HOMEPAGE_URL = "homepage_url";
 
 
     JSONArray products = null;
@@ -110,10 +113,14 @@ public class SavingsDetailScreen extends AppCompatActivity {
         vs.getData(apiEndpoint, historyId, am.aaid, 2, finPrdtId, intrRateType + '_' + accrualType);
 
 
-        homeButton = findViewById(R.id.btn_home);
-        homeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+        ///// 홈페이지 버튼
+        homepageButton = findViewById(R.id.btn_homepage);
+        homepageButton.setOnClickListener(view -> {
+            if(homepageUrl.equals("")) Toast.makeText(getApplicationContext(), "공식 홈페이지 정보가 없습니다", Toast.LENGTH_SHORT).show();
+            else {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(homepageUrl));
+                startActivity(intent);
+            }
         });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -175,6 +182,7 @@ public class SavingsDetailScreen extends AppCompatActivity {
             joinWayTextView.setText(nullToSpace(c.getString(TAG_JOIN_WAY)));
             otherPrecTextView.setText(nullToSpace(c.getString(TAG_OTHER_PRECAUTION)));
             dsclOfficerTextView.setText(nullToSpace(c.getString(TAG_DISCLOSURE_OFFICER)));
+            homepageUrl = nullToSpace(c.getString(TAG_HOMEPAGE_URL));
 
             if(intrRateTypeNameTextView.getText().toString().equals("복리")) {
 //                Toast.makeText(getApplicationContext(), "color changed", Toast.LENGTH_SHORT).show();
@@ -192,7 +200,7 @@ public class SavingsDetailScreen extends AppCompatActivity {
     }
 
     public String nullToSpace(String str) {
-        if(str.equals("null")) return "";
+        if(str.equals("null") || str.equals("없음")) return "";
         else return str;
     }
 

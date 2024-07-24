@@ -6,12 +6,14 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,11 +26,12 @@ import java.net.URL;
 
 public class MortgageLoanDetailScreen extends AppCompatActivity {
 
-    Button homeButton;
+    Button homepageButton;
     String myJSON;
     String optionId;
     String bookmarkId;
     String historyId;
+    String homepageUrl;
 
     private static final String TAG_RESULT = "result";
     private static final String TAG_FINANCIAL_COMPANY_NAME = "financial_company_name";
@@ -47,6 +50,7 @@ public class MortgageLoanDetailScreen extends AppCompatActivity {
     private static final String TAG_DELINQUENCY_RATE = "delinquency_rate";
     private static final String TAG_JOIN_WAY = "join_way";
     private static final String TAG_DISCLOSURE_OFFICER = "disclosure_officer";
+    private static final String TAG_HOMEPAGE_URL = "homepage_url";
 
 
     JSONArray products = null;
@@ -95,11 +99,14 @@ public class MortgageLoanDetailScreen extends AppCompatActivity {
         vs.getData(apiEndpoint, historyId, am.aaid, 5, optionId, "");
 
 
-
-        homeButton = findViewById(R.id.btn_home);
-        homeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+        ///// 홈페이지 버튼
+        homepageButton = findViewById(R.id.btn_homepage);
+        homepageButton.setOnClickListener(view -> {
+            if(homepageUrl.equals("")) Toast.makeText(getApplicationContext(), "공식 홈페이지 정보가 없습니다", Toast.LENGTH_SHORT).show();
+            else {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(homepageUrl));
+                startActivity(intent);
+            }
         });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -153,6 +160,7 @@ public class MortgageLoanDetailScreen extends AppCompatActivity {
             dlyRateTextView.setText(nullToSpace(c.getString(TAG_DELINQUENCY_RATE)));
             joinWayTextView.setText(nullToSpace(c.getString(TAG_JOIN_WAY)));
             dsclOfficerTextView.setText(nullToSpace(c.getString(TAG_DISCLOSURE_OFFICER)));
+            homepageUrl = nullToSpace(c.getString(TAG_HOMEPAGE_URL));
 
             if(loanRateTypeTextView.getText().toString().equals("변동금리")) {
                 loanRateTypeTextView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.teal_700)));
@@ -170,7 +178,7 @@ public class MortgageLoanDetailScreen extends AppCompatActivity {
     }
 
     public String nullToSpace(String str) {
-        if(str.equals("null")) return "";
+        if(str.equals("null") || str.equals("없음")) return "";
         else return str;
     }
 

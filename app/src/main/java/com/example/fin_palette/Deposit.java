@@ -57,7 +57,7 @@ public class Deposit extends AppCompatActivity {
     int itemNo = 0;   // 리스트 뷰 선택됐을 때 item Number
 
     int [] selected = {0, 0};   // 아무것도 선택 안 했으면 0, 첫번째 것이 선택되면 1, 두번째 것이 선택되면 2
-    String [] items1 = {"금융 기관 전체", "1금융", "2금융"};
+    String [] items1 = {"금융기관 전체", "1금융", "2금융"};
     String [] items2 = {"금리 유형 전체", "단리", "복리"};
     ApiServerManager asm = new ApiServerManager();
     String apiEndpoint = asm.getApiEndpoint();

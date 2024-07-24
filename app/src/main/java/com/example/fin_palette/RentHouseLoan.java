@@ -56,7 +56,7 @@ public class RentHouseLoan extends AppCompatActivity {
     int itemNo = 0;
 
     int [] selected = {0, 0, 0};   // 아무것도 선택 안 했으면 0, 첫번째 것이 선택되면 1, 두번째 것이 선택되면 2
-    String [] items1 = {"금융 기관 전체", "1금융", "2금융"};
+    String [] items1 = {"금융기관 전체", "1금융", "2금융"};
     String [] items2 = {"상환 유형 전체", "분할상환", "만기일시상환"};
     String [] items3 = {"금리 유형 전체", "고정금리", "변동금리"};
     ApiServerManager asm = new ApiServerManager();
@@ -117,15 +117,15 @@ public class RentHouseLoan extends AppCompatActivity {
         spinner3 = findViewById(R.id.spinner3);
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, items1);
+                this, R.layout.spinner_item, items1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter1);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, items2);
+                this, R.layout.spinner_item, items2);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, items3);
+                this, R.layout.spinner_item, items3);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner3.setAdapter(adapter3);
 

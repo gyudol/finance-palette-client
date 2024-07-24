@@ -40,7 +40,7 @@
             android:id="@+id/btn_rent_house_loan"
             android:layout_width="3dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
@@ -53,7 +53,7 @@
             android:layout_width="3dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/solid_button_circle"
             android:text="주택 담보 대출\n바로 가기"
@@ -78,7 +78,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="금융기관"
-            android:layout_marginEnd="15dp"
             android:dropDownWidth="200dp"
             android:spinnerMode="dropdown">
         </Spinner>
@@ -88,7 +87,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="대출 종류"
-            android:layout_marginEnd="15dp"
             android:dropDownWidth="200dp"
             android:spinnerMode="dropdown">
         </Spinner>
@@ -97,7 +95,6 @@
             android:id="@+id/img_view_find"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginEnd="15dp"
             android:src="@drawable/find_icon"/>
     </LinearLayout>
 

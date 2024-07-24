@@ -24,12 +24,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingStart="30dp"
         android:background="@color/light_blue"
         android:text="주택 담보 대출"
         android:textSize="22dp"
-        android:textColor="@color/black"
-        android:paddingStart="30dp"
-        android:layout_marginBottom="20dp"/>
+        android:textColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:id="@+id/btn_rent_house_loan"
             android:layout_width="3dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
@@ -59,7 +59,7 @@
             android:layout_width="3dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/solid_button_circle"
             android:text="개인 신용 대출\n바로 가기"

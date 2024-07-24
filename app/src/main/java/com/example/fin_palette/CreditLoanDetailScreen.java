@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,11 +31,12 @@ import java.util.HashMap;
 
 public class CreditLoanDetailScreen extends AppCompatActivity {
 
-    Button homeButton;
+    Button homepageButton;
     String myJSON;
     String optionId;
     String bookmarkId;
     String historyId;
+    String homepageUrl;
 
     private static final String TAG_RESULT = "result";
     private static final String TAG_FINANCIAL_COMPANY_NAME = "financial_company_name";
@@ -46,6 +49,7 @@ public class CreditLoanDetailScreen extends AppCompatActivity {
     private static final String TAG_JOIN_WAY = "join_way";
     private static final String TAG_CREDIT_LOAN_RATE_TYPE_NAME = "credit_loan_rate_type_name";
     private static final String TAG_DISCLOSURE_OFFICER = "disclosure_officer";
+    private static final String TAG_HOMEPAGE_URL = "homepage_url";
 
 
     /////////////////////// 여기부턴 credit_loan_detail_list ///////////////////////
@@ -113,10 +117,14 @@ public class CreditLoanDetailScreen extends AppCompatActivity {
         vs.getData(apiEndpoint, historyId, am.aaid, 6, optionId, "");
 
 
-        homeButton = findViewById(R.id.btn_home);
-        homeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+        ///// 홈페이지 버튼
+        homepageButton = findViewById(R.id.btn_homepage);
+        homepageButton.setOnClickListener(view -> {
+            if(homepageUrl.equals("")) Toast.makeText(getApplicationContext(), "공식 홈페이지 정보가 없습니다", Toast.LENGTH_SHORT).show();
+            else {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(homepageUrl));
+                startActivity(intent);
+            }
         });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -162,6 +170,7 @@ public class CreditLoanDetailScreen extends AppCompatActivity {
             joinWayTextView.setText(nullToSpace(c.getString(TAG_JOIN_WAY)));
             crdtLoanRateTypeNameTextView.setText(nullToSpace(c.getString(TAG_CREDIT_LOAN_RATE_TYPE_NAME)));
             dsclOfficerTextView.setText(nullToSpace(c.getString(TAG_DISCLOSURE_OFFICER)));
+            homepageUrl = nullToSpace(c.getString(TAG_HOMEPAGE_URL));
 
 
             if(crdtPrdtTypeNameTextView.getText().toString().equals("일반신용대출")) {
@@ -244,7 +253,7 @@ public class CreditLoanDetailScreen extends AppCompatActivity {
 
 
     public String nullToSpace(String str) {
-        if(str.equals("null")) return "";
+        if(str.equals("null") || str.equals("없음")) return "";
         else return str;
     }
 

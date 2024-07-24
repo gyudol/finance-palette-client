@@ -52,7 +52,7 @@ public class CreditLoan extends AppCompatActivity {
     ListView list;
     int itemNo = 0;
     int [] selected = {0, 0};   // 아무것도 선택 안 했으면 0, 첫번째 것이 선택되면 1, 두번째 것이 선택되면 2
-    String [] items1 = {"금융 기관 전체", "1금융", "2금융"};
+    String [] items1 = {"금융기관 전체", "1금융", "2금융"};
     String [] items2 = {"대출 종류 전체", "일반신용대출", "마이너스한도대출", "장기카드대출"};
     ApiServerManager asm = new ApiServerManager();
     String apiEndpoint = asm.getApiEndpoint();
