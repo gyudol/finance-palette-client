@@ -65,7 +65,7 @@
 
             <TextView
                 android:id="@+id/crdt_prdt_type_nm"
-                android:layout_width="160dp"
+                android:layout_width="180dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"

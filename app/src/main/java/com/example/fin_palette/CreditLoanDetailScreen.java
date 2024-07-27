@@ -157,14 +157,14 @@ public class CreditLoanDetailScreen extends AppCompatActivity {
             products = jsonObj.getJSONArray(TAG_RESULT);
 
             JSONObject c = products.getJSONObject(0);
-            lowestLoanRateValue = nullToSpace(c.getString(TAG_LOWEST_LOAN_RATE));
+            lowestLoanRateValue = nullToSpace(c.getString(TAG_LOWEST_LOAN_RATE)) + "%";
 
             finCoNameTextView.setText(nullToSpace(c.getString(TAG_FINANCIAL_COMPANY_NAME)));
             finPrdtNameTextView.setText(nullToSpace(c.getString(TAG_FINANCIAL_PRODUCT_NAME)));
             crdtPrdtTypeNameTextView.setText(nullToSpace(c.getString(TAG_CREDIT_PRODUCT_TYPE_NAME)));
             cbCoNameTextView.setText(nullToSpace(c.getString(TAG_CB_COMPANY_NAME)));
-            lowestLoanRateValueTextView.setText("최저 " + lowestLoanRateValue + "%");
-            lowestLoanRateTextView.setText(lowestLoanRateValue + "%");
+            lowestLoanRateValueTextView.setText("최저 " + lowestLoanRateValue);
+            lowestLoanRateTextView.setText(lowestLoanRateValue);
             avgCrdtLoanRateTextView.setText(nullToSpace(c.getString(TAG_AVERAGE_CREDIT_LOAN_RATE )) + "%");
             dsclStrtEndDayTextView.setText(nullToSpace(c.getString(TAG_DISCLOSURE_START_TO_END_DATE)));
             joinWayTextView.setText(nullToSpace(c.getString(TAG_JOIN_WAY)));
